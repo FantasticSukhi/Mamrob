@@ -65,7 +65,7 @@
    "MONGO_DB_URI": {
       "description": "Required for database connections.",
       "required": true,
-      "value": "mongodb+srv://mkhacker13:ALTR0nxR0BOT@cluster0.5luafjo.mongodb.net/?retryWrites=true&w=majority"
+      "value": "mongodb+srv://thexboy:ALTR0nROBOT@cluster0.i9fenme.mongodb.net/?retryWrites=true&w=majority"
    },
    "EVENT_LOGS": {
       "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-123456'",
