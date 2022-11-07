@@ -228,7 +228,7 @@ def promote(update: Update, context: CallbackContext) -> str:
             can_edit_messages=bot_member.can_edit_messages,
             can_delete_messages=bot_member.can_delete_messages,
             can_invite_users=bot_member.can_invite_users,
-            can_manage_voice_chats=bot_member.can_manage_voice_chats,
+            # can_manage_voice_chats=bot_member.can_manage_voice_chats,
             can_pin_messages=bot_member.can_pin_messages,
         )
     except BadRequest as err:
@@ -302,7 +302,7 @@ def lowpromote(update: Update, context: CallbackContext) -> str:
             user_id,
             can_invite_users=bot_member.can_invite_users,
             can_pin_messages=bot_member.can_pin_messages,
-            can_manage_voice_chats=bot_member.can_manage_voice_chats,
+            # can_manage_voice_chats=bot_member.can_manage_voice_chats,
         )
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
@@ -381,7 +381,7 @@ def fullpromote(update: Update, context: CallbackContext) -> str:
             can_promote_members=bot_member.can_promote_members,
             can_restrict_members=bot_member.can_restrict_members,
             can_pin_messages=bot_member.can_pin_messages,
-            can_manage_voice_chats=bot_member.can_manage_voice_chats,
+            # can_manage_voice_chats=bot_member.can_manage_voice_chats,
         )
     except BadRequest as err:
         if err.message == "User_not_mutual_contact":
@@ -599,7 +599,7 @@ def pin(update: Update, context: CallbackContext) -> str:
                 chat.id, prev_message.message_id, disable_notification=is_silent
             )
             msg.reply_text(
-                f"» sᴜᴄᴄᴇssғᴜʟʟʏ ᴩɪɴɴᴇᴅ ᴛʜᴀᴛ ᴍᴇssᴀɢᴇ.\nᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴛᴏ sᴇᴇ ᴛʜᴇ ᴍᴇssᴀɢᴇ.",
+                f"» sᴜᴄᴄᴇssғᴜʟʟʏ ᴩɪɴɴᴇᴅ ᴛʜᴀᴛ ᴍᴇssᴀɢᴇ.",
                 reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("ᴍᴇssᴀɢᴇ", url=f"{message_link}")]]
                 ),
@@ -766,7 +766,7 @@ def adminlist(update, context):
         )
 
     administrators = bot.getChatAdministrators(chat_id)
-    text = "ᴀᴅᴍɪɴs ɪɴ <b>{}</b>:".format(html.escape(update.effective_chat.title))
+    text = "ᴀᴅᴍɪɴs ɪɴ <b>{}</b>:\n".format(html.escape(update.effective_chat.title))
 
     for admin in administrators:
         user = admin.user
@@ -903,6 +903,7 @@ __help__ = """
   ➲ /admincache: ꜰᴏʀᴄᴇ ʀᴇꜰʀᴇꜱʜ ᴛʜᴇ ᴀᴅᴍɪɴꜱ ʟɪꜱᴛ
   ➲ /setgtitle <text>: ꜱᴇᴛ ɢʀᴏᴜᴘ ᴛɪᴛʟᴇ
   ➲ /setgpic: ʀᴇᴘʟʏ ᴛᴏ ᴀɴ ɪᴍᴀɢᴇ ᴛᴏ ꜱᴇᴛ ᴀꜱ ɢʀᴏᴜᴘ ᴘʜᴏᴛᴏ
+  ➲ /delgpic: ᴅᴇʟᴇᴛᴇ ɢʀᴏᴜᴘ'ꜱ ᴅᴇꜰᴀᴜʟᴛ ᴘʀᴏꜰɪʟᴇ ᴘɪᴄ
   ➲ /setdesc: ꜱᴇᴛ ɢʀᴏᴜᴘ ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ
   ➲ /setsticker: ꜱᴇᴛ ɢʀᴏᴜᴘ ꜱᴛɪᴄᴋᴇʀ
 """

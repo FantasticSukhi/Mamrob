@@ -56,24 +56,20 @@ def check_flood(update, context) -> str:
         getmode, getvalue = sql.get_flood_setting(chat.id)
         if getmode == 1:
             chat.kick_member(user.id)
-            execstrings = "Banned"
-            tag = "BANNED"
+            execstrings = "ʙᴀɴɴᴇᴅ"
         elif getmode == 2:
             chat.kick_member(user.id)
             chat.unban_member(user.id)
-            execstrings = "Kicked"
-            tag = "KICKED"
+            execstrings = "ᴋɪᴄᴋᴇᴅ"
         elif getmode == 3:
             context.bot.restrict_chat_member(
                 chat.id, user.id, permissions=ChatPermissions(can_send_messages=False)
             )
-            execstrings = "Muted"
-            tag = "MUTED"
+            execstrings = "ᴍᴜᴛᴇᴅ"
         elif getmode == 4:
             bantime = extract_time(msg, getvalue)
             chat.kick_member(user.id, until_date=bantime)
-            execstrings = "Banned for {}".format(getvalue)
-            tag = "TBAN"
+            execstrings = f"ʙᴀɴɴᴇᴅ ꜰᴏʀ {getvalue}"
         elif getmode == 5:
             mutetime = extract_time(msg, getvalue)
             context.bot.restrict_chat_member(
@@ -82,35 +78,17 @@ def check_flood(update, context) -> str:
                 until_date=mutetime,
                 permissions=ChatPermissions(can_send_messages=False),
             )
-            execstrings = "Muted for {}".format(getvalue)
-            tag = "TMUTE"
+            execstrings = f"ᴍᴜᴛᴇᴅ ꜰᴏʀ {getvalue}"
         send_message(
-            update.effective_message, "Beep Boop! Boop Beep!\n{}!".format(execstrings)
+            update.effective_message, f"» ʙᴇᴇᴘ ʙᴏᴏᴘ! ʙᴏᴏᴘ ʙᴇᴇᴘ!\n{execstrings}!"
         )
+        return ""
 
-        return (
-            "<b>{}:</b>"
-            "\n#{}"
-            "\n<b>User:</b> {}"
-            "\nFlooded the group.".format(
-                tag,
-                html.escape(chat.title),
-                mention_html(user.id, html.escape(user.first_name)),
-            )
-        )
 
     except BadRequest:
-        msg.reply_text(
-            "I can't restrict people here, give me permissions first! Until then, I'll disable anti-flood."
-        )
+        msg.reply_text("ɪ ᴄᴀɴ'ᴛ ʀᴇꜱᴛʀɪᴄᴛ ᴘᴇᴏᴘʟᴇ ʜᴇʀᴇ, ɢɪᴠᴇ ᴍᴇ ᴘᴇʀᴍɪꜱꜱɪᴏɴꜱ ꜰɪʀꜱᴛ! ᴜɴᴛɪʟ ᴛʜᴇɴ, ɪ'ʟʟ ᴅɪꜱᴀʙʟᴇ ᴀɴᴛɪ-ꜰʟᴏᴏᴅ.")
         sql.set_flood(chat.id, 0)
-        return (
-            "<b>{}:</b>"
-            "\n#INFO"
-            "\nDon't have enough permission to restrict users so automatically disabled anti-flood".format(
-                chat.title
-            )
-        )
+        return ""
 
 
 @run_async
@@ -136,7 +114,7 @@ def flood_button(update: Update, context: CallbackContext):
                 ),
             )
             update.effective_message.edit_text(
-                f"Unmuted by {mention_html(user.id, html.escape(user.first_name))}.",
+                f"» ᴜɴᴍᴜᴛᴇᴅ ʙʏ {mention_html(user.id, html.escape(user.first_name))}.",
                 parse_mode="HTML",
             )
         except:
@@ -160,7 +138,7 @@ def set_flood(update, context) -> str:
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "This command is meant to use in group not in PM",
+                "» ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪꜱ ᴍᴇᴀɴᴛ ᴛᴏ ᴜꜱᴇ ɪɴ ɢʀᴏᴜᴘ ɴᴏᴛ ɪɴ ᴘᴍ",
             )
             return ""
         chat_id = update.effective_chat.id
@@ -171,68 +149,45 @@ def set_flood(update, context) -> str:
         if val in ["off", "no", "0"]:
             sql.set_flood(chat_id, 0)
             if conn:
-                text = message.reply_text(
-                    "Antiflood has been disabled in {}.".format(chat_name)
-                )
+                message.reply_text(f"» ᴀɴᴛɪꜰʟᴏᴏᴅ ʜᴀꜱ ʙᴇᴇɴ ᴅɪꜱᴀʙʟᴇᴅ ɪɴ {chat_name}.")
             else:
-                text = message.reply_text("Antiflood has been disabled.")
+                message.reply_text("» ᴀɴᴛɪꜰʟᴏᴏᴅ ʜᴀꜱ ʙᴇᴇɴ ᴅɪꜱᴀʙʟᴇᴅ.")
 
         elif val.isdigit():
             amount = int(val)
             if amount <= 0:
                 sql.set_flood(chat_id, 0)
                 if conn:
-                    text = message.reply_text(
-                        "Antiflood has been disabled in {}.".format(chat_name)
-                    )
+                    message.reply_text(f"» ᴀɴᴛɪꜰʟᴏᴏᴅ ʜᴀꜱ ʙᴇᴇɴ ᴅɪꜱᴀʙʟᴇᴅ ɪɴ  {chat_name}.")
                 else:
-                    text = message.reply_text("Antiflood has been disabled.")
-                return (
-                    "<b>{}:</b>"
-                    "\n#SETFLOOD"
-                    "\n<b>Admin:</b> {}"
-                    "\nDisable antiflood.".format(
-                        html.escape(chat_name),
-                        mention_html(user.id, html.escape(user.first_name)),
-                    )
-                )
+                    message.reply_text("» ᴀɴᴛɪꜰʟᴏᴏᴅ ʜᴀꜱ ʙᴇᴇɴ ᴅɪꜱᴀʙʟᴇᴅ.")
+                return ""
 
             elif amount <= 3:
                 send_message(
                     update.effective_message,
-                    "Antiflood must be either 0 (disabled) or number greater than 3!",
+                    "» ᴀɴᴛɪꜰʟᴏᴏᴅ ᴍᴜꜱᴛ ʙᴇ ᴇɪᴛʜᴇʀ 0 (ᴅɪꜱᴀʙʟᴇᴅ) ᴏʀ ɴᴜᴍʙᴇʀ ɢʀᴇᴀᴛᴇʀ ᴛʜᴀɴ 3!",
                 )
                 return ""
 
             else:
                 sql.set_flood(chat_id, amount)
                 if conn:
-                    text = message.reply_text(
-                        "Anti-flood has been set to {} in chat: {}".format(
+                    message.reply_text(
+                        "» ᴀɴᴛɪ-ꜰʟᴏᴏᴅ ʜᴀꜱ ʙᴇᴇɴ ꜱᴇᴛ ᴛᴏ {} ɪɴ ᴄʜᴀᴛ:{}".format(
                             amount, chat_name
                         )
                     )
                 else:
-                    text = message.reply_text(
-                        "Successfully updated anti-flood limit to {}!".format(amount)
-                    )
-                return (
-                    "<b>{}:</b>"
-                    "\n#SETFLOOD"
-                    "\n<b>Admin:</b> {}"
-                    "\nSet antiflood to <code>{}</code>.".format(
-                        html.escape(chat_name),
-                        mention_html(user.id, html.escape(user.first_name)),
-                        amount,
-                    )
-                )
+                    message.reply_text(f"» ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴜᴘᴅᴀᴛᴇᴅ ᴀɴᴛɪ-ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ ᴛᴏ {amount}!")
+                return ""
 
         else:
-            message.reply_text("Invalid argument please use a number, 'off' or 'no'")
+            message.reply_text("» ɪɴᴠᴀʟɪᴅ ᴀʀɢᴜᴍᴇɴᴛ ᴘʟᴇᴀꜱᴇ ᴜꜱᴇ ᴀ ɴᴜᴍʙᴇʀ, 'ᴏꜰꜰ' ᴏʀ 'ɴᴏ'")
     else:
         message.reply_text(
             (
-                "Use `/setflood number` to enable anti-flood.\nOr use `/setflood off` to disable antiflood!."
+                "» ᴜꜱᴇ `/setflood number` ᴛᴏ ᴇɴᴀʙʟᴇ ᴀɴᴛɪ-ꜰʟᴏᴏᴅ.\nᴏʀ ᴜꜱᴇ `/setflood off` ᴛᴏ ᴅɪꜱᴀʙʟᴇ ᴀɴᴛɪꜰʟᴏᴏᴅ!."
             ),
             parse_mode="markdown",
         )
@@ -253,7 +208,7 @@ def flood(update, context):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "This command is meant to use in group not in PM",
+                "» ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪꜱ ᴍᴇᴀɴᴛ ᴛᴏ ᴜꜱᴇ ɪɴ ɢʀᴏᴜᴘ ɴᴏᴛ ɪɴ ᴘᴍ",
             )
             return
         chat_id = update.effective_chat.id
@@ -262,24 +217,20 @@ def flood(update, context):
     limit = sql.get_flood_limit(chat_id)
     if limit == 0:
         if conn:
-            text = msg.reply_text(
-                "I'm not enforcing any flood control in {}!".format(chat_name)
+            msg.reply_text(
+                "» ɪ'ᴍ ɴᴏᴛ ᴇɴꜰᴏʀᴄɪɴɢ ᴀɴʏ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ ɪɴ {}!".format(chat_name)
             )
         else:
-            text = msg.reply_text("I'm not enforcing any flood control here!")
+            msg.reply_text("» ɪ'ᴍ ɴᴏᴛ ᴇɴꜰᴏʀᴄɪɴɢ ᴀɴʏ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ ʜᴇʀᴇ!")
     else:
         if conn:
-            text = msg.reply_text(
-                "I'm currently restricting members after {} consecutive messages in {}.".format(
+            msg.reply_text(
+                "» ɪ'ᴍ ᴄᴜʀʀᴇɴᴛʟʏ ʀᴇꜱᴛʀɪᴄᴛɪɴɢ ᴍᴇᴍʙᴇʀꜱ ᴀꜰᴛᴇʀ {} ᴄᴏɴꜱᴇᴄᴜᴛɪᴠᴇ ᴍᴇꜱꜱᴀɢᴇꜱ ɪɴ {}.".format(
                     limit, chat_name
                 )
             )
         else:
-            text = msg.reply_text(
-                "I'm currently restricting members after {} consecutive messages.".format(
-                    limit
-                )
-            )
+            msg.reply_text(f"» ɪ'ᴍ ᴄᴜʀʀᴇɴᴛʟʏ ʀᴇꜱᴛʀɪᴄᴛɪɴɢ ᴍᴇᴍʙᴇʀꜱ ᴀꜰᴛᴇʀ {limit} ᴄᴏɴꜱᴇᴄᴜᴛɪᴠᴇ ᴍᴇꜱꜱᴀɢᴇꜱ.")
 
 
 @run_async
@@ -299,7 +250,7 @@ def set_flood_mode(update, context):
         if update.effective_message.chat.type == "private":
             send_message(
                 update.effective_message,
-                "This command is meant to use in group not in PM",
+                "» ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪꜱ ᴍᴇᴀɴᴛ ᴛᴏ ᴜꜱᴇ ɪɴ ɢʀᴏᴜᴘ ɴᴏᴛ ɪɴ ᴘᴍ!",
             )
             return ""
         chat = update.effective_chat
@@ -308,18 +259,17 @@ def set_flood_mode(update, context):
 
     if args:
         if args[0].lower() == "ban":
-            settypeflood = "ban"
+            settypeflood = "ʙᴀɴ"
             sql.set_flood_strength(chat_id, 1, "0")
         elif args[0].lower() == "kick":
-            settypeflood = "kick"
+            settypeflood = "ᴋɪᴄᴋ"
             sql.set_flood_strength(chat_id, 2, "0")
         elif args[0].lower() == "mute":
-            settypeflood = "mute"
+            settypeflood = "ᴍᴜᴛᴇ"
             sql.set_flood_strength(chat_id, 3, "0")
-        elif args[0].lower() == "tban":
+        elif args[0].lower() == "ᴛʙᴀɴ":
             if len(args) == 1:
-                teks = """It looks like you tried to set time value for antiflood but you didn't specified time; Try, `/setfloodmode tban <timevalue>`.
-Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
+                teks = """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tban <timevalue>`.\nᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
             settypeflood = "tban for {}".format(args[1])
@@ -328,60 +278,47 @@ Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.
             if len(args) == 1:
                 teks = (
                     update.effective_message,
-                    """It looks like you tried to set time value for antiflood but you didn't specified time; Try, `/setfloodmode tmute <timevalue>`.
-Examples of time value: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.""",
+                    """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tmute <timevalue>`.\nᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.""",
                 )
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
-            settypeflood = "tmute for {}".format(args[1])
+            settypeflood = "ᴛᴍᴜᴛᴇ ꜰᴏʀ {}".format(args[1])
             sql.set_flood_strength(chat_id, 5, str(args[1]))
         else:
             send_message(
-                update.effective_message, "I only understand ban/kick/mute/tban/tmute!"
+                update.effective_message, "» ɪ ᴏɴʟʏ ᴜɴᴅᴇʀꜱᴛᴀɴᴅ `ʙᴀɴ/ᴋɪᴄᴋ/ᴍᴜᴛᴇ/ᴛʙᴀɴ/ᴛᴍᴜᴛᴇ`!"
             )
             return
         if conn:
-            text = msg.reply_text(
-                "Exceeding consecutive flood limit will result in {} in {}!".format(
+            msg.reply_text(
+                "» ᴇxᴄᴇᴇᴅɪɴɢ ᴄᴏɴꜱᴇᴄᴜᴛɪᴠᴇ ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ ᴡɪʟʟ ʀᴇꜱᴜʟᴛ ɪɴ {} ɪɴ {}!".format(
                     settypeflood, chat_name
                 )
             )
         else:
-            text = msg.reply_text(
-                "Exceeding consecutive flood limit will result in {}!".format(
-                    settypeflood
-                )
-            )
-        return (
-            "<b>{}:</b>\n"
-            "<b>Admin:</b> {}\n"
-            "Has changed antiflood mode. User will {}.".format(
-                settypeflood,
-                html.escape(chat.title),
-                mention_html(user.id, html.escape(user.first_name)),
-            )
-        )
+            msg.reply_text(f"» ᴇxᴄᴇᴇᴅɪɴɢ ᴄᴏɴꜱᴇᴄᴜᴛɪᴠᴇ ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ ᴡɪʟʟ ʀᴇꜱᴜʟᴛ ɪɴ {settypeflood}!")
+        return ""
     else:
         getmode, getvalue = sql.get_flood_setting(chat.id)
         if getmode == 1:
-            settypeflood = "ban"
+            settypeflood = "ʙᴀɴ"
         elif getmode == 2:
-            settypeflood = "kick"
+            settypeflood = "ᴋɪᴄᴋ"
         elif getmode == 3:
-            settypeflood = "mute"
+            settypeflood = "ᴍᴜᴛᴇ"
         elif getmode == 4:
-            settypeflood = "tban for {}".format(getvalue)
+            settypeflood = "ᴛʙᴀɴ ꜰᴏʀ {}".format(getvalue)
         elif getmode == 5:
-            settypeflood = "tmute for {}".format(getvalue)
+            settypeflood = "ᴛᴍᴜᴛᴇ ꜰᴏʀ {}".format(getvalue)
         if conn:
-            text = msg.reply_text(
-                "Sending more messages than flood limit will result in {} in {}.".format(
+            msg.reply_text(
+                "» ꜱᴇɴᴅɪɴɢ ᴍᴏʀᴇ ᴍᴇꜱꜱᴀɢᴇꜱ ᴛʜᴀɴ ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ ᴡɪʟʟ ʀᴇꜱᴜʟᴛ ɪɴ {} ɪɴ {}.".format(
                     settypeflood, chat_name
                 )
             )
         else:
-            text = msg.reply_text(
-                "Sending more message than flood limit will result in {}.".format(
+            msg.reply_text(
+                "» ꜱᴇɴᴅɪɴɢ ᴍᴏʀᴇ ᴍᴇꜱꜱᴀɢᴇꜱ ᴛʜᴀɴ ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ ᴡɪʟʟ ʀᴇꜱᴜʟᴛ ɪɴ {}.".format(
                     settypeflood
                 )
             )
@@ -395,29 +332,30 @@ def __migrate__(old_chat_id, new_chat_id):
 def __chat_settings__(chat_id, user_id):
     limit = sql.get_flood_limit(chat_id)
     if limit == 0:
-        return "Not enforcing to flood control."
+        return "» ɴᴏᴛ ᴇɴꜰᴏʀᴄɪɴɢ ᴛᴏ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ."
     else:
-        return "Antiflood has been set to`{}`.".format(limit)
+        return "» ᴀɴᴛɪꜰʟᴏᴏᴅ ʜᴀꜱ ʙᴇᴇɴ ꜱᴇᴛ ᴛᴏ `{}`.".format(limit)
 
 
 __help__ = """
-*Antiflood* allows you to take action on users that send more than x messages in a row. Exceeding the set flood \
-will result in restricting that user.
- This will mute users if they send more than 10 messages in a row, bots are ignored.
+**Antiflood allows you to take action on users that send more than X messages in a row. Exceeding the set flood will result in restricting that user.**
+**This will mute users if they send more than X messages in a row, bots are ignored.**
 
- ❍ /flood*:* Get the current flood control setting
-• *Admins only:*
- ❍ /setflood <int/'no'/'off'>*:* enables or disables flood control
- *Example:* `/setflood 10`
- ❍ /setfloodmode <ban/kick/mute/tban/tmute> <value>*:* Action to perform when user have exceeded flood limit. ban/kick/mute/tmute/tban
-• *Note:*
- • Value must be filled for tban and tmute!!
- It can be:
- `5m` = 5 minutes
- `6h` = 6 hours
- `3d` = 3 days
- `1w` = 1 week
- """
+  ➲ /flood: ɢᴇᴛ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ ꜱᴇᴛᴛɪɴɢ
+
+𝗔𝗱𝗺𝗶𝗻𝘀 𝗼𝗻𝗹𝘆:
+  ➲ /setflood <int/'no'/'off'>: ᴇɴᴀʙʟᴇꜱ ᴏʀ ᴅɪꜱᴀʙʟᴇꜱ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ
+     **Example:** `/setflood 13`
+  ➲ /setfloodmode <ban/kick/mute/tban/tmute> <value>: ᴀᴄᴛɪᴏɴ ᴛᴏ ᴘᴇʀꜰᴏʀᴍ ᴡʜᴇɴ ᴜꜱᴇʀ ʜᴀᴠᴇ ᴇxᴄᴇᴇᴅᴇᴅ ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ. ʙᴀɴ/ᴋɪᴄᴋ/ᴍᴜᴛᴇ/ᴛᴍᴜᴛᴇ/ᴛʙᴀɴ
+
+𝗡𝗼𝘁𝗲:
+ᴠᴀʟᴜᴇ ᴍᴜꜱᴛ ʙᴇ ꜰɪʟʟᴇᴅ ꜰᴏʀ ᴛʙᴀɴ ᴀɴᴅ ᴛᴍᴜᴛᴇ!!
+ **It can be:**
+   5m = 5 minutes
+   4h = 4 hours
+   3d = 3 days
+   1w = 1 week
+"""
 
 __mod_name__ = "Aɴᴛɪ-Fʟᴏᴏᴅ"
 

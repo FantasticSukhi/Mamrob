@@ -10,7 +10,7 @@ from AltronRobot.events import register
 @register(pattern=("/alive"))
 async def alive(event):
     TEXT = f"**ʜᴇʏ​ [{event.sender.first_name}](tg://user?id={event.sender.id}),\n\nɪ ᴀᴍ [ᴀʟᴛʀᴏɴ ✘ ʀᴏʙᴏᴛ](https://t.me/AltronXRobot)​**\n━━━━━━━━━━━━━━━━━━━\n\n"
-    TEXT += f"» **ᴍʏ ᴅᴇᴠᴇʟᴏᴘᴇʀ​ : [𝝙𝗟𝗧𝗥𝗢𝗡](https://t.me/TheAltronX)** \n\n"
+    TEXT += f"» **ᴍʏ ᴅᴇᴠᴇʟᴏᴘᴇʀ​ : [✘](https://t.me/ThExSTaR)** \n\n"
     TEXT += f"» **ʟɪʙʀᴀʀʏ ᴠᴇʀsɪᴏɴ :** `{telegram.__version__}` \n"
     TEXT += f"» **ᴛᴇʟᴇᴛʜᴏɴ ᴠᴇʀsɪᴏɴ :** `{telethon.__version__}` \n"
     TEXT += f"» **ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ :** `{pyrogram.__version__}` \n━━━━━━━━━━━━━━━━━\n\n"
