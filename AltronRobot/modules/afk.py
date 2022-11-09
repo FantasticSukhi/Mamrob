@@ -1,5 +1,4 @@
 import html
-import random
 
 from telegram import MessageEntity, Update
 from telegram.error import BadRequest
@@ -30,15 +29,15 @@ def afk(update: Update, context: CallbackContext):
 
     if len(args) >= 2:
         reason = args[1]
-        if len(reason) > 100:
-            reason = reason[:100]
+        if len(reason) > 131:
+            reason = reason[:131]
     else:
         reason = ""
 
     sql.set_afk(update.effective_user.id, reason)
     fname = update.effective_user.first_name
     try:
-        update.effective_message.reply_text(f"{fname} ɪꜱ ɴᴏᴡ ᴀᴡᴀʏ!")
+        update.effective_message.reply_text(f"{fname} ɪꜱ ᴜɴᴀᴠᴀɪʟᴀʙʟᴇ")
     except BadRequest:
         pass
 
@@ -57,7 +56,7 @@ def no_longer_afk(update: Update, context: CallbackContext):
             return
         firstname = update.effective_user.first_name
         try:
-            update.effective_message.reply_text(f"{firstname} ɪꜱ ɴᴏ ᴍᴏʀᴇ ᴀᴡᴀʏ!")
+            update.effective_message.reply_text(f"{firstname} ɪꜱ ʙᴀᴄᴋ ᴏɴʟɪɴᴇ")
         except:
             return
 
@@ -118,10 +117,10 @@ def check_afk(update, context, user_id, fst_name, userc_id):
         if int(userc_id) == int(user_id):
             return
         if not user.reason:
-            res = f"{fst_name} ɪꜱ ɴᴏᴡ ᴀᴡᴀʏ"
+            res = f"{fst_name} ɪꜱ ᴜɴᴀᴠᴀɪʟᴀʙʟᴇ"
             update.effective_message.reply_text(res)
         else:
-            res = "{} ɪꜱ ɴᴏᴡ ᴀᴡᴀʏ.\n» ʀᴇᴀꜱᴏɴ: <code>{}</code>".format(
+            res = "{} ɪꜱ ᴜɴᴀᴠᴀɪʟᴀʙʟᴇ.\n\n» ʀᴇᴀꜱᴏɴ: <code>{}</code>".format(
                 html.escape(fst_name), html.escape(user.reason)
             )
             update.effective_message.reply_text(res, parse_mode="html")

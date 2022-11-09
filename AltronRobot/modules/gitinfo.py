@@ -1,4 +1,3 @@
-# © @AnonymousBoy1025
 import aiohttp
 from pyrogram import filters
 

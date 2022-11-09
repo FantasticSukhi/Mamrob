@@ -29,7 +29,7 @@ from AltronRobot import (
     WOLVES,
     dispatcher,
 )
-from AltronRobot import telethn as FallenTelethonClient
+from AltronRobot import telethn as AltronTelethonClient
 from AltronRobot.__main__ import STATS, TOKEN, USER_INFO
 from AltronRobot.modules.disable import DisableAbleCommandHandler
 from AltronRobot.modules.helper_funcs.chat_status import sudo_plus
@@ -164,7 +164,7 @@ def get_id(update: Update, context: CallbackContext):
             )
 
 
-@FallenTelethonClient.on(
+@AltronTelethonClient.on(
     events.NewMessage(
         pattern="/ginfo ", from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])
     )

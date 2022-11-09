@@ -45,7 +45,7 @@ def approve(update, context):
         return ""
     sql.approve(message.chat_id, user_id)
     message.reply_text(
-        f"» [{member.user['first_name']}](tg://user?id={member.user['id']}) ʜᴀꜱ ʙᴇᴇɴ ᴀᴘᴘʀᴏᴠᴇᴅ ɪɴ {chat_title}!\n ᴛʜᴇʏ ᴡɪʟʟ ɴᴏᴡ ʙᴇ ɪɢɴᴏʀᴇᴅ ʙʏ ᴀᴜᴛᴏᴍᴀᴛᴇᴅ ᴀᴅᴍɪɴ ᴀᴄᴛɪᴏɴꜱ ʟɪᴋᴇ ʟᴏᴄᴋꜱ, ʙʟᴏᴄᴋʟɪꜱᴛꜱ, ᴀɴᴅ ᴀɴᴛɪꜰʟᴏᴏᴅ.",
+        f"» [{member.user['first_name']}](tg://user?id={member.user['id']}) ʜᴀꜱ ʙᴇᴇɴ ᴀᴘᴘʀᴏᴠᴇᴅ ɪɴ {chat_title}!\n» ᴛʜᴇʏ ᴡɪʟʟ ɴᴏᴡ ʙᴇ ɪɢɴᴏʀᴇᴅ ʙʏ ᴀᴜᴛᴏᴍᴀᴛᴇᴅ ᴀᴅᴍɪɴ ᴀᴄᴛɪᴏɴꜱ ʟɪᴋᴇ ʟᴏᴄᴋꜱ, ʙʟᴏᴄᴋʟɪꜱᴛꜱ, ᴀɴᴅ ᴀɴᴛɪꜰʟᴏᴏᴅ.",
         parse_mode=ParseMode.MARKDOWN,
     )
     return ""
@@ -112,11 +112,11 @@ def approval(update, context):
         return ""
     if sql.is_approved(message.chat_id, user_id):
         message.reply_text(
-            f"» {member.user['first_name']} ɪꜱ ᴀɴ ᴀᴘᴘʀᴏᴠᴇᴅ ᴜꜱᴇʀ. ʟᴏᴄᴋꜱ, ᴀɴᴛɪꜰʟᴏᴏᴅ, ᴀɴᴅ ʙʟᴏᴄᴋʟɪꜱᴛꜱ ᴡᴏɴ'ᴛ ᴀᴘᴘʟʏ ᴛᴏ ᴛʜᴇᴍ."
+            f"» {member.user['first_name']} ɪꜱ ᴀɴ ᴀᴘᴘʀᴏᴠᴇᴅ ᴜꜱᴇʀ.\n» ʟᴏᴄᴋꜱ, ᴀɴᴛɪꜰʟᴏᴏᴅ, ᴀɴᴅ ʙʟᴏᴄᴋʟɪꜱᴛꜱ ᴡᴏɴ'ᴛ ᴀᴘᴘʟʏ ᴛᴏ ᴛʜᴇᴍ."
         )
     else:
         message.reply_text(
-            f"» {member.user['first_name']} ɪꜱ ɴᴏᴛ ᴀɴ ᴀᴘᴘʀᴏᴠᴇᴅ ᴜꜱᴇʀ. ᴛʜᴇʏ ᴀʀᴇ ᴀꜰꜰᴇᴄᴛᴇᴅ ʙʏ ɴᴏʀᴍᴀʟ ᴄᴏᴍᴍᴀɴᴅꜱ."
+            f"» {member.user['first_name']} ɪꜱ ɴᴏᴛ ᴀɴ ᴀᴘᴘʀᴏᴠᴇᴅ ᴜꜱᴇʀ.\n» ᴛʜᴇʏ ᴀʀᴇ ᴀꜰꜰᴇᴄᴛᴇᴅ ʙʏ ɴᴏʀᴍᴀʟ ᴄᴏᴍᴍᴀɴᴅꜱ."
         )
 
 
@@ -134,10 +134,8 @@ def unapproveall(update: Update, context: CallbackContext):
             [
                 [
                     InlineKeyboardButton(
-                        text="ᴜɴᴀᴘᴘʀᴏᴠᴇ ᴀʟʟ ᴜꜱᴇʀꜱ", callback_data="unapproveall_user"
-                    )
-                ],
-                [
+                        text="ᴜɴᴀᴘᴘʀᴏᴠᴇ ᴀʟʟ", callback_data="unapproveall_user"
+                    ),
                     InlineKeyboardButton(
                         text="ᴄᴀɴᴄᴇʟ", callback_data="unapproveall_cancel"
                     )
@@ -145,7 +143,7 @@ def unapproveall(update: Update, context: CallbackContext):
             ]
         )
         update.effective_message.reply_text(
-            f"» ᴀʀᴇ ʏᴏᴜ ꜱᴜʀᴇ ʏᴏᴜ ᴡᴏᴜʟᴅ ʟɪᴋᴇ ᴛᴏ ᴜɴᴀᴘᴘʀᴏᴠᴇ ᴀʟʟ ᴜꜱᴇʀꜱ ɪɴ {chat.title}? ᴛʜɪꜱ ᴀᴄᴛɪᴏɴ ᴄᴀɴɴᴏᴛ ʙᴇ ᴜɴᴅᴏɴᴇ.",
+            f"» ᴀʀᴇ ʏᴏᴜ ꜱᴜʀᴇ ʏᴏᴜ ᴡᴏᴜʟᴅ ʟɪᴋᴇ ᴛᴏ ᴜɴᴀᴘᴘʀᴏᴠᴇ ᴀʟʟ ᴜꜱᴇʀꜱ ɪɴ {chat.title}?\n» ᴛʜɪꜱ ᴀᴄᴛɪᴏɴ ᴄᴀɴɴᴏᴛ ʙᴇ ᴜɴᴅᴏɴᴇ.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -180,8 +178,8 @@ def unapproveall_btn(update: Update, context: CallbackContext):
 
 
 __help__ = """
-**» Sometimes, you might trust a user not to send unwanted content.**
-**» Maybe not enough to make them admin, but you might be ok with locks, blacklists, and antiflood not applying to them.**
+» Sometimes, you might trust a user not to send unwanted content.
+» Maybe not enough to make them admin, but you might be ok with locks, blacklists, and antiflood not applying to them.
 
 » ᴛʜᴀᴛ'ꜱ ᴡʜᴀᴛ ᴀᴘᴘʀᴏᴠᴀʟꜱ ᴀʀᴇ ꜰᴏʀ - ᴀᴘᴘʀᴏᴠᴇ ᴏꜰ ᴛʀᴜꜱᴛᴡᴏʀᴛʜʏ ᴜꜱᴇʀꜱ ᴛᴏ ᴀʟʟᴏᴡ ᴛʜᴇᴍ ᴛᴏ ꜱᴇɴᴅ
 

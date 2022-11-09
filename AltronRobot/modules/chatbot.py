@@ -73,11 +73,6 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
         is_kuki = sql.set_kuki(chat.id)
         if is_kuki:
             is_kuki = sql.set_kuki(user_id)
-            return (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"AI_ENABLE\n"
-                f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            )
         else:
             update.effective_message.edit_text(
                 "{} ᴄʜᴀᴛʙᴏᴛ ᴇɴᴀʙʟᴇᴅ ʙʏ {}.".format(

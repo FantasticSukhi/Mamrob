@@ -3,14 +3,14 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from AltronRobot import BOT_NAME, BOT_USERNAME
-from AltronRobot import pbot as fallen
+from AltronRobot import pbot as altron
 
 
-@fallen.on_message(filters.command("write"))
+@altron.on_message(filters.command("write"))
 async def handwrite(_, message: Message):
     if not message.reply_to_message:
         text = message.text.split(None, 1)[1]
-        m = await fallen.send_message(
+        m = await altron.send_message(
             message.chat.id, "`Please wait...,\n\nWriting your text...`"
         )
         API = f"https://api.sdbots.tk/write?text={text}"
@@ -23,7 +23,7 @@ Successfully Written Text 💘
 ❄ **Link :** `{req}`
 """
         await m.delete()
-        await fallen.send_photo(
+        await altron.send_photo(
             message.chat.id,
             photo=req,
             caption=caption,
@@ -33,7 +33,7 @@ Successfully Written Text 💘
         )
     else:
         lol = message.reply_to_message.text
-        m = await fallen.send_message(
+        m = await altron.send_message(
             message.chat.id, "`Please wait...,\n\nWriting your text...`"
         )
         API = f"https://api.sdbots.tk/write?text={lol}"
@@ -46,7 +46,7 @@ Successfully Written Text 💘
 ❄ **Link :** `{req}`
 """
         await m.delete()
-        await fallen.send_photo(
+        await altron.send_photo(
             message.chat.id,
             photo=req,
             caption=caption,

@@ -274,7 +274,7 @@ async def lego(event):
         draw.text(
             (x, y), text, font=font, fill="white", stroke_width=1, stroke_fill="black"
         )
-        fname = "fallen.png"
+        fname = "altron.png"
         img.save(fname, "png")
         await telethn.send_file(
             event.chat_id,
@@ -307,7 +307,7 @@ async def lego(event):
         draw.text(
             (x, y), text, font=font, fill="white", stroke_width=1, stroke_fill="black"
         )
-        fname = "fallen.png"
+        fname = "altron.png"
         img.save(fname, "png")
         await telethn.send_file(
             event.chat_id,

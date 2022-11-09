@@ -267,12 +267,12 @@ def set_flood_mode(update, context):
         elif args[0].lower() == "mute":
             settypeflood = "ᴍᴜᴛᴇ"
             sql.set_flood_strength(chat_id, 3, "0")
-        elif args[0].lower() == "ᴛʙᴀɴ":
+        elif args[0].lower() == "tban":
             if len(args) == 1:
                 teks = """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tban <timevalue>`.\nᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
-            settypeflood = "tban for {}".format(args[1])
+            settypeflood = "ᴛʙᴀɴ ꜰᴏʀ {}".format(args[1])
             sql.set_flood_strength(chat_id, 4, str(args[1]))
         elif args[0].lower() == "tmute":
             if len(args) == 1:
@@ -338,8 +338,8 @@ def __chat_settings__(chat_id, user_id):
 
 
 __help__ = """
-**Antiflood allows you to take action on users that send more than X messages in a row. Exceeding the set flood will result in restricting that user.**
-**This will mute users if they send more than X messages in a row, bots are ignored.**
+» Antiflood allows you to take action on users that send more than X messages in a row. Exceeding the set flood will result in restricting that user.
+» This will mute users if they send more than X messages in a row, bots are ignored.
 
   ➲ /flood: ɢᴇᴛ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ ꜱᴇᴛᴛɪɴɢ
 
@@ -349,8 +349,8 @@ __help__ = """
   ➲ /setfloodmode <ban/kick/mute/tban/tmute> <value>: ᴀᴄᴛɪᴏɴ ᴛᴏ ᴘᴇʀꜰᴏʀᴍ ᴡʜᴇɴ ᴜꜱᴇʀ ʜᴀᴠᴇ ᴇxᴄᴇᴇᴅᴇᴅ ꜰʟᴏᴏᴅ ʟɪᴍɪᴛ. ʙᴀɴ/ᴋɪᴄᴋ/ᴍᴜᴛᴇ/ᴛᴍᴜᴛᴇ/ᴛʙᴀɴ
 
 𝗡𝗼𝘁𝗲:
-ᴠᴀʟᴜᴇ ᴍᴜꜱᴛ ʙᴇ ꜰɪʟʟᴇᴅ ꜰᴏʀ ᴛʙᴀɴ ᴀɴᴅ ᴛᴍᴜᴛᴇ!!
- **It can be:**
+ » ᴠᴀʟᴜᴇ ᴍᴜꜱᴛ ʙᴇ ꜰɪʟʟᴇᴅ ꜰᴏʀ ᴛʙᴀɴ ᴀɴᴅ ᴛᴍᴜᴛᴇ!!
+  It can be:
    5m = 5 minutes
    4h = 4 hours
    3d = 3 days

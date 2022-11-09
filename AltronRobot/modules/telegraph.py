@@ -7,7 +7,7 @@ from telegraph import Telegraph, exceptions, upload_file
 from AltronRobot import telethn as tbot
 from AltronRobot.events import register
 
-Anonymous = "Fallen"
+Anonymous = "Altron"
 TMP_DOWNLOAD_DIRECTORY = "./"
 telegraph = Telegraph()
 r = telegraph.create_account(short_name=Anonymous)
