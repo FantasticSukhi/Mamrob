@@ -43,7 +43,7 @@
    "OWNER_ID": {
       "description": "Your user ID as an integer.",
       "required": true,
-      "value": "1827586893"
+      "value": "5685816871"
    },
    "HEROKU_API_KEY": {
       "description": "Your Heroku API key, get it from 'https://dashboard.heroku.com/account'",
@@ -55,7 +55,7 @@
    },
    "OWNER_USERNAME": {
       "description": "Your username without the @",
-      "value": "TATT0_KI_CHUDAI"
+      "value": "Itz_ExStar"
    },
    "SUPPORT_CHAT": {
       "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to Altron Support than consider you made an enemy.",
@@ -142,7 +142,7 @@
    "DONATION_LINK": {
       "description": "Link where you would like to receive donations. If you are a noob, better leave it linking to Anonymous",
       "required": false,
-      "value": "https://t.me/ThExSTaR"
+      "value": "https://t.me/Itz_ExStar"
    },
    "DEL_CMDS": {
       "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
