@@ -10,8 +10,6 @@ async def channel_toggle(db, message: Message):
     status = message.text.split(None, 1)[1].lower()
     chat_id = message.chat.id
 
-    if message.chat.type == "private":
-        return await eor(message, text="» ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ɪꜱ ᴍᴇᴀɴᴛ ᴛᴏ ᴜꜱᴇ ɪɴ ɢʀᴏᴜᴘ ɴᴏᴛ ɪɴ ᴘᴍ")
     if status == "on":
         if chat_id not in db:
             db.append(chat_id)
