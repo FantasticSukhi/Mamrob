@@ -187,7 +187,7 @@ def set_flood(update, context) -> str:
     else:
         message.reply_text(
             (
-                "» ᴜꜱᴇ `/setflood number` ᴛᴏ ᴇɴᴀʙʟᴇ ᴀɴᴛɪ-ꜰʟᴏᴏᴅ.\nᴏʀ ᴜꜱᴇ `/setflood off` ᴛᴏ ᴅɪꜱᴀʙʟᴇ ᴀɴᴛɪꜰʟᴏᴏᴅ!."
+                "» ᴜꜱᴇ `/setflood <number>` ᴛᴏ ᴇɴᴀʙʟᴇ ᴀɴᴛɪ-ꜰʟᴏᴏᴅ.\nᴏʀ ᴜꜱᴇ `/setflood off` ᴛᴏ ᴅɪꜱᴀʙʟᴇ ᴀɴᴛɪꜰʟᴏᴏᴅ!."
             ),
             parse_mode="markdown",
         )
@@ -269,7 +269,7 @@ def set_flood_mode(update, context):
             sql.set_flood_strength(chat_id, 3, "0")
         elif args[0].lower() == "tban":
             if len(args) == 1:
-                teks = """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tban <timevalue>`.\nᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
+                teks = """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tban <timevalue>`.\n\n» ᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks."""
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
             settypeflood = "ᴛʙᴀɴ ꜰᴏʀ {}".format(args[1])
@@ -278,7 +278,7 @@ def set_flood_mode(update, context):
             if len(args) == 1:
                 teks = (
                     update.effective_message,
-                    """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tmute <timevalue>`.\nᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.""",
+                    """» ɪᴛ ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴛʀɪᴇᴅ ᴛᴏ ꜱᴇᴛ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ ꜰᴏʀ ᴀɴᴛɪꜰʟᴏᴏᴅ ʙᴜᴛ ʏᴏᴜ ᴅɪᴅɴ'ᴛ ꜱᴘᴇᴄɪꜰɪᴇᴅ ᴛɪᴍᴇ; ᴛʀʏ, `/setfloodmode tmute <timevalue>`.\n\n» ᴇxᴀᴍᴘʟᴇꜱ ᴏꜰ ᴛɪᴍᴇ ᴠᴀʟᴜᴇ: 4m = 4 minutes, 3h = 3 hours, 6d = 6 days, 5w = 5 weeks.""",
                 )
                 send_message(update.effective_message, teks, parse_mode="markdown")
                 return
@@ -338,8 +338,8 @@ def __chat_settings__(chat_id, user_id):
 
 
 __help__ = """
-» Antiflood allows you to take action on users that send more than X messages in a row. Exceeding the set flood will result in restricting that user.
-» This will mute users if they send more than X messages in a row, bots are ignored.
+‣ Antiflood allows you to take action on users that send more than X messages in a row. Exceeding the set flood will result in restricting that user.
+‣ This will mute users if they send more than X messages in a row, bots are ignored.
 
   ➲ /flood: ɢᴇᴛ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ꜰʟᴏᴏᴅ ᴄᴏɴᴛʀᴏʟ ꜱᴇᴛᴛɪɴɢ
 
