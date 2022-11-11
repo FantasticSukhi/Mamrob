@@ -3,19 +3,13 @@ import os
 import time
 from io import BytesIO
 
-from telegram import Message, ParseMode
+from telegram import ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, run_async
 
-# from AltronRobot.modules.sql import warns_sql as warnssql
 import AltronRobot.modules.sql.blacklist_sql as blacklistsql
-
-# from AltronRobot.modules.sql import cust_filters_sql as filtersql
-# import AltronRobot.modules.sql.welcome_sql as welcsql
 import AltronRobot.modules.sql.locks_sql as locksql
 import AltronRobot.modules.sql.notes_sql as sql
-
-# from AltronRobot.modules.rules import get_rules
 import AltronRobot.modules.sql.rules_sql as rulessql
 from AltronRobot import JOIN_LOGGER, LOGGER, OWNER_ID, SUPPORT_CHAT, dispatcher
 from AltronRobot.__main__ import DATA_IMPORT
@@ -32,8 +26,6 @@ def import_data(update, context):
     msg = update.effective_message
     chat = update.effective_chat
     user = update.effective_user
-    # TODO: allow uploading doc with command, not just as reply
-    # only work with a doc
 
     conn = connected(context.bot, update, chat, user.id, need_admin=True)
     if conn:
@@ -41,7 +33,7 @@ def import_data(update, context):
         chat_name = dispatcher.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
-            update.effective_message.reply_text("This is a group only command!")
+            update.effective_message.reply_text("» ᴛʜɪꜱ ɪꜱ ᴀ ɢʀᴏᴜᴘ ᴏɴʟʏ ᴄᴏᴍᴍᴀɴᴅ!")
             return ""
 
         chat = update.effective_chat
@@ -52,7 +44,7 @@ def import_data(update, context):
             file_info = context.bot.get_file(msg.reply_to_message.document.file_id)
         except BadRequest:
             msg.reply_text(
-                "Try downloading and uploading the file yourself again, This one seem broken to me!"
+                "» ᴛʀʏ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴀɴᴅ ᴜᴘʟᴏᴀᴅɪɴɢ ᴛʜᴇ ꜰɪʟᴇ ʏᴏᴜʀꜱᴇʟꜰ ᴀɢᴀɪɴ, ᴛʜɪꜱ ᴏɴᴇ ꜱᴇᴇᴍ ʙʀᴏᴋᴇɴ ᴛᴏ ᴍᴇ!"
             )
             return
 
@@ -64,7 +56,7 @@ def import_data(update, context):
         # only import one group
         if len(data) > 1 and str(chat.id) not in data:
             msg.reply_text(
-                "There are more than one group in this file and the chat.id is not same! How am i supposed to import it?"
+                "» ᴛʜᴇʀᴇ ᴀʀᴇ ᴍᴏʀᴇ ᴛʜᴀɴ ᴏɴᴇ ɢʀᴏᴜᴘ ɪɴ ᴛʜɪꜱ ꜰɪʟᴇ ᴀɴᴅ ᴛʜᴇ ᴄʜᴀᴛ.ɪᴅ ɪꜱ ɴᴏᴛ ꜱᴀᴍᴇ! ʜᴏᴡ ᴀᴍ ɪ ꜱᴜᴘᴘᴏꜱᴇᴅ ᴛᴏ ɪᴍᴘᴏʀᴛ ɪᴛ?"
             )
             return
 
@@ -72,19 +64,17 @@ def import_data(update, context):
         try:
             if data.get(str(chat.id)) is None:
                 if conn:
-                    text = "Backup comes from another chat, I can't return another chat to chat *{}*".format(
-                        chat_name
-                    )
+                    text = f"» ʙᴀᴄᴋᴜᴘ ᴄᴏᴍᴇꜱ ꜰʀᴏᴍ ᴀɴᴏᴛʜᴇʀ ᴄʜᴀᴛ, ɪ ᴄᴀɴ'ᴛ ʀᴇᴛᴜʀɴ ᴀɴᴏᴛʜᴇʀ ᴄʜᴀᴛ ᴛᴏ ᴄʜᴀᴛ *{chat_name}*"
                 else:
-                    text = "Backup comes from another chat, I can't return another chat to this chat"
+                    text = "» ʙᴀᴄᴋᴜᴘ ᴄᴏᴍᴇꜱ ꜰʀᴏᴍ ᴀɴᴏᴛʜᴇʀ ᴄʜᴀᴛ, ɪ ᴄᴀɴ'ᴛ ʀᴇᴛᴜʀɴ ᴀɴᴏᴛʜᴇʀ ᴄʜᴀᴛ ᴛᴏ ᴛʜɪꜱ ᴄʜᴀᴛ"
                 return msg.reply_text(text, parse_mode="markdown")
         except Exception:
-            return msg.reply_text("There was a problem while importing the data!")
+            return msg.reply_text("» ᴛʜᴇʀᴇ ᴡᴀꜱ ᴀ ᴘʀᴏʙʟᴇᴍ ᴡʜɪʟᴇ ɪᴍᴘᴏʀᴛɪɴɢ ᴛʜᴇ ᴅᴀᴛᴀ!")
         # Check if backup is from self
         try:
             if str(context.bot.id) != str(data[str(chat.id)]["bot"]):
                 return msg.reply_text(
-                    "Backup from another bot that is not suggested might cause the problem, documents, photos, videos, audios, records might not work as it should be."
+                    "» ʙᴀᴄᴋᴜᴘ ꜰʀᴏᴍ ᴀɴᴏᴛʜᴇʀ ʙᴏᴛ ᴛʜᴀᴛ ɪꜱ ɴᴏᴛ ꜱᴜɢɢᴇꜱᴛᴇᴅ ᴍɪɢʜᴛ ᴄᴀᴜꜱᴇ ᴛʜᴇ ᴘʀᴏʙʟᴇᴍ, ᴅᴏᴄᴜᴍᴇɴᴛꜱ, ᴘʜᴏᴛᴏꜱ, ᴠɪᴅᴇᴏꜱ, ᴀᴜᴅɪᴏꜱ, ʀᴇᴄᴏʀᴅꜱ ᴍɪɢʜᴛ ɴᴏᴛ ᴡᴏʀᴋ ᴀꜱ ɪᴛ ꜱʜᴏᴜʟᴅ ʙᴇ."
                 )
         except Exception:
             pass
@@ -99,7 +89,7 @@ def import_data(update, context):
                 mod.__import_data__(str(chat.id), data)
         except Exception:
             msg.reply_text(
-                f"An error occurred while recovering your data. The process failed. If you experience a problem with this, please take it to @{SUPPORT_CHAT}"
+                f"» ᴀɴ ᴇʀʀᴏʀ ᴏᴄᴄᴜʀʀᴇᴅ ᴡʜɪʟᴇ ʀᴇᴄᴏᴠᴇʀɪɴɢ ʏᴏᴜʀ ᴅᴀᴛᴀ. ᴛʜᴇ ᴘʀᴏᴄᴇꜱꜱ ꜰᴀɪʟᴇᴅ. ɪꜰ ʏᴏᴜ ᴇxᴘᴇʀɪᴇɴᴄᴇ ᴀ ᴘʀᴏʙʟᴇᴍ ᴡɪᴛʜ ᴛʜɪꜱ, ᴘʟᴇᴀꜱᴇ ᴛᴀᴋᴇ ɪᴛ ᴛᴏ @{SUPPORT_CHAT}"
             )
 
             LOGGER.exception(
@@ -112,10 +102,9 @@ def import_data(update, context):
         # TODO: some of that link logic
         # NOTE: consider default permissions stuff?
         if conn:
-
-            text = "Backup fully restored on *{}*.".format(chat_name)
+            text = f"» ʙᴀᴄᴋᴜᴘ ꜰᴜʟʟʏ ʀᴇꜱᴛᴏʀᴇᴅ ᴏɴ *{chat_name}*."
         else:
-            text = "Backup fully restored"
+            text = "» ʙᴀᴄᴋᴜᴘ ꜰᴜʟʟʏ ʀᴇꜱᴛᴏʀᴇᴅ"
         msg.reply_text(text, parse_mode="markdown")
 
 
@@ -123,8 +112,8 @@ def import_data(update, context):
 @user_admin
 def export_data(update, context):
     chat_data = context.chat_data
-    msg = update.effective_message  # type: Optional[Message]
-    user = update.effective_user  # type: Optional[User]
+    msg = update.effective_message
+    user = update.effective_user
     chat_id = update.effective_chat.id
     chat = update.effective_chat
     current_chat_id = update.effective_chat.id
@@ -132,14 +121,12 @@ def export_data(update, context):
     if conn:
         chat = dispatcher.bot.getChat(conn)
         chat_id = conn
-        # chat_name = dispatcher.bot.getChat(conn).title
     else:
         if update.effective_message.chat.type == "private":
-            update.effective_message.reply_text("This is a group only command!")
+            update.effective_message.reply_text("» ᴛʜɪꜱ ɪꜱ ᴀ ɢʀᴏᴜᴘ ᴏɴʟʏ ᴄᴏᴍᴍᴀɴᴅ!")
             return ""
         chat = update.effective_chat
         chat_id = update.effective_chat.id
-        # chat_name = update.effective_message.chat.title
 
     jam = time.time()
     new_jam = jam + 10800
@@ -150,7 +137,7 @@ def export_data(update, context):
                 "%H:%M:%S %d/%m/%Y", time.localtime(checkchat.get("value"))
             )
             update.effective_message.reply_text(
-                "You can only backup once a day!\nYou can backup again in about `{}`".format(
+                "» ʏᴏᴜ ᴄᴀɴ ᴏɴʟʏ ʙᴀᴄᴋᴜᴘ ᴏɴᴄᴇ ᴀ ᴅᴀʏ!\n» ʏᴏᴜ ᴄᴀɴ ʙᴀᴄᴋᴜᴘ ᴀɢᴀɪɴ ɪɴ ᴀʙᴏᴜᴛ `{}`".format(
                     timeformatt
                 ),
                 parse_mode=ParseMode.MARKDOWN,
@@ -165,7 +152,6 @@ def export_data(update, context):
 
     note_list = sql.get_all_chat_notes(chat_id)
     backup = {}
-    # button = ""
     buttonlist = []
     namacat = ""
     isicat = ""
@@ -175,11 +161,9 @@ def export_data(update, context):
     # Notes
     for note in note_list:
         count += 1
-        # getnote = sql.get_note(chat_id, note.name)
         namacat += "{}<###splitter###>".format(note.name)
         if note.msgtype == 1:
             tombol = sql.get_buttons(chat_id, note.name)
-            # keyb = []
             for btn in tombol:
                 countbtn += 1
                 if btn.same_line:
@@ -234,42 +218,6 @@ def export_data(update, context):
     bl = list(blacklistsql.get_chat_blacklist(chat_id))
     # Disabled command
     disabledcmd = list(disabledsql.get_all_disabled(chat_id))
-    # Filters (TODO)
-    """
-	all_filters = list(filtersql.get_chat_triggers(chat_id))
-	export_filters = {}
-	for filters in all_filters:
-		filt = filtersql.get_filter(chat_id, filters)
-		# print(vars(filt))
-		if filt.is_sticker:
-			tipefilt = "sticker"
-		elif filt.is_document:
-			tipefilt = "doc"
-		elif filt.is_image:
-			tipefilt = "img"
-		elif filt.is_audio:
-			tipefilt = "audio"
-		elif filt.is_voice:
-			tipefilt = "voice"
-		elif filt.is_video:
-			tipefilt = "video"
-		elif filt.has_buttons:
-			tipefilt = "button"
-			buttons = filtersql.get_buttons(chat.id, filt.keyword)
-			print(vars(buttons))
-		elif filt.has_markdown:
-			tipefilt = "text"
-		if tipefilt == "button":
-			content = "{}#=#{}|btn|{}".format(tipefilt, filt.reply, buttons)
-		else:
-			content = "{}#=#{}".format(tipefilt, filt.reply)
-		print(content)
-		export_filters[filters] = content
-	print(export_filters)
-	"""
-    # Welcome (TODO)
-    # welc = welcsql.get_welc_pref(chat_id)
-    # Locked
     curr_locks = locksql.get_locks(chat_id)
     curr_restr = locksql.get_restr(chat_id)
 
@@ -312,8 +260,6 @@ def export_data(update, context):
         locked_restr = {}
 
     locks = {"locks": locked_lock, "restrict": locked_restr}
-    # Warns (TODO)
-    # warns = warnssql.get_warns(chat_id)
     # Backing up
     backup[chat_id] = {
         "bot": context.bot.id,
@@ -333,7 +279,7 @@ def export_data(update, context):
     try:
         context.bot.sendMessage(
             JOIN_LOGGER,
-            "*Successfully imported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`".format(
+            "» *ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ɪᴍᴘᴏʀᴛᴇᴅ ʙᴀᴄᴋᴜᴘ:*\n - ᴄʜᴀᴛ: `{}`\n - ᴄʜᴀᴛ ɪᴅ: `{}`\n - ᴏɴ: `{}`".format(
                 chat.title, chat_id, tgl
             ),
             parse_mode=ParseMode.MARKDOWN,
@@ -343,7 +289,7 @@ def export_data(update, context):
     context.bot.sendDocument(
         current_chat_id,
         document=open("AltronRobot{}.backup".format(chat_id), "rb"),
-        caption="📤*Successfully Exported backup:*\nChat: `{}`\nChat ID: `{}`\nOn: `{}`\n\nNote: This `AltronRobot-Backup` was specially made for notes 📚.".format(
+        caption="» *ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴇxᴘᴏʀᴛᴇᴅ ʙᴀᴄᴋᴜᴘ:*\n - ᴄʜᴀᴛ: `{}`\n - ᴄʜᴀᴛ ɪᴅ: `{}`\n - ᴏɴ: `{}`\n\n⚠ 𝗡𝗼𝘁𝗲: ᴛʜɪꜱ `AltronRobot-Backup` ᴡᴀꜱ ꜱᴘᴇᴄɪᴀʟʟʏ ᴍᴀᴅᴇ ꜰᴏʀ ɴᴏᴛᴇꜱ 📚.".format(
             chat.title, chat_id, tgl
         ),
         timeout=360,
@@ -355,13 +301,11 @@ def export_data(update, context):
 
 # Temporary data
 def put_chat(chat_id, value, chat_data):
-    # print(chat_data)
     status = value is not False
     chat_data[chat_id] = {"backups": {"status": status, "value": value}}
 
 
 def get_chat(chat_id, chat_data):
-    # print(chat_data)
     try:
         return chat_data[chat_id]["backups"]
     except KeyError:
@@ -371,13 +315,13 @@ def get_chat(chat_id, chat_data):
 __mod_name__ = "Bᴀᴄᴋᴜᴘ"
 
 __help__ = """
-*Only for group owner:*
+𝗢𝗻𝗹𝘆 𝗳𝗼𝗿 𝗚𝗿𝗼𝘂𝗽 𝗢𝘄𝗻𝗲𝗿:
 
- ❍ /import: Reply to the backup file for the butler / emilia group to import as much as possible, making transfers very easy! \
- Note that files / photos cannot be imported due to telegram restrictions.
+  ➲ /import: ʀᴇᴘʟʏ ᴛᴏ ᴛʜᴇ ʙᴀᴄᴋᴜᴘ ꜰɪʟᴇ ꜰᴏʀ ᴛʜᴇ ʙᴜᴛʟᴇʀ/ᴇᴍɪʟɪᴀ ɢʀᴏᴜᴘ ᴛᴏ ɪᴍᴘᴏʀᴛ ᴀꜱ ᴍᴜᴄʜ ᴀꜱ ᴘᴏꜱꜱɪʙʟᴇ, ᴍᴀᴋɪɴɢ ᴛʀᴀɴꜱꜰᴇʀꜱ ᴠᴇʀʏ ᴇᴀꜱʏ!
 
- ❍ /export: Export group data, which will be exported are: rules, notes (documents, images, music, video, audio, voice, text, text buttons) \
+  ➲ /export: ᴇxᴘᴏʀᴛ ɢʀᴏᴜᴘ ᴅᴀᴛᴀ, ᴡʜɪᴄʜ ᴡɪʟʟ ʙᴇ ᴇxᴘᴏʀᴛᴇᴅ ᴀʀᴇ: ʀᴜʟᴇꜱ, ɴᴏᴛᴇꜱ (ᴅᴏᴄᴜᴍᴇɴᴛꜱ, ɪᴍᴀɢᴇꜱ, ᴍᴜꜱɪᴄ, ᴠɪᴅᴇᴏ, ᴀᴜᴅɪᴏ, ᴠᴏɪᴄᴇ, ᴛᴇxᴛ, ᴛᴇxᴛ ʙᴜᴛᴛᴏɴꜱ)
 
+ ⚠ 𝗡𝗼𝘁𝗲: ꜰɪʟᴇꜱ/ᴘʜᴏᴛᴏꜱ ᴄᴀɴɴᴏᴛ ʙᴇ ɪᴍᴘᴏʀᴛᴇᴅ ᴅᴜᴇ ᴛᴏ ᴛᴇʟᴇɢʀᴀᴍ ʀᴇꜱᴛʀɪᴄᴛɪᴏɴꜱ.
 """
 
 IMPORT_HANDLER = CommandHandler("import", import_data)

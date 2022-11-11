@@ -1,13 +1,12 @@
-# Module to blacklist users and prevent them from using commands by @TheRealPhoenix
+# Module to blacklist users and prevent them from using commands by @ItzExStar
 import html
 
 from telegram import ParseMode, Update
-from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
 import AltronRobot.modules.sql.blacklistusers_sql as sql
-from AltronRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, dispatcher
+from AltronRobot import DEV_USERS, OWNER_ID, dispatcher
 from AltronRobot.modules.helper_funcs.chat_status import dev_plus
 from AltronRobot.modules.helper_funcs.extraction import (
     extract_user,
@@ -15,8 +14,7 @@ from AltronRobot.modules.helper_funcs.extraction import (
 )
 from AltronRobot.modules.log_channel import gloggable
 
-BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
-BLABLEUSERS = [OWNER_ID] + DEV_USERS
+BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS
 
 
 @run_async
@@ -24,7 +22,6 @@ BLABLEUSERS = [OWNER_ID] + DEV_USERS
 @gloggable
 def bl_user(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
-    user = update.effective_user
     bot, args = context.bot, context.args
     user_id, reason = extract_user_and_text(message, args)
 
@@ -40,26 +37,9 @@ def bl_user(update: Update, context: CallbackContext) -> str:
         message.reply_text("No!\nNoticing Disasters is my job.")
         return ""
 
-    try:
-        target_user = bot.get_chat(user_id)
-    except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
-            return ""
-        else:
-            raise
-
     sql.blacklist_user(user_id, reason)
-    message.reply_text("I shall ignore the existence of this user!")
-    log_message = (
-        f"#BLACKLIST\n"
-        f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-        f"<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
-    )
-    if reason:
-        log_message += f"\n<b>Reason:</b> {reason}"
-
-    return log_message
+    message.reply_text("» ɪ ꜱʜᴀʟʟ ɪɢɴᴏʀᴇ ᴛʜᴇ ᴇxɪꜱᴛᴇɴᴄᴇ ᴏꜰ ᴛʜɪꜱ ᴜꜱᴇʀ!")
+    return
 
 
 @run_async
@@ -67,7 +47,6 @@ def bl_user(update: Update, context: CallbackContext) -> str:
 @gloggable
 def unbl_user(update: Update, context: CallbackContext) -> str:
     message = update.effective_message
-    user = update.effective_user
     bot, args = context.bot, context.args
     user_id = extract_user(message, args)
 
@@ -79,27 +58,10 @@ def unbl_user(update: Update, context: CallbackContext) -> str:
         message.reply_text("I always notice myself.")
         return ""
 
-    try:
-        target_user = bot.get_chat(user_id)
-    except BadRequest as excp:
-        if excp.message == "User not found":
-            message.reply_text("I can't seem to find this user.")
-            return ""
-        else:
-            raise
-
     if sql.is_user_blacklisted(user_id):
-
         sql.unblacklist_user(user_id)
-        message.reply_text("*notices user*")
-        log_message = (
-            f"#UNBLACKLIST\n"
-            f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            f"<b>User:</b> {mention_html(target_user.id, html.escape(target_user.first_name))}"
-        )
-
-        return log_message
-
+        message.reply_text("» ɴᴏᴛɪᴄᴇꜱ ᴜꜱᴇʀ")
+        return
     else:
         message.reply_text("I am not ignoring them at all though!")
         return ""
@@ -121,9 +83,9 @@ def bl_users(update: Update, context: CallbackContext):
         else:
             users.append(f"• {mention_html(user.id, html.escape(user.first_name))}")
 
-    message = "<b>Blacklisted Users</b>\n"
+    message = "» <b>ʙʟᴀᴄᴋʟɪꜱᴛᴇᴅ ᴜꜱᴇʀꜱ</b>\n\n"
     if not users:
-        message += "None is being ignored as of yet."
+        message += "» ɴᴏɴᴇ ɪꜱ ʙᴇɪɴɢ ɪɢɴᴏʀᴇᴅ ᴀꜱ ᴏꜰ ʏᴇᴛ."
     else:
         message += "\n".join(users)
 
@@ -133,20 +95,18 @@ def bl_users(update: Update, context: CallbackContext):
 def __user_info__(user_id):
     is_blacklisted = sql.is_user_blacklisted(user_id)
 
-    text = "Blacklisted: <b>{}</b>"
+    text = "» ʙʟᴀᴄᴋʟɪꜱᴛᴇᴅ: <b>{}</b>"
     if user_id in [777000, 1087968824]:
         return ""
     if user_id == dispatcher.bot.id:
         return ""
-    if int(user_id) in DRAGONS + TIGERS + WOLVES:
-        return ""
     if is_blacklisted:
-        text = text.format("Yes")
+        text = text.format("ʏᴇꜱ")
         reason = sql.get_reason(user_id)
         if reason:
-            text += f"\nReason: <code>{reason}</code>"
+            text += f"\n» ʀᴇᴀꜱᴏɴ: <code>{reason}</code>"
     else:
-        text = text.format("No")
+        text = text.format("ɴᴏ")
 
     return text
 

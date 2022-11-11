@@ -27,9 +27,9 @@ def content(msg: Message) -> [None, str]:
 @capture_err
 async def bug(_, msg: Message):
     if msg.chat.username:
-        chat_username = f"@{msg.chat.username}/`{msg.chat.id}`"
+        chat_username = f"@{msg.chat.username}"
     else:
-        chat_username = f"ᴩʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴩ/`{msg.chat.id}`"
+        chat_username = f"ᴩʀɪᴠᴀᴛᴇ ɢʀᴏᴜᴩ"
 
     bugs = content(msg)
     user_id = msg.from_user.id
@@ -44,7 +44,8 @@ async def bug(_, msg: Message):
 
 **ʀᴇᴩᴏʀᴛᴇᴅ ʙʏ :** {mention}
 **ᴜsᴇʀ ɪᴅ :** {user_id}
-**ᴄʜᴀᴛ : {chat_username}
+**ᴄʜᴀᴛ :** {chat_username}
+**ᴄʜᴀᴛ-ɪᴅ :** `{msg.chat.id}`
 
 **ʙᴜɢ :** {bugs}
 
@@ -74,12 +75,8 @@ async def bug(_, msg: Message):
                 caption=f"{bug_report}",
                 reply_markup=InlineKeyboardMarkup(
                     [
-                        [InlineKeyboardButton("• ᴠɪᴇᴡ ʙᴜɢ •", url=f"{msg.link}")],
-                        [
-                            InlineKeyboardButton(
-                                "• ᴄʟᴏsᴇ •", callback_data="close_send_photo"
-                            )
-                        ],
+                        [InlineKeyboardButton("• ᴠɪᴇᴡ ʙᴜɢ •", url=f"{msg.link}"),
+                        InlineKeyboardButton("• ᴄʟᴏsᴇ •", callback_data="close_send_photo")],
                     ]
                 ),
             )
@@ -105,7 +102,7 @@ async def close_send_photo(_, CallbackQuery):
 
 
 __help__ = """
-*ғᴏʀ ʀᴇᴩᴏʀᴛɪɴɢ ᴀ ʙᴜɢ ɪɴ ғᴀʟʟᴇɴ ✘ ʀᴏʙᴏᴛ*
- ❍ /bug *:* ᴛᴏ ʀᴇᴩᴏʀᴛ ᴀ ʙᴜɢ ᴀᴛ sᴜᴩᴩᴏʀᴛ ᴄʜᴀᴛ.
+‣ *ғᴏʀ ʀᴇᴩᴏʀᴛɪɴɢ ᴀ ʙᴜɢ ɪɴ ᴀʟᴛʀᴏɴ ✘ ʀᴏʙᴏᴛ*
+  ➲ /bug : ᴛᴏ ʀᴇᴩᴏʀᴛ ᴀ ʙᴜɢ ᴀᴛ sᴜᴩᴩᴏʀᴛ ᴄʜᴀᴛ.
 """
 __mod_name__ = "Bᴜɢ"
