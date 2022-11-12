@@ -26,7 +26,7 @@ def get_invalid_chats(update: Update, context: CallbackContext, remove: bool = F
     for chat in chats:
 
         if ((100 * chats.index(chat)) / len(chats)) > progress:
-            progress_bar = f"{progress}% completed in getting invalid chats."
+            progress_bar = f"» {progress}% ᴄᴏᴍᴘʟᴇᴛᴇᴅ ɪɴ ɢᴇᴛᴛɪɴɢ ɪɴᴠᴀʟɪᴅ ᴄʜᴀᴛꜱ."
             if progress_message:
                 try:
                     bot.editMessageText(
@@ -99,10 +99,8 @@ def dbcleanup(update: Update, context: CallbackContext):
     msg.reply_text("Getting invalid gbanned count ...")
     invalid_gban_count = get_invalid_gban(update, context)
 
-    reply = f"Total invalid chats - {invalid_chat_count}\n"
-    reply += f"Total invalid gbanned users - {invalid_gban_count}"
-
-    buttons = [[InlineKeyboardButton("Cleanup DB", callback_data="db_cleanup")]]
+    reply = f"Total invalid chats - {invalid_chat_count}\nTotal invalid gbanned users - {invalid_gban_count}"
+    buttons = [[InlineKeyboardButton("• ᴄʟᴇᴀɴᴜᴘ ᴅʙ •", callback_data="db_cleanup")]]
 
     update.effective_message.reply_text(
         reply, reply_markup=InlineKeyboardMarkup(buttons)

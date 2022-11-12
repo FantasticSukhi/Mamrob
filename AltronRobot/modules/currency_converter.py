@@ -12,13 +12,11 @@ def convert(update: Update, context: CallbackContext):
     if len(args) == 4:
         try:
             orig_cur_amount = float(args[1])
-
         except ValueError:
-            update.effective_message.reply_text("Invalid Amount Of Currency")
+            update.effective_message.reply_text("ɪɴᴠᴀʟɪᴅ ᴀᴍᴏᴜɴᴛ ᴏꜰ ᴄᴜʀʀᴇɴᴄʏ")
             return
 
         orig_cur = args[2].upper()
-
         new_cur = args[3].upper()
 
         request_url = (
@@ -34,7 +32,7 @@ def convert(update: Update, context: CallbackContext):
                 response["Realtime Currency Exchange Rate"]["5. Exchange Rate"]
             )
         except KeyError:
-            update.effective_message.reply_text("Currency Not Supported.")
+            update.effective_message.reply_text("ᴄᴜʀʀᴇɴᴄʏ ɴᴏᴛ ꜱᴜᴘᴘᴏʀᴛᴇᴅ.")
             return
         new_cur_amount = round(orig_cur_amount * current_rate, 5)
         update.effective_message.reply_text(
@@ -52,7 +50,6 @@ def convert(update: Update, context: CallbackContext):
 
 
 CONVERTER_HANDLER = CommandHandler("cash", convert)
-
 dispatcher.add_handler(CONVERTER_HANDLER)
 
 __command_list__ = ["cash"]

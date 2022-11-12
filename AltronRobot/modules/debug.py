@@ -17,19 +17,18 @@ def debug(update: Update, context: CallbackContext):
     global DEBUG_MODE
     args = update.effective_message.text.split(None, 1)
     message = update.effective_message
-    print(DEBUG_MODE)
     if len(args) > 1:
         if args[1] in ("yes", "on"):
             DEBUG_MODE = True
-            message.reply_text("Debug mode is now on.")
+            message.reply_text("» ᴅᴇʙᴜɢ ᴍᴏᴅᴇ ɪꜱ ɴᴏᴡ ᴏɴ.")
         elif args[1] in ("no", "off"):
             DEBUG_MODE = False
-            message.reply_text("Debug mode is now off.")
+            message.reply_text("» ᴅᴇʙᴜɢ ᴍᴏᴅᴇ ɪꜱ ɴᴏᴡ ᴏꜰꜰ.")
     else:
         if DEBUG_MODE:
-            message.reply_text("Debug mode is currently on.")
+            message.reply_text("» ᴅᴇʙᴜɢ ᴍᴏᴅᴇ ɪꜱ ᴄᴜʀʀᴇɴᴛʟʏ ᴏɴ.")
         else:
-            message.reply_text("Debug mode is currently off.")
+            message.reply_text("» ᴅᴇʙᴜɢ ᴍᴏᴅᴇ ɪꜱ ᴄᴜʀʀᴇɴᴛʟʏ ᴏꜰꜰ.")
 
 
 @telethn.on(events.NewMessage(pattern="[/!].*"))
@@ -47,10 +46,6 @@ async def i_do_nothing_yes(event):
                 f.write(
                     f"- {event.from_id} ({event.chat_id}) : {event.text} | {datetime.datetime.now()}"
                 )
-
-
-support_chat = os.getenv("SUPPORT_CHAT")
-
 
 @run_async
 @dev_plus

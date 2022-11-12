@@ -9,7 +9,7 @@ from telegram.error import Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, run_async
 
 import AltronRobot
-from AltronRobot import dispatcher
+from AltronRobot import dispatcher, OWNER_ID
 from AltronRobot.modules.helper_funcs.chat_status import dev_plus
 
 
@@ -31,23 +31,24 @@ def allow_groups(update: Update, context: CallbackContext):
 
 
 @run_async
-@dev_plus
 def leave(update: Update, context: CallbackContext):
     bot = context.bot
+    user_id = update.effective_user.id
     args = context.args
-    if args:
-        chat_id = str(args[0])
-        try:
-            bot.leave_chat(int(chat_id))
-        except TelegramError:
-            update.effective_message.reply_text(
-                "Beep boop, I could not leave that group(dunno why tho)."
-            )
-            return
-        with suppress(Unauthorized):
-            update.effective_message.reply_text("Beep boop, I left that soup!.")
-    else:
-        update.effective_message.reply_text("Send a valid chat ID")
+    if user_id == OWNER_ID:
+        if args:
+            chat_id = str(args[0])
+            try:
+                bot.leave_chat(int(chat_id))
+            except TelegramError:
+                update.effective_message.reply_text(
+                    "Beep boop, I could not leave that group(dunno why tho)."
+                )
+                return
+            with suppress(Unauthorized):
+                update.effective_message.reply_text("Beep boop, I left that soup!.")
+        else:
+            update.effective_message.reply_text("Send a valid chat ID")
 
 
 @run_async

@@ -1,4 +1,3 @@
-import html
 import json
 import re
 from time import sleep
@@ -34,21 +33,17 @@ from AltronRobot.modules.log_channel import gloggable
 @run_async
 @user_admin_no_reply
 @gloggable
-def kukirm(update: Update, context: CallbackContext) -> str:
+def altronrm(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
     match = re.match(r"rm_chat\((.+?)\)", query.data)
     if match:
         user_id = match.group(1)
         chat: Optional[Chat] = update.effective_chat
-        is_kuki = sql.rem_kuki(chat.id)
-        if is_kuki:
-            is_kuki = sql.rem_kuki(user_id)
-            return (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"AI_DISABLED\n"
-                f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-            )
+        is_alt = sql.rem_alt(chat.id)
+        if is_alt:
+            is_alt = sql.rem_alt(user_id)
+            return ""
         else:
             update.effective_message.edit_text(
                 "{} ᴄʜᴀᴛʙᴏᴛ ᴅɪsᴀʙʟᴇᴅ ʙʏ {}.".format(
@@ -63,16 +58,16 @@ def kukirm(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin_no_reply
 @gloggable
-def kukiadd(update: Update, context: CallbackContext) -> str:
+def altronadd(update: Update, context: CallbackContext) -> str:
     query: Optional[CallbackQuery] = update.callback_query
     user: Optional[User] = update.effective_user
     match = re.match(r"add_chat\((.+?)\)", query.data)
     if match:
         user_id = match.group(1)
         chat: Optional[Chat] = update.effective_chat
-        is_kuki = sql.set_kuki(chat.id)
-        if is_kuki:
-            is_kuki = sql.set_kuki(user_id)
+        is_alt = sql.set_alt(chat.id)
+        if is_alt:
+            is_alt = sql.set_alt(user_id)
         else:
             update.effective_message.edit_text(
                 "{} ᴄʜᴀᴛʙᴏᴛ ᴇɴᴀʙʟᴇᴅ ʙʏ {}.".format(
@@ -87,15 +82,15 @@ def kukiadd(update: Update, context: CallbackContext) -> str:
 @run_async
 @user_admin
 @gloggable
-def kuki(update: Update, context: CallbackContext):
+def itzaltron(update: Update, context: CallbackContext):
     update.effective_user
     message = update.effective_message
-    msg = "• ᴄʜᴏᴏsᴇ ᴀɴ ᴏᴩᴛɪᴏɴ ᴛᴏ ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ ᴄʜᴀᴛʙᴏᴛ"
+    msg = "» ᴄʜᴏᴏsᴇ ᴀɴ ᴏᴩᴛɪᴏɴ ᴛᴏ ᴇɴᴀʙʟᴇ/ᴅɪsᴀʙʟᴇ ᴄʜᴀᴛʙᴏᴛ"
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(text="ᴇɴᴀʙʟᴇ", callback_data="add_chat({})"),
-                InlineKeyboardButton(text="ᴅɪsᴀʙʟᴇ", callback_data="rm_chat({})"),
+                InlineKeyboardButton(text="• ᴇɴᴀʙʟᴇ •", callback_data="add_chat({})"),
+                InlineKeyboardButton(text="• ᴅɪsᴀʙʟᴇ •", callback_data="rm_chat({})"),
             ],
         ]
     )
@@ -106,9 +101,9 @@ def kuki(update: Update, context: CallbackContext):
     )
 
 
-def kuki_message(context: CallbackContext, message):
+def alt_message(context: CallbackContext, message):
     reply_message = message.reply_to_message
-    if message.text.lower() == "kuki":
+    if message.text.lower() == "altron":
         return True
     if reply_message:
         if reply_message.from_user.id == context.bot.get_me().id:
@@ -120,51 +115,48 @@ def kuki_message(context: CallbackContext, message):
 def chatbot(update: Update, context: CallbackContext):
     message = update.effective_message
     chat_id = update.effective_chat.id
-    bot = context.bot
-    is_kuki = sql.is_kuki(chat_id)
-    if not is_kuki:
+    is_alt = sql.is_alt(chat_id)
+    if not is_alt:
         return
 
     if message.text and not message.document:
-        if not kuki_message(context, message):
+        if not alt_message(context, message):
             return
-        anon = message.text
-        bot.send_chat_action(chat_id, action="typing")
-        url = f"http://api.roseloverx.com/api/chatbot?message={anon}"
+        evil = message.text
+        url = f"http://api.roseloverx.com/api/chatbot?message={evil}"
         request = requests.get(url)
         results = json.loads(request.text)
         result = f"{results['responses']}"
-        sleep(0.5)
+        sleep(0.3)
         message.reply_text(result)
 
 
 def list_all_chats(update: Update, context: CallbackContext):
-    chats = sql.get_all_kuki_chats()
-    text = "<b>ChatBot Enabled Chats</b>\n"
+    chats = sql.get_all_alt_chats()
+    text = "» <b>ᴄʜᴀᴛʙᴏᴛ ᴇɴᴀʙʟᴇᴅ ᴄʜᴀᴛꜱ:</b>\n\n"
     for chat in chats:
         try:
             x = context.bot.get_chat(int(*chat))
             name = x.title or x.first_name
             text += f"• <code>{name}</code>\n"
         except (BadRequest, Unauthorized):
-            sql.rem_kuki(*chat)
+            sql.rem_alt(*chat)
         except RetryAfter as e:
             sleep(e.retry_after)
     update.effective_message.reply_text(text, parse_mode="HTML")
 
 
 __help__ = """
-*Admins only Commands*:
-  »  /chatbot *:* Shows chatbot control panel
-
+𝗔𝗱𝗺𝗶𝗻𝘀 𝗼𝗻𝗹𝘆:
+  ➲ /chatbot : ꜱʜᴏᴡꜱ ᴄʜᴀᴛʙᴏᴛ ᴄᴏɴᴛʀᴏʟ ᴘᴀɴᴇʟ
 """
 
 __mod_name__ = "Cʜᴀᴛʙᴏᴛ"
 
 
-CHATBOTK_HANDLER = CommandHandler("chatbot", kuki)
-ADD_CHAT_HANDLER = CallbackQueryHandler(kukiadd, pattern=r"add_chat")
-RM_CHAT_HANDLER = CallbackQueryHandler(kukirm, pattern=r"rm_chat")
+CHATBOTK_HANDLER = CommandHandler("chatbot", itzaltron)
+ADD_CHAT_HANDLER = CallbackQueryHandler(altronadd, pattern=r"add_chat")
+RM_CHAT_HANDLER = CallbackQueryHandler(altronrm, pattern=r"rm_chat")
 CHATBOT_HANDLER = MessageHandler(
     Filters.text
     & (~Filters.regex(r"^#[^\s]+") & ~Filters.regex(r"^!") & ~Filters.regex(r"^\/")),

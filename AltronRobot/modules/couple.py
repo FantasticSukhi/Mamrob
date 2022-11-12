@@ -33,7 +33,7 @@ tomorrow = str(dt_tom())
 @pbot.on_message(filters.command(["couple", "couples"]))
 async def couple(_, message):
     if message.chat.type == "private":
-        return await message.reply_text("This command only works in groups.")
+        return await message.reply_text("ᴛʜɪꜱ ᴄᴏᴍᴍᴀɴᴅ ᴏɴʟʏ ᴡᴏʀᴋꜱ ɪɴ ɢʀᴏᴜᴘꜱ.")
     try:
         chat_id = message.chat.id
         is_selected = await get_couple(chat_id, today)
@@ -43,7 +43,7 @@ async def couple(_, message):
                 if not i.user.is_bot:
                     list_of_users.append(i.user.id)
             if len(list_of_users) < 2:
-                return await message.reply_text("Not enough users")
+                return await message.reply_text("ɴᴏᴛ ᴇɴᴏᴜɢʜ ᴜꜱᴇʀꜱ")
             c1_id = random.choice(list_of_users)
             c2_id = random.choice(list_of_users)
             while c1_id == c2_id:
@@ -73,9 +73,8 @@ __New couple of the day may be chosen at 12AM {tomorrow}__"""
 
 
 __help__ = """
-Choose couples in your chat
-
- ❍ /couple *:* Choose 2 users and send their name as couples in your chat.
+‣ ᴄʜᴏᴏꜱᴇ ᴄᴏᴜᴘʟᴇꜱ ɪɴ ʏᴏᴜʀ ᴄʜᴀᴛ
+  ➲ /couple : ᴄʜᴏᴏꜱᴇ 2 ᴜꜱᴇʀꜱ ᴀɴᴅ ꜱᴇɴᴅ ᴛʜᴇɪʀ ɴᴀᴍᴇ ᴀꜱ ᴄᴏᴜᴘʟᴇꜱ ɪɴ ʏᴏᴜʀ ᴄʜᴀᴛ.
 """
 
 __mod_name__ = "Cᴏᴜᴘʟᴇ​"

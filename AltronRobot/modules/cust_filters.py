@@ -3,7 +3,7 @@ import re
 from html import escape
 
 import telegram
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Message, ParseMode
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import (
     CallbackQueryHandler,
@@ -15,7 +15,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import escape_markdown, mention_html
 
-from AltronRobot import DRAGONS, LOGGER, dispatcher
+from AltronRobot import DEV_USERS, LOGGER, dispatcher
 from AltronRobot.modules.connection import connected
 from AltronRobot.modules.disable import DisableAbleCommandHandler
 from AltronRobot.modules.helper_funcs.alternate import send_message, typing_action
@@ -58,21 +58,21 @@ def list_handlers(update, context):
     if not conn is False:
         chat_id = conn
         chat_name = dispatcher.bot.getChat(conn).title
-        filter_list = "*Filter in {}:*\n"
+        filter_list = "*ꜰɪʟᴛᴇʀ ɪɴ {}:*\n"
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
-            chat_name = "Local filters"
-            filter_list = "*local filters:*\n"
+            chat_name = "ʟᴏᴄᴀʟ ꜰɪʟᴛᴇʀꜱ"
+            filter_list = "» *ʟᴏᴄᴀʟ ꜰɪʟᴛᴇʀꜱ:*\n"
         else:
             chat_name = chat.title
-            filter_list = "*Filters in {}*:\n"
+            filter_list = "» *ꜰɪʟᴛᴇʀꜱ ɪɴ {}*:\n"
 
     all_handlers = sql.get_chat_triggers(chat_id)
 
     if not all_handlers:
         send_message(
-            update.effective_message, "No filters saved in {}!".format(chat_name)
+            update.effective_message, "» ɴᴏ ꜰɪʟᴛᴇʀꜱ ꜱᴀᴠᴇᴅ ɪɴ {}!".format(chat_name)
         )
         return
 
@@ -113,7 +113,7 @@ def filters(update, context):
     else:
         chat_id = update.effective_chat.id
         if chat.type == "private":
-            chat_name = "local filters"
+            chat_name = "ʟᴏᴄᴀʟ ꜰɪʟᴛᴇʀꜱ"
         else:
             chat_name = chat.title
 
@@ -137,7 +137,6 @@ def filters(update, context):
         extracted = split_quotes(args[1])
         if len(extracted) < 1:
             return
-        # set trigger -> lower, so as to avoid adding duplicate filters with different cases
         keyword = extracted[0].lower()
 
     # Add the filter
@@ -150,7 +149,7 @@ def filters(update, context):
     if not msg.reply_to_message and len(extracted) >= 2:
         offset = len(extracted[1]) - len(
             msg.text
-        )  # set correct offset relative to command + notename
+        )
         text, buttons = button_markdown_parser(
             extracted[1], entities=msg.parse_entities(), offset=offset
         )
@@ -171,7 +170,7 @@ def filters(update, context):
             text_to_parsing = ""
         offset = len(
             text_to_parsing
-        )  # set correct offset relative to command + notename
+        )
         text, buttons = button_markdown_parser(
             text_to_parsing, entities=msg.parse_entities(), offset=offset
         )
@@ -193,7 +192,7 @@ def filters(update, context):
             text_to_parsing = ""
         offset = len(
             text_to_parsing
-        )  # set correct offset relative to command + notename
+        )
         text, buttons = button_markdown_parser(
             text_to_parsing, entities=msg.parse_entities(), offset=offset
         )
@@ -206,17 +205,14 @@ def filters(update, context):
             return
 
     else:
-        send_message(update.effective_message, "Invalid filter!")
+        send_message(update.effective_message, "ɪɴᴠᴀʟɪᴅ ꜰɪʟᴛᴇʀ!")
         return
 
     add = addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons)
-    # This is an old method
-    # sql.add_filter(chat_id, keyword, content, is_sticker, is_document, is_image, is_audio, is_voice, is_video, buttons)
-
     if add is True:
         send_message(
             update.effective_message,
-            "Saved filter '{}' in *{}*!".format(keyword, chat_name),
+            "» ꜱᴀᴠᴇᴅ ꜰɪʟᴛᴇʀ '{}' ɪɴ *{}*!".format(keyword, chat_name),
             parse_mode=telegram.ParseMode.MARKDOWN,
         )
     raise DispatcherHandlerStop
@@ -233,13 +229,8 @@ def stop_filter(update, context):
     conn = connected(context.bot, update, chat, user.id)
     if not conn is False:
         chat_id = conn
-        chat_name = dispatcher.bot.getChat(conn).title
     else:
         chat_id = update.effective_chat.id
-        if chat.type == "private":
-            chat_name = "Local filters"
-        else:
-            chat_name = chat.title
 
     if len(args) < 2:
         send_message(update.effective_message, "What should i stop?")
@@ -248,7 +239,7 @@ def stop_filter(update, context):
     chat_filters = sql.get_chat_triggers(chat_id)
 
     if not chat_filters:
-        send_message(update.effective_message, "No filters active here!")
+        send_message(update.effective_message, "ɴᴏ ꜰɪʟᴛᴇʀꜱ ᴀᴄᴛɪᴠᴇ ʜᴇʀᴇ!")
         return
 
     for keyword in chat_filters:
@@ -256,7 +247,7 @@ def stop_filter(update, context):
             sql.remove_filter(chat_id, args[1])
             send_message(
                 update.effective_message,
-                "Okay, I'll stop replying to that filter in *{}*.".format(chat_name),
+                "ꜰɪʟᴛᴇʀ {} ʜᴀꜱ ʙᴇᴇɴ ꜱᴛᴏᴘᴘᴇᴅ!".format(args[1]),
                 parse_mode=telegram.ParseMode.MARKDOWN,
             )
             raise DispatcherHandlerStop
@@ -269,8 +260,8 @@ def stop_filter(update, context):
 
 @run_async
 def reply_filter(update, context):
-    chat = update.effective_chat  # type: Optional[Chat]
-    message = update.effective_message  # type: Optional[Message]
+    chat = update.effective_chat
+    message = update.effective_message
 
     if not update.effective_user or update.effective_user.id == 777000:
         return
@@ -451,9 +442,7 @@ def reply_filter(update, context):
                             try:
                                 send_message(
                                     update.effective_message,
-                                    "You seem to be trying to use an unsupported url protocol. "
-                                    "Telegram doesn't support buttons for some protocols, such as tg://. Please try "
-                                    "again...",
+                                    "You seem to be trying to use an unsupported url protocol.\n\nTelegram doesn't support buttons for some protocols, such as tg://.\nPlease try again...",
                                 )
                             except BadRequest as excp:
                                 LOGGER.exception("Error in filters: " + excp.message)
@@ -486,7 +475,6 @@ def reply_filter(update, context):
                             )
 
                 else:
-                    # LEGACY - all new filters will have has_markdown set to True.
                     try:
                         send_message(update.effective_message, filt.reply)
                     except BadRequest as excp:
@@ -499,23 +487,23 @@ def rmall_filters(update, context):
     chat = update.effective_chat
     user = update.effective_user
     member = chat.get_member(user.id)
-    if member.status != "creator" and user.id not in DRAGONS:
+    if member.status != "creator" and user.id not in DEV_USERS:
         update.effective_message.reply_text(
-            "Only the chat owner can clear all notes at once."
+            "» ᴏɴʟʏ ᴛʜᴇ ᴄʜᴀᴛ ᴏᴡɴᴇʀ ᴄᴀɴ ᴄʟᴇᴀʀ ᴀʟʟ ɴᴏᴛᴇꜱ ᴀᴛ ᴏɴᴄᴇ."
         )
     else:
         buttons = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        text="Stop all filters", callback_data="filters_rmall"
+                        text="ꜱᴛᴏᴘ ᴀʟʟ ꜰɪʟᴛᴇʀꜱ", callback_data="filters_rmall"
                     )
                 ],
-                [InlineKeyboardButton(text="Cancel", callback_data="filters_cancel")],
+                [InlineKeyboardButton(text="ᴄᴀɴᴄᴇʟ", callback_data="filters_cancel")],
             ]
         )
         update.effective_message.reply_text(
-            f"Are you sure you would like to stop ALL filters in {chat.title}? This action cannot be undone.",
+            f"» ᴀʀᴇ ʏᴏᴜ ꜱᴜʀᴇ ʏᴏᴜ ᴡᴏᴜʟᴅ ʟɪᴋᴇ ᴛᴏ ꜱᴛᴏᴘ ᴀʟʟ ꜰɪʟᴛᴇʀꜱ ɪɴ {chat.title}?\n» ᴛʜɪꜱ ᴀᴄᴛɪᴏɴ ᴄᴀɴɴᴏᴛ ʙᴇ ᴜɴᴅᴏɴᴇ.",
             reply_markup=buttons,
             parse_mode=ParseMode.MARKDOWN,
         )
@@ -528,10 +516,10 @@ def rmall_callback(update, context):
     msg = update.effective_message
     member = chat.get_member(query.from_user.id)
     if query.data == "filters_rmall":
-        if member.status == "creator" or query.from_user.id in DRAGONS:
+        if member.status == "creator" or query.from_user.id in DEV_USERS:
             allfilters = sql.get_chat_triggers(chat.id)
             if not allfilters:
-                msg.edit_text("No filters in this chat, nothing to stop!")
+                msg.edit_text("» ɴᴏ ꜰɪʟᴛᴇʀꜱ ɪɴ ᴛʜɪꜱ ᴄʜᴀᴛ, ɴᴏᴛʜɪɴɢ ᴛᴏ ꜱᴛᴏᴘ!")
                 return
 
             count = 0
@@ -543,21 +531,16 @@ def rmall_callback(update, context):
             for i in filterlist:
                 sql.remove_filter(chat.id, i)
 
-            msg.edit_text(f"Cleaned {count} filters in {chat.title}")
+            msg.edit_text(f"» ᴄʟᴇᴀɴᴇᴅ {count} ꜰɪʟᴛᴇʀꜱ ɪɴ {chat.title}")
 
-        if member.status == "administrator":
+        if member.status in ("administrator", "member"):
             query.answer("Only owner of the chat can do this.")
-
-        if member.status == "member":
-            query.answer("You need to be admin to do this.")
     elif query.data == "filters_cancel":
-        if member.status == "creator" or query.from_user.id in DRAGONS:
-            msg.edit_text("Clearing of all filters has been cancelled.")
+        if member.status == "creator" or query.from_user.id in DEV_USERS:
+            msg.edit_text("» ᴄʟᴇᴀʀɪɴɢ ᴏꜰ ᴀʟʟ ꜰɪʟᴛᴇʀꜱ ʜᴀꜱ ʙᴇᴇɴ ᴄᴀɴᴄᴇʟʟᴇᴅ.")
             return
-        if member.status == "administrator":
+        if member.status in ("administrator", "member"):
             query.answer("Only owner of the chat can do this.")
-        if member.status == "member":
-            query.answer("You need to be admin to do this.")
 
 
 # NOT ASYNC NOT A HANDLER
@@ -578,7 +561,7 @@ def get_exception(excp, filt, chat):
 def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
     msg = update.effective_message
     totalfilt = sql.get_chat_triggers(chat_id)
-    if len(totalfilt) >= 150:  # Idk why i made this like function....
+    if len(totalfilt) >= 150:
         msg.reply_text("This group has reached its max filters limit of 150.")
         return False
     else:
@@ -587,7 +570,7 @@ def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
 
 
 def __stats__():
-    return "• {} filters, across {} chats.".format(sql.num_filters(), sql.num_chats())
+    return "• {} ꜰɪʟᴛᴇʀꜱ, ᴀᴄʀᴏꜱꜱ {} ᴄʜᴀᴛꜱ.".format(sql.num_filters(), sql.num_chats())
 
 
 def __import_data__(chat_id, data):
@@ -603,33 +586,36 @@ def __migrate__(old_chat_id, new_chat_id):
 
 def __chat_settings__(chat_id, user_id):
     cust_filters = sql.get_chat_triggers(chat_id)
-    return "There are `{}` custom filters here.".format(len(cust_filters))
+    return "» ᴛʜᴇʀᴇ ᴀʀᴇ `{}` ᴄᴜꜱᴛᴏᴍ ꜰɪʟᴛᴇʀꜱ ʜᴇʀᴇ.".format(len(cust_filters))
 
 
 __help__ = """
- ❍ /filters*:* List all active filters saved in the chat.
+  ➲ /filters: ʟɪꜱᴛ ᴀʟʟ ᴀᴄᴛɪᴠᴇ ꜰɪʟᴛᴇʀꜱ ꜱᴀᴠᴇᴅ ɪɴ ᴛʜᴇ ᴄʜᴀᴛ.
 
-*Admin only:*
- ❍ /filter <keyword> <reply message>*:* Add a filter to this chat. The bot will now reply that message whenever 'keyword'\
-is mentioned. If you reply to a sticker with a keyword, the bot will reply with that sticker. NOTE: all filter \
-keywords are in lowercase. If you want your keyword to be a sentence, use quotes. eg: /filter "hey there" How you \
-doin?
- Separate diff replies by `%%%` to get random replies
+𝗔𝗱𝗺𝗶𝗻𝘀 𝗼𝗻𝗹𝘆:
+  ➲ /filter <keyword> <reply message>: ᴀᴅᴅ ᴀ ꜰɪʟᴛᴇʀ ᴛᴏ ᴛʜɪꜱ ᴄʜᴀᴛ. ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ɴᴏᴡ ʀᴇᴘʟʏ ᴛʜᴀᴛ ᴍᴇꜱꜱᴀɢᴇ ᴡʜᴇɴᴇᴠᴇʀ 'keyword' ɪꜱ ᴍᴇɴᴛɪᴏɴᴇᴅ. ɪꜰ ʏᴏᴜ ʀᴇᴘʟʏ ᴛᴏ ᴀ ꜱᴛɪᴄᴋᴇʀ ᴡɪᴛʜ ᴀ ᴋᴇʏᴡᴏʀᴅ, ᴛʜᴇ ʙᴏᴛ ᴡɪʟʟ ʀᴇᴘʟʏ ᴡɪᴛʜ ᴛʜᴀᴛ ꜱᴛɪᴄᴋᴇʀ.
+  ➲ /stop <filter keyword>: ꜱᴛᴏᴘ ᴛʜᴀᴛ ꜰɪʟᴛᴇʀ.
+
+⚠ 𝗡𝗼𝘁𝗲:
+   » ᴀʟʟ ꜰɪʟᴛᴇʀ ᴋᴇʏᴡᴏʀᴅꜱ ᴀʀᴇ ɪɴ ʟᴏᴡᴇʀᴄᴀꜱᴇ. ɪꜰ ʏᴏᴜ ᴡᴀɴᴛ ʏᴏᴜʀ ᴋᴇʏᴡᴏʀᴅ ᴛᴏ ʙᴇ ᴀ ꜱᴇɴᴛᴇɴᴄᴇ, ᴜꜱᴇ Qᴜᴏᴛᴇꜱ.
+    ᴇɢ: /filter "hey there" How you doing?
+   » ꜱᴇᴘᴀʀᴀᴛᴇ ᴅɪꜰꜰ ʀᴇᴘʟɪᴇꜱ ʙʏ `%%%` ᴛᴏ ɢᴇᴛ ʀᴀɴᴅᴏᴍ ʀᴇᴘʟɪᴇꜱ
+
  *Example:* 
- `/filter "filtername"
- Reply 1
- %%%
- Reply 2
- %%%
- Reply 3`
- ❍ /stop <filter keyword>*:* Stop that filter.
+    `/filter "filtername"
+    Reply 1
+    %%%
+    Reply 2
+    %%%
+    Reply 3`
 
-*Chat creator only:*
- ❍ /removeallfilters*:* Remove all chat filters at once.
+𝗖𝗵𝗮𝘁 𝗰𝗿𝗲𝗮𝘁𝗼𝗿 𝗼𝗻𝗹𝘆:
+  ➲ /removeallfilters : ʀᴇᴍᴏᴠᴇ ᴀʟʟ ᴄʜᴀᴛ ꜰɪʟᴛᴇʀꜱ ᴀᴛ ᴏɴᴄᴇ.
 
-*Note*: Filters also support markdown formatters like: {first}, {last} etc.. and buttons.
-Check ❍ /markdownhelp to know more!
+⚠ 𝗡𝗼𝘁𝗲:
+   » ꜰɪʟᴛᴇʀꜱ ᴀʟꜱᴏ ꜱᴜᴘᴘᴏʀᴛ ᴍᴀʀᴋᴅᴏᴡɴ ꜰᴏʀᴍᴀᴛᴛᴇʀꜱ ʟɪᴋᴇ: {first}, {last} ᴇᴛᴄ.. ᴀɴᴅ ʙᴜᴛᴛᴏɴꜱ.
 
+‣ ᴄʜᴇᴄᴋ ➲ /markdownhelp ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ!
 """
 
 __mod_name__ = "Fɪʟᴛᴇʀs"

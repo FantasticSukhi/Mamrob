@@ -16,7 +16,7 @@ async def msg(event):
     try:
         a = country.info()
     except:
-        await event.reply("Country Not Available Currently")
+        await event.reply("» ᴄᴏᴜɴᴛʀʏ ɴᴏᴛ ᴀᴠᴀɪʟᴀʙʟᴇ ᴄᴜʀʀᴇɴᴛʟʏ")
     name = a.get("name")
     bb = a.get("altSpellings")
     hu = ""
@@ -76,27 +76,27 @@ async def msg(event):
 
     wiki = a.get("wiki")
 
-    caption = f"""<b><u>Information Gathered Successfully</b></u>
+    caption = f"""» <b><u>Information Gathered Successfully</b></u>
 
-<b>Country Name :</b> {name}
-<b>Alternative Spellings :</b> {hu}
-<b>Country Area :</b> {area} square kilometers
-<b>Borders :</b> {borders}
-<b>Calling Codes :</b> {call}
-<b>Country's Capital :</b> {capital}
-<b>Country's currency :</b> {currencies}
-<b>Country's Flag :</b> {okie}
-<b>Demonym :</b> {HmM}
-<b>Country Type :</b> {EsCoBaR}
-<b>ISO Names :</b> {iso}
-<b>Languages :</b> {lMAO}
-<b>Native Name :</b> {nonive}
-<b>Population :</b> {waste}
-<b>Region :</b> {reg}
-<b>Sub Region :</b> {sub}
-<b>Time Zones :</b> {tom}
-<b>Top Level Domain :</b> {lanester}
-<b>Wikipedia :</b> {wiki}
+‣ <b>Country Name :</b> {name}
+‣ <b>Alternative Spellings :</b> {hu}
+‣ <b>Country Area :</b> {area} square kilometers
+‣ <b>Borders :</b> {borders}
+‣ <b>Calling Codes :</b> {call}
+‣ <b>Country's Capital :</b> {capital}
+‣ <b>Country's currency :</b> {currencies}
+‣ <b>Country's Flag :</b> {okie}
+‣ <b>Demonym :</b> {HmM}
+‣ <b>Country Type :</b> {EsCoBaR}
+‣ <b>ISO Names :</b> {iso}
+‣ <b>Languages :</b> {lMAO}
+‣ <b>Native Name :</b> {nonive}
+‣ <b>Population :</b> {waste}
+‣ <b>Region :</b> {reg}
+‣ <b>Sub Region :</b> {sub}
+‣ <b>Time Zones :</b> {tom}
+‣ <b>Top Level Domain :</b> {lanester}
+‣ <b>Wikipedia :</b> {wiki}
 
 <u>Information Gathered By {dispatcher.bot.first_name}</u>
 """
@@ -110,9 +110,7 @@ async def msg(event):
 
 
 __help__ = """
-I will give information about a country
-
- ❍ /country <country name>*:* Gathering info about given country
+‣ ɪ ᴡɪʟʟ ɢɪᴠᴇ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ᴀ ᴄᴏᴜɴᴛʀʏ
+  ➲ /country <country name> : ɢᴀᴛʜᴇʀɪɴɢ ɪɴꜰᴏ ᴀʙᴏᴜᴛ ɢɪᴠᴇɴ ᴄᴏᴜɴᴛʀʏ
 """
-
 __mod_name__ = "Cᴏᴜɴᴛʀʏ"
