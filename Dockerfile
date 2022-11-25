@@ -65,7 +65,7 @@ RUN apt update && apt upgrade -y && \
 RUN pip3 install --upgrade pip setuptools
 
 # Copy Python Requirements to /root/AltronRobot
-RUN git clone https://github.com/ItZxSTaR/Altron /root/AltronRobot
+RUN git clone https://github.com/ItZxSTaR/AltronRobot /root/AltronRobot
 WORKDIR /root/AltronRobot
 
 #Copy config file to /root/AltronRobot/AltronRobot

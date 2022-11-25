@@ -1,7 +1,5 @@
 @echo off
-:: This runs the batch file as an admin - required UAC to be off
-:: This is just an asty hack in to get job done cause we host it on windows dedi.
-:: BatchGotAdmin
+
 :-------------------------------------
 REM  --> Check for permissions
 >nul 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"

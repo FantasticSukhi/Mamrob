@@ -1,7 +1,7 @@
 {
    "name": "Altron X Robot",
-   "description": "Telegram Group Management Bot.",
-   "logo": "https://telegra.ph/file/72e135da30a1a349f2844.jpg",
+   "description": "Telegram Group Management Robot.",
+   "logo": "https://te.legra.ph/file/4316456781b417ac8d1e0.jpg",
    "keywords": [
       "telegram",
       "sexy",
@@ -9,7 +9,7 @@
       "manager",
       "Altron"
    ],   
-"repository": "https://github.com/ItZxSTaR/Altron",
+"repository": "https://github.com/ItZxSTaR/AltronRobot",
 "stack": "heroku-20",
 "addons": [
    {
@@ -23,17 +23,17 @@
    "TOKEN": {
       "description": "Get bot token from @BotFather on TG",
       "required": true,
-      "value": "5540849926:AAG4Psto8Bh84FeM-kzFUGVQuHS_tCPbdH4"
+      "value": ""
    },
    "API_ID": {
       "description": "Get this value from my.telegram.org/apps.",
       "required": true,
-      "value": "18136872"
+      "value": ""
    },
    "API_HASH": {
       "description": "Get this value from my.telegram.org/apps.",
       "required": true,
-      "value": "312d861b78efcd1b02183b2ab52a83a4"
+      "value": ""
    },    
    "SQLALCHEMY_DATABASE_URI": {
       "description": "Your postgres sql db, Leave this field empty if you don't have one.",
@@ -43,11 +43,12 @@
    "OWNER_ID": {
       "description": "Your user ID as an integer.",
       "required": true,
-      "value": "5685816871"
+      "value": "1410250744"
    },
    "HEROKU_API_KEY": {
       "description": "Your Heroku API key, get it from 'https://dashboard.heroku.com/account'",
-      "value": "9f00f6ba-fc2c-4a7b-83d8-9b5279f2c2ac"
+      "required": false,
+      "value": ""
    },
    "HEROKU_APP_NAME": {
       "description": "Enter the Heroku app name here (Must an exact same name with your input above).",
@@ -55,27 +56,27 @@
    },
    "OWNER_USERNAME": {
       "description": "Your username without the @",
-      "value": "Itz_ExStar"
+      "value": "ItzExStar"
    },
    "SUPPORT_CHAT": {
       "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to Altron Support than consider you made an enemy.",
       "required": true,
-      "value": "TheAltron"
+      "value": "AltronChats"
    },
    "MONGO_DB_URI": {
       "description": "Required for database connections.",
       "required": true,
-      "value": "mongodb+srv://thexboy:ALTR0nROBOT@cluster0.i9fenme.mongodb.net/?retryWrites=true&w=majority"
+      "value": ""
    },
    "EVENT_LOGS": {
       "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-123456'",
       "required": true,
-      "value": "-1001777776331"
+      "value": ""
    },
    "JOIN_LOGGER": {
       "description": "A channel where bot will print who added it to what group, useful during debugging or spam handling.",
       "required": true,
-      "value": "-1001777776331"
+      "value": ""
    },      
    "CASH_API_KEY": {
       "description": "Required for currency converter. Get yours from https://www.alphavantage.co/support/#api-key",
@@ -86,11 +87,6 @@
       "description": "Required for timezone information. Get yours from https://timezonedb.com/api",
       "required": true,
       "value": "2UYJYAPDH1J7"
-   },
-   "DEV_USERS": {
-      "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Altron Support then keep the current ID's here at they are and add yours.",
-      "required": false,
-      "value": "5685816871"
    },
    "STRICT_GBAN": {
       "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
@@ -140,9 +136,9 @@
       "value": "True"
    },
    "DONATION_LINK": {
-      "description": "Link where you would like to receive donations. If you are a noob, better leave it linking to Anonymous",
+      "description": "Link where you would like to receive donations. If you are a noob, better leave it linking to Altron",
       "required": false,
-      "value": "https://t.me/Itz_ExStar"
+      "value": "https://t.me/ItzExStar"
    },
    "DEL_CMDS": {
       "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
@@ -151,7 +147,7 @@
    "START_IMG": {
    "description": "Telegraph link of the image which will be shown at start command.",
       "required": true,
-      "value": "https://telegra.ph/file/72e135da30a1a349f2844.jpg"
+      "value": "https://te.legra.ph/file/4316456781b417ac8d1e0.jpg"
 }
 }
 }
