@@ -98,15 +98,11 @@ buttons = [
         ),
     ],
     [
-        InlineKeyboardButton(text="✘ ʜᴇʟᴩ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs", callback_data="help_back"),
-    ],
-    [
         InlineKeyboardButton(text="✘ ᴀʙᴏᴜᴛ ", callback_data="altron_"),
         InlineKeyboardButton(text="✘ sᴜᴩᴩᴏʀᴛ", url=f"https://t.me/{SUPPORT_CHAT}"),
     ],
     [
-        InlineKeyboardButton(text="✘ ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=f"tg://user?id={OWNER_ID}"),
-        InlineKeyboardButton(text="✘ sᴏᴜʀᴄᴇ", callback_data="source_"),
+        InlineKeyboardButton(text="✘ ʜᴇʟᴩ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs", callback_data="help_back"),
     ],
 ]
 
@@ -430,7 +426,7 @@ def Altron_about_callback(update: Update, context: CallbackContext):
                         ),
                         InlineKeyboardButton(
                             text="✘ ɢɪᴛʜᴜʙ",
-                            callback_data="https://github.com/ItZxSTaR",
+                            url="https://github.com/ItZxSTaR",
                         ),
                     ],
                     [
