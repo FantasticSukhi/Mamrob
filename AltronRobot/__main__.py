@@ -1,6 +1,7 @@
 import importlib
 import re
 import time
+
 from platform import python_version as y
 from sys import argv
 from typing import Optional
@@ -143,6 +144,42 @@ ALTRON_ABOUT = f"""
  *✘ ɪ ʜᴀᴠᴇ ʟᴏᴛꜱ ᴏꜰ ꜰᴇᴀᴛᴜʀᴇꜱ ᴡʜɪᴄʜ ʏᴏᴜ ʟɪᴋᴇꜱ ᴛʜᴀᴛ.*
 """
 
+FedUsers = """
+𝗙𝗲𝗱 𝗨𝘀𝗲𝗿 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀:
+ ➲ /fstat: ꜱʜᴏᴡꜱ ɪꜰ ʏᴏᴜ/ᴏʀ ᴛʜᴇ ᴜꜱᴇʀ ʏᴏᴜ ᴀʀᴇ ʀᴇᴘʟʏɪɴɢ ᴛᴏ ᴏʀ ᴛʜᴇɪʀ ᴜꜱᴇʀɴᴀᴍᴇ ɪꜱ ꜰʙᴀɴɴᴇᴅ ꜱᴏᴍᴇᴡʜᴇʀᴇ ᴏʀ ɴᴏᴛ
+ ➲ /fednotif <on/off>: ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ꜱᴇᴛᴛɪɴɢꜱ ɴᴏᴛ ɪɴ ᴘᴍ ᴡʜᴇɴ ᴛʜᴇʀᴇ ᴀʀᴇ ᴜꜱᴇʀꜱ ᴡʜᴏ ᴀʀᴇ ꜰʙᴀɴᴇᴅ/ᴜɴꜰʙᴀɴɴᴇᴅ
+ ➲ /frules: ꜱᴇᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ʀᴇɢᴜʟᴀᴛɪᴏɴꜱ
+"""
+
+FedAdmins = """
+𝗙𝗲𝗱 𝗔𝗱𝗺𝗶𝗻 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀:
+ ➲ /fban <user> <reason>: ꜰᴇᴅ ʙᴀɴꜱ ᴀ ᴜꜱᴇʀ
+ ➲ /unfban <user> <reason>: ʀᴇᴍᴏᴠᴇꜱ ᴀ ᴜꜱᴇʀ ꜰʀᴏᴍ ᴀ ꜰᴇᴅ ʙᴀɴ
+ ➲ /fedinfo <fed_id>: ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ᴛʜᴇ ꜱᴘᴇᴄɪꜰɪᴇᴅ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ
+ ➲ /joinfed <fed_id>: ᴊᴏɪɴ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴄʜᴀᴛ ᴛᴏ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ. ᴏɴʟʏ ᴄʜᴀᴛ ᴏᴡɴᴇʀꜱ ᴄᴀɴ ᴅᴏ ᴛʜɪꜱ. ᴇᴠᴇʀʏ ᴄʜᴀᴛ ᴄᴀɴ ᴏɴʟʏ ʙᴇ ɪɴ ᴏɴᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ
+ ➲ /leavefed <fed_id>: ʟᴇᴀᴠᴇ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ɢɪᴠᴇɴ. ᴏɴʟʏ ᴄʜᴀᴛ ᴏᴡɴᴇʀꜱ ᴄᴀɴ ᴅᴏ ᴛʜɪꜱ
+ ➲ /setfrules <rules>: ᴀʀʀᴀɴɢᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ʀᴜʟᴇꜱ
+ ➲ /fedadmins: ꜱʜᴏᴡ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ᴀᴅᴍɪɴ
+ ➲ /fbanlist: ᴅɪꜱᴘʟᴀʏꜱ ᴀʟʟ ᴜꜱᴇʀꜱ ᴡʜᴏ ᴀʀᴇ ᴠɪᴄᴛɪᴍɪᴢᴇᴅ ᴀᴛ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ᴀᴛ ᴛʜɪꜱ ᴛɪᴍᴇ
+ ➲ /fedchats: ɢᴇᴛ ᴀʟʟ ᴛʜᴇ ᴄʜᴀᴛꜱ ᴛʜᴀᴛ ᴀʀᴇ ᴄᴏɴɴᴇᴄᴛᴇᴅ ɪɴ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ
+ ➲ /chatfed : ꜱᴇᴇ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ɪɴ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ᴄʜᴀᴛ
+"""
+
+FedOwner = """
+𝗙𝗲𝗱 𝗢𝘄𝗻𝗲𝗿 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀:
+ ➲ /newfed <fed_name>: ᴄʀᴇᴀᴛᴇꜱ ᴀ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ, ᴏɴᴇ ᴀʟʟᴏᴡᴇᴅ ᴘᴇʀ ᴜꜱᴇʀ
+ ➲ /renamefed <fed_id> <new_fed_name>: ʀᴇɴᴀᴍᴇꜱ ᴛʜᴇ ꜰᴇᴅ ɪᴅ ᴛᴏ ᴀ ɴᴇᴡ ɴᴀᴍᴇ
+ ➲ /delfed <fed_id>: ᴅᴇʟᴇᴛᴇ ᴀ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ, ᴀɴᴅ ᴀɴʏ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ ʀᴇʟᴀᴛᴇᴅ ᴛᴏ ɪᴛ. ᴡɪʟʟ ɴᴏᴛ ᴄᴀɴᴄᴇʟ ʙʟᴏᴄᴋᴇᴅ ᴜꜱᴇʀꜱ
+ ➲ /fpromote <user>: ᴀꜱꜱɪɢɴꜱ ᴛʜᴇ ᴜꜱᴇʀ ᴀꜱ ᴀ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ᴀᴅᴍɪɴ. ᴇɴᴀʙʟᴇꜱ ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅꜱ ꜰᴏʀ ᴛʜᴇ ᴜꜱᴇʀ ᴜɴᴅᴇʀ ꜰᴇᴅ ᴀᴅᴍɪɴꜱ
+ ➲ /fdemote <user>: ᴅʀᴏᴘꜱ ᴛʜᴇ ᴜꜱᴇʀ ꜰʀᴏᴍ ᴛʜᴇ ᴀᴅᴍɪɴ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ ᴛᴏ ᴀ ɴᴏʀᴍᴀʟ ᴜꜱᴇʀ
+ ➲ /subfed <fed_id>: ꜱᴜʙꜱᴄʀɪʙᴇꜱ ᴛᴏ ᴀ ɢɪᴠᴇɴ ꜰᴇᴅ ɪᴅ, ʙᴀɴꜱ ꜰʀᴏᴍ ᴛʜᴀᴛ ꜱᴜʙꜱᴄʀɪʙᴇᴅ ꜰᴇᴅ ᴡɪʟʟ ᴀʟꜱᴏ ʜᴀᴘᴘᴇɴ ɪɴ ʏᴏᴜʀ ꜰᴇᴅ
+ ➲ /unsubfed <fed_id>: ᴜɴꜱᴜʙꜱᴄʀɪʙᴇꜱ ᴛᴏ ᴀ ɢɪᴠᴇɴ ꜰᴇᴅ ɪᴅ
+ ➲ /setfedlog <fed_id>: ꜱᴇᴛꜱ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀꜱ ᴀ ꜰᴇᴅ ʟᴏɢ ʀᴇᴘᴏʀᴛ ʙᴀꜱᴇ ꜰᴏʀ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ
+ ➲ /unsetfedlog <fed_id>: ʀᴇᴍᴏᴠᴇᴅ ᴛʜᴇ ɢʀᴏᴜᴘ ᴀꜱ ᴀ ꜰᴇᴅ ʟᴏɢ ʀᴇᴘᴏʀᴛ ʙᴀꜱᴇ ꜰᴏʀ ᴛʜᴇ ꜰᴇᴅᴇʀᴀᴛɪᴏɴ
+ ➲ /fbroadcast <message>: ʙʀᴏᴀᴅᴄᴀꜱᴛꜱ ᴀ ᴍᴇꜱꜱᴀɢᴇꜱ ᴛᴏ ᴀʟʟ ɢʀᴏᴜᴘꜱ ᴛʜᴀᴛ ʜᴀᴠᴇ ᴊᴏɪɴᴇᴅ ʏᴏᴜʀ ꜰᴇᴅ
+ ➲ /fedsubs: ꜱʜᴏᴡꜱ ᴛʜᴇ ꜰᴇᴅꜱ ʏᴏᴜʀ ɢʀᴏᴜᴘ ɪꜱ ꜱᴜʙꜱᴄʀɪʙᴇᴅ ᴛᴏ
+"""
+
 IMPORTED = {}
 MIGRATEABLE = []
 HELPABLE = {}
@@ -214,12 +251,22 @@ def start(update: Update, context: CallbackContext):
                 mod = args[0].lower().split("_", 1)[1]
                 if not HELPABLE.get(mod, False):
                     return
+                buttonsf = [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
+                if HELPABLE[mod].__mod_name__ == "Fᴇᴅs":
+                    buttonsf = [
+                        [
+                            InlineKeyboardButton(text="ᴏᴡɴᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedOwn"),
+                            InlineKeyboardButton(text="ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedAdms")
+                        ],
+                        [
+                            InlineKeyboardButton(text="ᴜꜱᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedUsers")
+                        ],
+                        [InlineKeyboardButton(text="◁", callback_data="help_back")]
+                        ]
                 send_help(
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
-                    InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
-                    ),
+                    InlineKeyboardMarkup(buttonsf),
                 )
 
             elif args[0].lower().startswith("stngs_"):
@@ -235,7 +282,6 @@ def start(update: Update, context: CallbackContext):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
-            first_name = update.effective_user.first_name
             update.effective_message.reply_text(
                 PM_START_TEXT.format(BOT_NAME),
                 reply_markup=InlineKeyboardMarkup(buttons),
@@ -327,13 +373,25 @@ def help_button(update, context):
                 )
                 + HELPABLE[module].__help__
             )
+            buttonsf = [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
+
+            if HELPABLE[module].__mod_name__ == "Fᴇᴅs":
+                buttonsf = [
+                    [
+                        InlineKeyboardButton(text="ᴏᴡɴᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedOwn"),
+                        InlineKeyboardButton(text="ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedAdms")
+                    ],
+                    [
+                        InlineKeyboardButton(text="ᴜꜱᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedUsers")
+                    ],
+                    [InlineKeyboardButton(text="◁", callback_data="help_back")]
+                    ]
+
             query.message.edit_text(
                 text=text,
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
-                reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
-                ),
+                reply_markup=InlineKeyboardMarkup(buttonsf),
             )
 
         elif prev_match:
@@ -371,11 +429,32 @@ def help_button(update, context):
         pass
 
 
+
+@run_async
+def fed_button(update, context):
+    query = update.callback_query
+    buttonsf = [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
+
+    try:
+        if query.data == "FedOwn":
+            query.message.edit_text(text=FedOwner, reply_markup=InlineKeyboardMarkup(buttonsf),)
+
+        elif query.data == "FedAdms":
+            query.message.edit_text(text=FedAdmins, reply_markup=InlineKeyboardMarkup(buttonsf),)
+
+        elif query.data == "FedUsers":
+            query.message.edit_text(text=FedUsers, reply_markup=InlineKeyboardMarkup(buttonsf),)
+
+        context.bot.answer_callback_query(query.id)
+
+    except BadRequest as E:
+        pass
+
+
 @run_async
 def Altron_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     if query.data == "altron_":
-        uptime = get_readable_time((time.time() - StartTime))
         query.message.edit_text(
             text=ALTRON_ABOUT,
             parse_mode=ParseMode.MARKDOWN,
@@ -436,7 +515,6 @@ def Altron_about_callback(update: Update, context: CallbackContext):
             ),
         )
     elif query.data == "altron_back":
-        first_name = update.effective_user.first_name
         query.message.edit_text(
             PM_START_TEXT.format(BOT_NAME),
             reply_markup=InlineKeyboardMarkup(buttons),
@@ -475,7 +553,6 @@ def Source_about_callback(update: Update, context: CallbackContext):
             ),
         )
     elif query.data == "source_back":
-        first_name = update.effective_user.first_name
         query.message.edit_text(
             PM_START_TEXT.format(BOT_NAME),
             reply_markup=InlineKeyboardMarkup(buttons),
@@ -487,7 +564,7 @@ def Source_about_callback(update: Update, context: CallbackContext):
 
 @run_async
 def get_help(update: Update, context: CallbackContext):
-    chat = update.effective_chat  # type: Optional[Chat]
+    chat = update.effective_chat
     args = update.effective_message.text.split(None, 1)
 
     # ONLY send help in PM
@@ -539,12 +616,22 @@ def get_help(update: Update, context: CallbackContext):
             )
             + HELPABLE[module].__help__
         )
+        buttonsf = [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
+        if HELPABLE[module].__mod_name__ == "Fᴇᴅs":
+            buttonsf = [
+                [
+                    InlineKeyboardButton(text="ᴏᴡɴᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedOwn"),
+                    InlineKeyboardButton(text="ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedAdms")
+                ],
+                [
+                    InlineKeyboardButton(text="ᴜꜱᴇʀ ᴄᴏᴍᴍᴀɴᴅꜱ", callback_data="FedUsers")
+                ],
+                [InlineKeyboardButton(text="◁", callback_data="help_back")]
+                ]
         send_help(
             chat.id,
             text,
-            InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="◁", callback_data="help_back")]]
-            ),
+            InlineKeyboardMarkup(buttonsf),
         )
 
     else:
@@ -576,9 +663,7 @@ def send_settings(chat_id, user_id, user=False):
             chat_name = dispatcher.bot.getChat(chat_id).title
             dispatcher.bot.send_message(
                 user_id,
-                text="Which module would you like to check {}'s settings for?".format(
-                    chat_name
-                ),
+                text="Which module would you like to check {}'s settings for?".format(chat_name),
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, CHAT_SETTINGS, "stngs", chat=chat_id)
                 ),
@@ -792,6 +877,7 @@ def main():
 
     help_handler = CommandHandler("help", get_help)
     help_callback_handler = CallbackQueryHandler(help_button, pattern=r"help_.*")
+    fed_callback_handler = CallbackQueryHandler(fed_button, pattern=r"Fed")
 
     settings_handler = CommandHandler("settings", get_settings)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
@@ -812,6 +898,7 @@ def main():
     dispatcher.add_handler(source_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
+    dispatcher.add_handler(fed_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
     dispatcher.add_handler(migrate_handler)
     dispatcher.add_handler(donate_handler)
