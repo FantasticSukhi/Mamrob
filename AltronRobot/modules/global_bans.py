@@ -162,15 +162,15 @@ def gban(update: Update, context: CallbackContext):
 
         return
 
-    message.reply_text(f"» ɢʙᴀɴɴɪɴɢ...")
+    message.reply_text(f"ɢʙᴀɴɴɪɴɢ...")
 
     start_time = time.time()
     current_time = datetime.utcnow().strftime("%Y-%m-%d_%H:%M")
 
     if chat.type != "private":
-        chat_origin = "‣ <b>{} ({})</b>\n".format(html.escape(chat.title), chat.id)
+        chat_origin = "<b>{} ({})</b>\n".format(html.escape(chat.title), chat.id)
     else:
-        chat_origin = "‣ <b>{}</b>\n".format(chat.id)
+        chat_origin = "<b>{}</b>\n".format(chat.id)
 
     log_message = (
         f"#GBANNED\n"

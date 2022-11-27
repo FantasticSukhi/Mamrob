@@ -4,7 +4,7 @@ from datetime import datetime
 from pyrogram import filters
 
 from AltronRobot import pbot
-from AltronRobot.helper_extra.dbfun import get_couple, save_couple
+from AltronRobot.utils.mongo import get_couple, save_couple
 
 
 # Date and time

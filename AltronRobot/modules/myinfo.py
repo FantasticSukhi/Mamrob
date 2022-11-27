@@ -1,14 +1,13 @@
 from telethon import custom, events
 
 from AltronRobot import telethn as bot
-from AltronRobot import telethn as tgbot
 from AltronRobot.events import register
 
 
 @register(pattern="/myinfo")
 async def pythonx(event):
     firstname = event.sender.first_name
-    button = [[custom.Button.inline("• ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ •", data="informations")]]
+    button = [[custom.Button.inline("• ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ •", data="information")]]
     await bot.send_file(
         event.chat_id,
         file="https://telegra.ph/file/701028ce085ecfa961a36.jpg",
@@ -17,7 +16,7 @@ async def pythonx(event):
     )
 
 
-@tgbot.on(events.callbackquery.CallbackQuery(data="information"))
+@bot.on(events.callbackquery.CallbackQuery(data="information"))
 async def callback_query_handler(event):
     try:
         alt = event.sender_id

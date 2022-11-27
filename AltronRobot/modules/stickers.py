@@ -159,7 +159,7 @@ def kang(update: Update, context: CallbackContext):
                     emojis=sticker_emoji,
                 )
                 msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )
@@ -191,7 +191,7 @@ def kang(update: Update, context: CallbackContext):
                         emojis=sticker_emoji,
                     )
                     msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )
@@ -202,7 +202,7 @@ def kang(update: Update, context: CallbackContext):
                     msg.reply_text("Max packsize reached. Press F to pay respecc.")
                 elif e.message == "Internal Server Error: sticker set not found (500)":
                     msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )
@@ -239,7 +239,7 @@ def kang(update: Update, context: CallbackContext):
                     emojis=sticker_emoji,
                 )
                 msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )
@@ -260,7 +260,7 @@ def kang(update: Update, context: CallbackContext):
                     msg.reply_text("Invalid emoji(s).")
                 elif e.message == "Internal Server Error: sticker set not found (500)":
                     msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )
@@ -304,7 +304,7 @@ def kang(update: Update, context: CallbackContext):
                 emojis=sticker_emoji,
             )
             msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )
@@ -334,7 +334,7 @@ def kang(update: Update, context: CallbackContext):
                     emojis=sticker_emoji,
                 )
                 msg.reply_text(
-                    f"ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
+                    f"» ʏᴏᴜʀ ꜱᴛɪᴄᴋᴇʀ ʜᴀꜱ ʙᴇᴇɴ ᴀᴅᴅᴇᴅ!\nᴇᴍᴏᴊɪ ɪꜱ: {sticker_emoji}",
                     reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton("• ᴠɪᴇᴡ ᴘᴀᴄᴋ •", url=f"https://t.me/addstickers/{packname}")]]
                     )

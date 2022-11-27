@@ -20,7 +20,7 @@ def speedtestxyz(update: Update, context: CallbackContext):
             InlineKeyboardButton("• ᴛᴇxᴛ •", callback_data="speedtest_text"),
         ]
     ]
-    update.effective_message.reply_text("sᴩᴇᴇᴅᴛᴇsᴛ ᴍᴏᴅᴇ", reply_markup=InlineKeyboardMarkup(buttons))
+    update.effective_message.reply_text("» sᴩᴇᴇᴅᴛᴇsᴛ ᴍᴏᴅᴇ", reply_markup=InlineKeyboardMarkup(buttons))
 
 
 @run_async

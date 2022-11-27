@@ -19,7 +19,7 @@ from telegram.ext import (
 
 import AltronRobot.modules.sql.users_sql as sql
 from AltronRobot import LOGGER, dispatcher, pbot, OWNER_ID, DEV_USERS
-from AltronRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
+from AltronRobot.modules.helper_funcs.chat_status import sudo_plus
 
 USERS_GROUP = 4
 CHAT_GROUP = 5

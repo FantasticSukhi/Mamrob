@@ -2,7 +2,7 @@ import aiohttp
 from pyrogram import filters
 
 from AltronRobot import pbot
-from AltronRobot.helper_extra.errors import capture_err
+from AltronRobot.utils.errors import capture_err
 
 __mod_name__ = "Gɪᴛʜᴜʙ"
 

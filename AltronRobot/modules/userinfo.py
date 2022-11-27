@@ -121,9 +121,9 @@ def get_id(update: Update, context: CallbackContext):
             user1 = message.reply_to_message.from_user
             user2 = message.reply_to_message.forward_from
             msg.reply_text(
-                f"<b>ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ:</b>,"
-                f"• {html.escape(user2.first_name)} - <code>{user2.id}</code>.\n"
-                f"• {html.escape(user1.first_name)} - <code>{user1.id}</code>.",
+                f"<b>ᴛᴇʟᴇɢʀᴀᴍ ɪᴅ:</b>\n"
+                f" • {html.escape(user2.first_name)} - <code>{user2.id}</code>.\n"
+                f" • {html.escape(user1.first_name)} - <code>{user1.id}</code>.",
                 parse_mode=ParseMode.HTML,
             )
 
@@ -222,21 +222,21 @@ def info(update: Update, context: CallbackContext):
     rep = message.reply_text("<code>ᴀᴩᴩʀᴀɪsɪɴɢ...</code>", parse_mode=ParseMode.HTML)
 
     text = (
-        f"ㅤ ㅤㅤ ✦ ᴜsᴇʀ ɪɴғᴏ ✦\n✧═════ ≪ •❖• ≫ ═════✧\n"
-        f"➻ <b>ᴜsᴇʀ ɪᴅ:</b> <code>{user.id}</code>\n"
-        f"➻ <b>ғɪʀsᴛ ɴᴀᴍᴇ:</b> {html.escape(user.first_name)}"
+        f"╔═━「 <b>Appraisal results:</b> 」\n"
+        f"✪ <b>ᴜꜱᴇʀ ɪᴅ:</b> <code>{user.id}</code>\n"
+        f"✪ <b>ꜰɪʀꜱᴛ ɴᴀᴍᴇ:</b> {html.escape(user.first_name)}\n"
     )
 
     if user.last_name:
-        text += f"\n➻ <b>ʟᴀsᴛ ɴᴀᴍᴇ:</b> {html.escape(user.last_name)}"
+        text += f"\n✪ <b>ʟᴀꜱᴛ ɴᴀᴍᴇ:</b> {html.escape(user.last_name)}"
 
     if user.username:
-        text += f"\n➻ <b>ᴜsᴇʀɴᴀᴍᴇ:</b> @{html.escape(user.username)}"
+        text += f"\n✪ <b>ᴜsᴇʀɴᴀᴍᴇ:</b> @{html.escape(user.username)}"
 
-    text += f"\n➻ <b>ʟɪɴᴋ:</b> {mention_html(user.id, 'link')}"
+    text += f"\n✪ <b>ᴜꜱᴇʀ ʟɪɴᴋ:</b> {mention_html(user.id, 'link')}"
 
     if chat.type != "private" and user_id != bot.id:
-        _stext = "\n➻ <b>ᴩʀᴇsᴇɴᴄᴇ:</b> <code>{}</code>"
+        _stext = "\n✪ <b>ᴩʀᴇsᴇɴᴄᴇ:</b> <code>{}</code>"
 
         afk_st = is_afk(user.id)
         if afk_st:
@@ -252,7 +252,7 @@ def info(update: Update, context: CallbackContext):
                     text += _stext.format("ᴀᴅᴍɪɴ")
     if user_id not in [bot.id, 777000, 1087968824]:
         userhp = hpmanager(user)
-        text += f"\n\n<b>ʜᴇᴀʟᴛʜ:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
+        text += f"\n\n<b>Health:</b> <code>{userhp['earnedhp']}/{userhp['totalhp']}</code>\n[<i>{make_bar(int(userhp['percentage']))} </i>{userhp['percentage']}%]"
 
     if user.id == OWNER_ID:
         text += "\n\nᴛʜᴇ ᴅɪsᴀsᴛᴇʀ ʟᴇᴠᴇʟ ᴏғ ᴛʜɪs ᴜsᴇʀ ɪs <b>ɢᴏᴅ</b>.\n"

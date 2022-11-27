@@ -4,7 +4,7 @@ from pyrogram import filters
 
 from AltronRobot import OWNER_ID
 from AltronRobot import pbot as pbot
-from AltronRobot.helper_extra.dbfun import (
+from AltronRobot.utils.mongo import (
     alpha_to_int,
     get_karma,
     get_karmas,
