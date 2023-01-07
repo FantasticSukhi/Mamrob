@@ -40,7 +40,6 @@ class Config(object):
     ALLOW_EXCL = True
     CASH_API_KEY = ""
     TIME_API_KEY = ""
-    BL_CHATS = []
     SPAMMERS = None
     ALLOW_CHATS = True
     START_IMG = "https://te.legra.ph/file/ffd0e51afa72af992ab12.jpg"
