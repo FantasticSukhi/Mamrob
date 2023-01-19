@@ -473,12 +473,6 @@ def Altron_about_callback(update: Update, context: CallbackContext):
                         InlineKeyboardButton(
                             text="• ᴅᴇᴠᴇʟᴏᴩᴇʀ •", url=f"tg://user?id={OWNER_ID}"
                         ),
-                        InlineKeyboardButton(
-                            text="• sᴏᴜʀᴄᴇ •",
-                            callback_data="source_",
-                        ),
-                    ],
-                    [
                         InlineKeyboardButton(text="◁", callback_data="altron_back"),
                     ],
                 ]
@@ -841,9 +835,6 @@ def main():
     about_callback_handler = CallbackQueryHandler(
         Altron_about_callback, pattern=r"altron_"
     )
-    source_callback_handler = CallbackQueryHandler(
-        Source_about_callback, pattern=r"source_"
-    )
 
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
@@ -851,7 +842,6 @@ def main():
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_handler(source_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(fed_callback_handler)
