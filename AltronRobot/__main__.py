@@ -107,7 +107,7 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text="• sᴜᴩᴩᴏʀᴛ •", url=f"https://t.me/{SUPPORT_CHAT}"),
-        InlineKeyboardButton(text="•  •", url=f"https://t.me/TheAltron"),
+        InlineKeyboardButton(text="• ᴜᴘᴅᴀᴛᴇꜱ •", url=f"https://t.me/TheAltron"),
     ],
     [
         InlineKeyboardButton(text="• ʜᴇʟᴩ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs •", callback_data="help_back"),
