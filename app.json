@@ -1,7 +1,7 @@
 {
    "name": "Altron X Robot",
-   "description": "Telegram Group Management Robot.",
-   "logo": "https://te.legra.ph/file/4316456781b417ac8d1e0.jpg",
+   "description": "Telegram Group Management Bot.",
+   "logo": "https://telegra.ph/file/72e135da30a1a349f2844.jpg",
    "keywords": [
       "telegram",
       "sexy",
@@ -9,7 +9,7 @@
       "manager",
       "Altron"
    ],   
-"repository": "https://github.com/ItZxSTaR/AltronRobot",
+"repository": "https://github.com/ItZxSTaR/HotspotRobot",
 "stack": "heroku-20",
 "addons": [
    {
@@ -28,12 +28,12 @@
    "API_ID": {
       "description": "Get this value from my.telegram.org/apps.",
       "required": true,
-      "value": "23429283"
+      "value": "18136872"
    },
    "API_HASH": {
       "description": "Get this value from my.telegram.org/apps.",
       "required": true,
-      "value": ""c5cbe3bf97606e3dd38a0db886572154
+      "value": "312d861b78efcd1b02183b2ab52a83a4"
    },    
    "SQLALCHEMY_DATABASE_URI": {
       "description": "Your postgres sql db, Leave this field empty if you don't have one.",
@@ -43,12 +43,11 @@
    "OWNER_ID": {
       "description": "Your user ID as an integer.",
       "required": true,
-      "value": "1410250744"
+      "value": "1827586893"
    },
    "HEROKU_API_KEY": {
       "description": "Your Heroku API key, get it from 'https://dashboard.heroku.com/account'",
-      "required": false,
-      "value": ""
+      "value": "9f00f6ba-fc2c-4a7b-83d8-9b5279f2c2ac"
    },
    "HEROKU_APP_NAME": {
       "description": "Enter the Heroku app name here (Must an exact same name with your input above).",
@@ -88,14 +87,14 @@
       "required": true,
       "value": "2UYJYAPDH1J7"
    },
+   "DEV_USERS": {
+      "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Altron Support then keep the current ID's here at they are and add yours.",
+      "required": false,
+      "value": ""
+   },
    "STRICT_GBAN": {
       "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
       "value": "True"
-   },
-   "DEV_USERS": {
-      "description": "A space separated list of dev users IDs who will have the same perms as the owner.",
-      "required": false,
-      "value": ""
    },
    "DRAGONS": {
       "description": "A space separated list of user IDs who you want to assign as sudo users.",
@@ -152,7 +151,7 @@
    "START_IMG": {
    "description": "Telegraph link of the image which will be shown at start command.",
       "required": true,
-      "value": "https://te.legra.ph/file/15b7c17ecd2d7e65094fc.jpg"
+      "value": "https://telegra.ph/file/72e135da30a1a349f2844.jpg"
 }
 }
 }
