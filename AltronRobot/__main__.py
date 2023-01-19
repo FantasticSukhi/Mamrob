@@ -99,11 +99,11 @@ buttons = [
         ),
     ],
     [
-        InlineKeyboardButton(text="✘ ᴀʙᴏᴜᴛ ", callback_data="altron_"),
-        InlineKeyboardButton(text="✘ sᴜᴩᴩᴏʀᴛ", url=f"https://t.me/{SUPPORT_CHAT}"),
+        InlineKeyboardButton(text="• ᴀʙᴏᴜᴛ •", callback_data="altron_"),
+        InlineKeyboardButton(text="• sᴜᴩᴩᴏʀᴛ •", url=f"https://t.me/{SUPPORT_CHAT}"),
     ],
     [
-        InlineKeyboardButton(text="✘ ʜᴇʟᴩ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs", callback_data="help_back"),
+        InlineKeyboardButton(text="• ʜᴇʟᴩ ᴀɴᴅ ᴄᴏᴍᴍᴀɴᴅs •", callback_data="help_back"),
     ],
 ]
 
@@ -463,18 +463,18 @@ def Altron_about_callback(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="✘ sᴜᴩᴩᴏʀᴛ", callback_data="altron_support"
+                            text="• sᴜᴩᴩᴏʀᴛ •", callback_data="altron_support"
                         ),
                         InlineKeyboardButton(
-                            text="✘ ᴄᴏᴍᴍᴀɴᴅs", callback_data="help_back"
+                            text="• ᴄᴏᴍᴍᴀɴᴅs •", callback_data="help_back"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            text="✘ ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=f"tg://user?id={OWNER_ID}"
+                            text="• ᴅᴇᴠᴇʟᴏᴩᴇʀ •", url=f"tg://user?id={OWNER_ID}"
                         ),
                         InlineKeyboardButton(
-                            text="✘ sᴏᴜʀᴄᴇ",
+                            text="• sᴏᴜʀᴄᴇ •",
                             callback_data="source_",
                         ),
                     ],
@@ -493,66 +493,22 @@ def Altron_about_callback(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="✘ sᴜᴩᴩᴏʀᴛ", url=f"https://t.me/{SUPPORT_CHAT}"
+                            text="• sᴜᴩᴩᴏʀᴛ •", url=f"https://t.me/{SUPPORT_CHAT}"
                         ),
                         InlineKeyboardButton(
-                            text="✘ ᴜᴩᴅᴀᴛᴇs", url=f"https://t.me/TheAltron"
+                            text="• ᴜᴩᴅᴀᴛᴇs •", url=f"https://t.me/TheAltron"
                         ),
                     ],
                     [
                         InlineKeyboardButton(
-                            text="✘ ᴅᴇᴠᴇʟᴏᴩᴇʀ", url=f"tg://user?id={OWNER_ID}"
+                            text="• ᴅᴇᴠᴇʟᴏᴩᴇʀ •", url=f"tg://user?id={OWNER_ID}"
                         ),
-                        InlineKeyboardButton(
-                            text="✘ ɢɪᴛʜᴜʙ",
-                            url="https://github.com/ItZxSTaR",
-                        ),
-                    ],
-                    [
                         InlineKeyboardButton(text="◁", callback_data="altron_"),
                     ],
                 ]
             ),
         )
     elif query.data == "altron_back":
-        query.message.edit_text(
-            PM_START_TEXT.format(BOT_NAME),
-            reply_markup=InlineKeyboardMarkup(buttons),
-            parse_mode=ParseMode.MARKDOWN,
-            timeout=60,
-            disable_web_page_preview=False,
-        )
-
-
-@run_async
-def Source_about_callback(update: Update, context: CallbackContext):
-    query = update.callback_query
-    if query.data == "source_":
-        query.message.edit_text(
-            text=f"""
-*ʜᴇʏ,
- ᴛʜɪs ɪs {BOT_NAME},
-ᴀɴ ᴏᴩᴇɴ sᴏᴜʀᴄᴇ ᴛᴇʟᴇɢʀᴀᴍ ɢʀᴏᴜᴩ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ ʙᴏᴛ.*
-
-ᴡʀɪᴛᴛᴇɴ ɪɴ ᴩʏᴛʜᴏɴ ᴡɪᴛʜ ᴛʜᴇ ʜᴇʟᴩ ᴏғ : [ᴛᴇʟᴇᴛʜᴏɴ](https://github.com/LonamiWebs/Telethon)
-[ᴩʏʀᴏɢʀᴀᴍ](https://github.com/pyrogram/pyrogram)
-[ᴩʏᴛʜᴏɴ-ᴛᴇʟᴇɢʀᴀᴍ-ʙᴏᴛ](https://github.com/python-telegram-bot/python-telegram-bot)
-ᴀɴᴅ ᴜsɪɴɢ [sǫʟᴀʟᴄʜᴇᴍʏ](https://www.sqlalchemy.org) ᴀɴᴅ [ᴍᴏɴɢᴏ](https://cloud.mongodb.com) ᴀs ᴅᴀᴛᴀʙᴀsᴇ.
-
-
-*ʜᴇʀᴇ ɪs ᴍʏ sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ :* [ɢɪᴛʜᴜʙ](https://github.com/ItZxSTaR/AltronRobot)
-
-
-{BOT_NAME} ɪs ʟɪᴄᴇɴsᴇᴅ ᴜɴᴅᴇʀ ᴛʜᴇ [ᴍɪᴛ ʟɪᴄᴇɴsᴇ](https://github.com/ItZxSTaR/AltronRobot/blob/master/LICENSE).
-© 2022 - 2023 [@𝐓ʜᴇ𝐀ʟᴛʀᴏɴ](https://t.me/{SUPPORT_CHAT}), ᴀʟʟ ʀɪɢʜᴛs ʀᴇsᴇʀᴠᴇᴅ.
-""",
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="◁", callback_data="source_back")]]
-            ),
-        )
-    elif query.data == "source_back":
         query.message.edit_text(
             PM_START_TEXT.format(BOT_NAME),
             reply_markup=InlineKeyboardMarkup(buttons),
