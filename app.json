@@ -151,7 +151,7 @@
    "START_IMG": {
    "description": "Telegraph link of the image which will be shown at start command.",
       "required": true,
-      "value": "https://telegra.ph/file/72e135da30a1a349f2844.jpg"
+      "value": "https://te.legra.ph/file/15b7c17ecd2d7e65094fc.jpg"
 }
 }
 }
