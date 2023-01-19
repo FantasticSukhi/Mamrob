@@ -437,55 +437,7 @@ def fed_button(update, context):
 @run_async
 def Altron_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
-    if query.data == "altron_":
-        query.message.edit_text(
-            text=ALTRON_ABOUT,
-            parse_mode=ParseMode.MARKDOWN,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="• sᴜᴩᴩᴏʀᴛ •", callback_data="altron_support"
-                        ),
-                        InlineKeyboardButton(
-                            text="• ᴄᴏᴍᴍᴀɴᴅs •", callback_data="help_back"
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            text="• ᴅᴇᴠᴇʟᴏᴩᴇʀ •", url=f"tg://user?id={OWNER_ID}"
-                        ),
-                        InlineKeyboardButton(text="◁", callback_data="altron_back"),
-                    ],
-                ]
-            ),
-        )
-    elif query.data == "altron_support":
-        query.message.edit_text(
-            text="*๏ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴs ɢɪᴠᴇɴ ʙᴇʟᴏᴡ ᴛᴏ ɢᴇᴛ ʜᴇʟᴩ ᴀɴᴅ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ ᴀʙᴏᴜᴛ ᴍᴇ.*"
-            f"\n\nɪғ ʏᴏᴜ ғᴏᴜɴᴅ ᴀɴʏ ʙᴜɢ ɪɴ {BOT_NAME} ᴏʀ ɪғ ʏᴏᴜ ᴡᴀɴɴᴀ ɢɪᴠᴇ ғᴇᴇᴅʙᴀᴄᴋ ᴀʙᴏᴜᴛ ᴛʜᴇ {BOT_NAME}, ᴩʟᴇᴀsᴇ ʀᴇᴩᴏʀᴛ ɪᴛ ᴀᴛ sᴜᴩᴩᴏʀᴛ ᴄʜᴀᴛ.",
-            parse_mode=ParseMode.MARKDOWN,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text="• sᴜᴩᴩᴏʀᴛ •", url=f"https://t.me/{SUPPORT_CHAT}"
-                        ),
-                        InlineKeyboardButton(
-                            text="• ᴜᴩᴅᴀᴛᴇs •", url=f"https://t.me/TheAltron"
-                        ),
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            text="• ᴅᴇᴠᴇʟᴏᴩᴇʀ •", url=f"tg://user?id={OWNER_ID}"
-                        ),
-                        InlineKeyboardButton(text="◁", callback_data="altron_"),
-                    ],
-                ]
-            ),
-        )
-    elif query.data == "altron_back":
+    if query.data == "altron_back":
         query.message.edit_text(
             PM_START_TEXT.format(BOT_NAME),
             reply_markup=InlineKeyboardMarkup(buttons),
