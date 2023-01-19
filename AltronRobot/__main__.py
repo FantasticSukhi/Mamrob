@@ -267,7 +267,7 @@ def start(update: Update, context: CallbackContext):
 
         else:
             update.effective_message.reply_text(
-                PM_START_TEXT.format(BOT_NAME),
+                PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
@@ -440,7 +440,7 @@ def Altron_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     if query.data == "altron_back":
         query.message.edit_text(
-            PM_START_TEXT.format(BOT_NAME),
+            PM_START_TEXT,
             reply_markup=InlineKeyboardMarkup(buttons),
             parse_mode=ParseMode.MARKDOWN,
             timeout=60,
