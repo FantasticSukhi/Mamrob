@@ -442,12 +442,14 @@ def fed_button(update, context):
 def Altron_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     if query.data == "altron_back":
+        numu = sql.num_users()
+        numc = sql.num_chats()
         query.message.edit_text(
-            PM_START_TEXT,
+            PM_START_TEXT.format(numu, numc),
             reply_markup=InlineKeyboardMarkup(buttons),
             parse_mode=ParseMode.MARKDOWN,
             timeout=60,
-            disable_web_page_preview=False,
+            disable_web_page_preview=True,
         )
 
 
