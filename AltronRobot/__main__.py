@@ -81,7 +81,7 @@ def get_readable_time(seconds: int) -> str:
     return ping_time
 
 
-PM_START_TEXT = f"""
+PM_START_TEXT = """
 *━━━━━━━ ʜᴏᴛꜱᴘᴏᴛ ━━━━━━━*
 
  [ʜᴏᴛꜱᴘᴏᴛ ʀᴏʙᴏᴛ](https://t.me/HOTSPOTROBOT) ɪꜱ ᴀɴ ᴀɴɪᴍᴀᴛᴇᴅ
@@ -94,8 +94,8 @@ PM_START_TEXT = f"""
         *ᴍᴜᴛɪɴɢ* ᴀɴᴅ ᴍᴀɴʏ ᴍᴏʀᴇ.
 
 *━━━━━━━ ʜᴏᴛꜱᴘᴏᴛ ━━━━━━━*
-            *≛≛  ᴜꜱᴇʀꜱ:*   {sql.num_users()}
-            *≛≛  ᴄʜᴀᴛꜱ:*   {sql.num_chats()}
+            *≛≛  ᴜꜱᴇʀꜱ:*   {0}
+            *≛≛  ᴄʜᴀᴛꜱ:*   {1}
 """
 
 buttons = [
@@ -266,8 +266,10 @@ def start(update: Update, context: CallbackContext):
                 IMPORTED["rules"].send_rules(update, args[0], from_pm=True)
 
         else:
+            numu = sql.num_users()
+            numc = sql.num_chats()
             update.effective_message.reply_text(
-                PM_START_TEXT,
+                PM_START_TEXT.format(numu, numc),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
