@@ -270,6 +270,7 @@ def start(update: Update, context: CallbackContext):
                 PM_START_TEXT,
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
+                disable_web_page_preview=True,
                 timeout=60,
             )
     else:
