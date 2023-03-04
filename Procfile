@@ -1,2 +1,2 @@
-worker: python3 -m AltronRobot
+worker: python3 -m HotspotRobot
 ps:scale worker=1

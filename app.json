@@ -7,7 +7,7 @@
       "sexy",
       "group",
       "manager",
-      "Altron"
+      "Hotspot"
    ],   
 "repository": "https://github.com/ItZxSTaR/HotspotRobot",
 "stack": "heroku-20",
@@ -15,13 +15,16 @@
    {
       "options": {
          "version": "12"
-      },
-      "plan": "heroku-postgresql"
+      }
    }
 ],
 "env": {
    "TOKEN": {
       "description": "Get bot token from @BotFather on TG",
+      "required": true,
+      "value": ""
+   },
+   "DATABASE_URL": {
       "required": true,
       "value": ""
    },
@@ -59,7 +62,7 @@
       "value": "PyXen"
    },
    "SUPPORT_CHAT": {
-      "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to Altron Support than consider you made an enemy.",
+      "description": "Your Telegram support group chat username where your users will go and bother you with shit But be like: MyGroupChatUsernameBlah. If this ever points to Hotspot Support than consider you made an enemy.",
       "required": true,
       "value": "AltronChats"
    },
@@ -89,9 +92,9 @@
       "value": "2UYJYAPDH1J7"
    },
    "DEV_USERS": {
-      "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Altron Support then keep the current ID's here at they are and add yours.",
+      "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Hotspot Support then keep the current ID's here at they are and add yours.",
       "required": false,
-      "value": "5655799578 1953656325 1073855692"
+      "value": "5655799578 1953656325 1073855692 5611985399"
    },
    "STRICT_GBAN": {
       "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
@@ -141,7 +144,7 @@
       "value": "True"
    },
    "DONATION_LINK": {
-      "description": "Link where you would like to receive donations. If you are a noob, better leave it linking to Altron",
+      "description": "Link where you would like to receive donations. If you are a noob, better leave it linking to Hotspot",
       "required": false,
       "value": "https://t.me/PyXen"
    },

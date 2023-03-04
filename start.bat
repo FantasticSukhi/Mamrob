@@ -1,4 +1,4 @@
 @echo off
-TITLE Altron Robot
-:: Enables virtual env mode and then starts Altron
-env\scripts\activate.bat && py -m AltronRobot
+TITLE Hotspot Robot
+:: Enables virtual env mode and then starts Hotspot
+env\scripts\activate.bat && py -m HotspotRobot

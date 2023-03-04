@@ -64,12 +64,12 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/AltronRobot
-RUN git clone https://github.com/ItZxSTaR/AltronRobot /root/AltronRobot
-WORKDIR /root/AltronRobot
+# Copy Python Requirements to /root/HotspotRobot
+RUN git clone https://github.com/ItZxSTaR/HotspotRobot /root/HotspotRobot
+WORKDIR /root/HotspotRobot
 
-#Copy config file to /root/AltronRobot/AltronRobot
-COPY ./AltronRobot/config.py ./AltronRobot/config.py* /root/AltronRobot/AltronRobot/
+#Copy config file to /root/HotspotRobot/HotspotRobot
+COPY ./HotspotRobot/config.py ./HotspotRobot/config.py* /root/HotspotRobot/HotspotRobot/
 
 ENV PATH="/home/bot/bin:$PATH"
 
@@ -77,4 +77,4 @@ ENV PATH="/home/bot/bin:$PATH"
 RUN pip3 install -U -r requirements.txt
 
 # Starting Worker
-CMD ["python3","-m","AltronRobot"]
+CMD ["python3","-m","HotspotRobot"]
