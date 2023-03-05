@@ -1,6 +1,6 @@
 from enum import IntEnum, unique
 
-from telegram import Message
+from pyrogram.types import Message
 
 from HotspotRobot.modules.helper_funcs.string_handling import button_markdown_parser
 
@@ -96,59 +96,61 @@ def get_welcome_type(msg: Message):
             else:
                 args = msg.reply_to_message.caption
         else:
-            args = msg.text.split(None, 1)
+            args = msg.text.split(" ", 1)
     except AttributeError:
         args = False
 
-    if msg.reply_to_message and msg.reply_to_message.sticker:
-        content = msg.reply_to_message.sticker.file_id
-        text = None
-        data_type = Types.STICKER
+    if msg.reply_to_message:
 
-    elif msg.reply_to_message and msg.reply_to_message.document:
-        content = msg.reply_to_message.document.file_id
-        text = msg.reply_to_message.caption
-        data_type = Types.DOCUMENT
+        if msg.reply_to_message.sticker:
+            content = msg.reply_to_message.sticker.file_id
+            text = None
+            data_type = Types.STICKER
 
-    elif msg.reply_to_message and msg.reply_to_message.photo:
-        content = msg.reply_to_message.photo[-1].file_id  # last elem = best quality
-        text = msg.reply_to_message.caption
-        data_type = Types.PHOTO
+        elif msg.reply_to_message.document:
+            content = msg.reply_to_message.document.file_id
+            text = msg.reply_to_message.caption
+            data_type = Types.DOCUMENT
 
-    elif msg.reply_to_message and msg.reply_to_message.audio:
-        content = msg.reply_to_message.audio.file_id
-        text = msg.reply_to_message.caption
-        data_type = Types.AUDIO
+        elif msg.reply_to_message.photo:
+            content = msg.reply_to_message.photo[-1].file_id  # last elem = best quality
+            text = msg.reply_to_message.caption
+            data_type = Types.PHOTO
 
-    elif msg.reply_to_message and msg.reply_to_message.voice:
-        content = msg.reply_to_message.voice.file_id
-        text = msg.reply_to_message.caption
-        data_type = Types.VOICE
+        elif msg.reply_to_message.audio:
+            content = msg.reply_to_message.audio.file_id
+            text = msg.reply_to_message.caption
+            data_type = Types.AUDIO
 
-    elif msg.reply_to_message and msg.reply_to_message.video:
-        content = msg.reply_to_message.video.file_id
-        text = msg.reply_to_message.caption
-        data_type = Types.VIDEO
+        elif msg.reply_to_message.voice:
+            content = msg.reply_to_message.voice.file_id
+            text = msg.reply_to_message.caption
+            data_type = Types.VOICE
 
-    elif msg.reply_to_message and msg.reply_to_message.video_note:
-        content = msg.reply_to_message.video_note.file_id
-        text = None
-        data_type = Types.VIDEO_NOTE
+        elif msg.reply_to_message.video:
+            content = msg.reply_to_message.video.file_id
+            text = msg.reply_to_message.caption
+            data_type = Types.VIDEO
+
+        elif msg.reply_to_message.video_note:
+            content = msg.reply_to_message.video_note.file_id
+            text = None
+            data_type = Types.VIDEO_NOTE
+
+        elif msg.reply_to_message.text:
+            text = msg.reply_to_message.text
 
     buttons = []
     # determine what the contents of the filter are - text, image, sticker, etc
     if args:
         if msg.reply_to_message:
-            argumen = (
-                msg.reply_to_message.caption if msg.reply_to_message.caption else ""
-            )
             offset = 0  # offset is no need since target was in reply
             entities = msg.reply_to_message.parse_entities()
         else:
-            argumen = args[1]
-            offset = len(argumen) - len(msg.text)  # set correct offset relative to command + notename
+            args = args[1]
+            offset = len(args) - len(msg.text)  # set correct offset relative to command + notename
             entities = msg.parse_entities()
-        text, buttons = button_markdown_parser(argumen, entities=entities, offset=offset)
+        text, buttons = button_markdown_parser(args, entities=entities, offset=offset)
 
     if not data_type:
         if text and buttons:
