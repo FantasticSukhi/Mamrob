@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+
 from contextlib import suppress
 from time import sleep
 
@@ -8,8 +9,8 @@ from telegram import TelegramError, Update
 from telegram.error import Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, run_async
 
-import HotspotRobot
-from HotspotRobot import dispatcher, OWNER_ID
+from HotspotRobot import dispatcher, OWNER_ID, ALLOW_CHATS
+from  HotspotRobot.modules.sql import users_sql
 from HotspotRobot.modules.helper_funcs.chat_status import dev_plus
 
 
@@ -18,12 +19,12 @@ from HotspotRobot.modules.helper_funcs.chat_status import dev_plus
 def allow_groups(update: Update, context: CallbackContext):
     args = context.args
     if not args:
-        update.effective_message.reply_text(f"Current state: {HotspotRobot.ALLOW_CHATS}")
+        update.effective_message.reply_text(f"Current state: {ALLOW_CHATS}")
         return
     if args[0].lower() in ["off", "no"]:
-        HotspotRobot.ALLOW_CHATS = True
+        ALLOW_CHATS = True
     elif args[0].lower() in ["yes", "on"]:
-        HotspotRobot.ALLOW_CHATS = False
+        ALLOW_CHATS = False
     else:
         update.effective_message.reply_text("Format: /lockdown Yes/No or Off/On")
         return
@@ -40,15 +41,14 @@ def leave(update: Update, context: CallbackContext):
             chat_id = str(args[0])
             try:
                 bot.leave_chat(int(chat_id))
+                users_sql.rem_chat(chat_id)
             except TelegramError:
-                update.effective_message.reply_text(
-                    "Beep boop, I could not leave that group(dunno why tho)."
-                )
+                update.effective_message.reply_text("I could not leave that group.")
                 return
             with suppress(Unauthorized):
-                update.effective_message.reply_text("Beep boop, I left that soup!.")
+                update.effective_message.reply_text("» ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ʟᴇꜰᴛᴇᴅ ᴛʜᴀᴛ ᴄʜᴀᴛ.")
         else:
-            update.effective_message.reply_text("Send a valid chat ID")
+            update.effective_message.reply_text("Send a valid Chat ID")
 
 
 @run_async
@@ -65,7 +65,7 @@ def gitpull(update: Update, context: CallbackContext):
         sent_msg.edit_text(sent_msg_text + str(i + 1))
         sleep(1)
 
-    sent_msg.edit_text("Restarted.")
+    sent_msg.edit_text("» ʀᴇꜱᴛᴀʀᴛᴇᴅ.")
 
     os.system("restart.bat")
     os.execv("start.bat", sys.argv)

@@ -25,19 +25,20 @@ from HotspotRobot.modules.helper_funcs.chat_status import (
 from HotspotRobot.modules.helper_funcs.extraction import extract_user
 from HotspotRobot.modules.channel import gloggable
 
+
 ELEVATED_USERS_FILE = os.path.join(os.getcwd(), "HotspotRobot/elevated_users.json")
 
 
 def check_user_id(user_id: int, context: CallbackContext) -> Optional[str]:
     bot = context.bot
+
     if not user_id:
         reply = "That...is a chat! baka ka omae?"
-
     elif user_id == bot.id:
         reply = "This does not work that way."
-
     else:
         reply = None
+
     return reply
 
 
@@ -354,8 +355,7 @@ def whitelistlist(update: Update, context: CallbackContext):
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
-
-            reply += f"• {mention_html(user_id, html.escape(user.first_name))}\n"
+            reply += f"  <b>•</b> {mention_html(user_id, html.escape(user.first_name))}\n"
         except TelegramError:
             pass
     m.edit_text(reply, parse_mode=ParseMode.HTML)
@@ -366,14 +366,14 @@ def whitelistlist(update: Update, context: CallbackContext):
 def tigerlist(update: Update, context: CallbackContext):
     reply = "<b>» Known Tiger Disasters 🐯:</b>\n"
     m = update.effective_message.reply_text(
-        "<code>Gathering intel..</code>", parse_mode=ParseMode.HTML
+        "» <code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ...</code>", parse_mode=ParseMode.HTML
     )
     bot = context.bot
     for each_user in TIGERS:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
-            reply += f"• {mention_html(user_id, html.escape(user.first_name))}\n"
+            reply += f"  <b>•</b> {mention_html(user_id, html.escape(user.first_name))}\n"
         except TelegramError:
             pass
     m.edit_text(reply, parse_mode=ParseMode.HTML)
@@ -391,7 +391,7 @@ def supportlist(update: Update, context: CallbackContext):
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
-            reply += f"• {mention_html(user_id, html.escape(user.first_name))}\n"
+            reply += f"  <b>•</b> {mention_html(user_id, html.escape(user.first_name))}\n"
         except TelegramError:
             pass
     m.edit_text(reply, parse_mode=ParseMode.HTML)
@@ -410,7 +410,7 @@ def sudolist(update: Update, context: CallbackContext):
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
-            reply += f"• {mention_html(user_id, html.escape(user.first_name))}\n"
+            reply += f"  <b>•</b> {mention_html(user_id, html.escape(user.first_name))}\n"
         except TelegramError:
             pass
     m.edit_text(reply, parse_mode=ParseMode.HTML)
@@ -424,12 +424,12 @@ def devlist(update: Update, context: CallbackContext):
         "» <code>ɢᴀᴛʜᴇʀɪɴɢ ɪɴᴛᴇʟ...</code>", parse_mode=ParseMode.HTML
     )
     true_dev = list(set(DEV_USERS) - {OWNER_ID})
-    reply = "<b>» Hotspot Association Members ⚡️:</b>\n"
+    reply = "<b>» Altron Association Members ⚡️:</b>\n"
     for each_user in true_dev:
         user_id = int(each_user)
         try:
             user = bot.get_chat(user_id)
-            reply += f"• {mention_html(user_id, html.escape(user.first_name))}\n"
+            reply += f"  <b>•</b> {mention_html(user_id, html.escape(user.first_name))}\n"
         except TelegramError:
             pass
     m.edit_text(reply, parse_mode=ParseMode.HTML)

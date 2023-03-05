@@ -16,8 +16,8 @@ async def alive(event):
     TEXT += f"» **ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ :** `{pyrogram.__version__}` \n━━━━━━━━━━━━━━━━━\n\n"
     BUTTON = [
         [
-            Button.url("ʜᴇʟᴘ​", "https://t.me/HotspotRobot?start=help"),
-            Button.url("sᴜᴘᴘᴏʀᴛ​", "https://t.me/TheAltron"),
+            Button.url("• ʜᴇʟᴘ •​", "https://t.me/HotspotRobot?start=help"),
+            Button.url("• ᴜᴘᴅᴀᴛᴇꜱ •", "https://t.me/TheAltron"),
         ]
     ]
     await telethn.send_file(event.chat_id, START_IMG, caption=TEXT, buttons=BUTTON)

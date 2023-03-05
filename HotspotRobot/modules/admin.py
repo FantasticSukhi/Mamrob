@@ -689,7 +689,7 @@ def pinned(update: Update, context: CallbackContext) -> str:
             link_chat_id = (str(msg.chat.id)).replace("-100", "")
 
         msg.reply_text(
-            f"ᴩɪɴɴᴇᴅ ᴏɴ {html.escape(chat.title)}.",
+            f"» ᴩɪɴɴᴇᴅ ᴏɴ {html.escape(chat.title)}.",
             reply_to_message_id=msg_id,
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True,
@@ -697,7 +697,7 @@ def pinned(update: Update, context: CallbackContext) -> str:
                 [
                     [
                         InlineKeyboardButton(
-                            text="ᴍᴇssᴀɢᴇ",
+                            text="• ᴍᴇssᴀɢᴇ •",
                             url=f"https://t.me/{link_chat_id}/{pinned_id}",
                         )
                     ]
@@ -728,13 +728,9 @@ def invite(update: Update, context: CallbackContext):
             invitelink = bot.exportChatInviteLink(chat.id)
             update.effective_message.reply_text(invitelink)
         else:
-            update.effective_message.reply_text(
-                "» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴩᴇʀᴍɪssɪᴏɴs ᴛᴏ ᴀᴄᴄᴇss ɪɴᴠɪᴛᴇ ʟɪɴᴋs !",
-            )
+            update.effective_message.reply_text("» ɪ ᴅᴏɴ'ᴛ ʜᴀᴠᴇ ᴩᴇʀᴍɪssɪᴏɴs ᴛᴏ ᴀᴄᴄᴇss ɪɴᴠɪᴛᴇ ʟɪɴᴋs !")
     else:
-        update.effective_message.reply_text(
-            "» ɪ ᴄᴀɴ ᴏɴʟʏ ɢɪᴠᴇ ɪɴᴠɪᴛᴇ ʟɪɴᴋs ғᴏʀ ɢʀᴏᴜᴩs ᴀɴᴅ ᴄʜᴀɴɴᴇʟs !",
-        )
+        update.effective_message.reply_text("» ɪ ᴄᴀɴ ᴏɴʟʏ ɢɪᴠᴇ ɪɴᴠɪᴛᴇ ʟɪɴᴋs ғᴏʀ ɢʀᴏᴜᴩs ᴀɴᴅ ᴄʜᴀɴɴᴇʟs !")
 
 
 @run_async
@@ -744,27 +740,15 @@ def adminlist(update, context):
     bot = context.bot
 
     if update.effective_message.chat.type == "private":
-        send_message(
-            update.effective_message,
-            "» ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴄᴀɴ ᴏɴʟʏ ʙᴇ ᴜsᴇᴅ ɪɴ ɢʀᴏᴜᴩ's ɴᴏᴛ ɪɴ ᴩᴍ.",
-        )
+        update.effective_message.reply_text("» ᴛʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴄᴀɴ ᴏɴʟʏ ʙᴇ ᴜsᴇᴅ ɪɴ ɢʀᴏᴜᴩ's ɴᴏᴛ ɪɴ ᴩᴍ.")
         return
 
-    update.effective_chat
-    chat_id = update.effective_chat.id
-
     try:
-        msg = update.effective_message.reply_text(
-            "» ғᴇᴛᴄʜɪɴɢ ᴀᴅᴍɪɴs ʟɪsᴛ...",
-            parse_mode=ParseMode.HTML,
-        )
+        msg = update.effective_message.reply_text("» ғᴇᴛᴄʜɪɴɢ ᴀᴅᴍɪɴs ʟɪsᴛ...")
     except BadRequest:
-        msg = update.effective_message.reply_text(
-            "» ғᴇᴛᴄʜɪɴɢ ᴀᴅᴍɪɴs ʟɪsᴛ...",
-            quote=False,
-            parse_mode=ParseMode.HTML,
-        )
+        msg = update.effective_message.reply_text("» ғᴇᴛᴄʜɪɴɢ ᴀᴅᴍɪɴs ʟɪsᴛ...", quote=False)
 
+    chat_id = update.effective_chat.id
     administrators = bot.getChatAdministrators(chat_id)
     text = "ᴀᴅᴍɪɴs ɪɴ <b>{}</b>:\n".format(html.escape(update.effective_chat.title))
 

@@ -1,24 +1,25 @@
 import requests
-from pyrogram import filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from HotspotRobot import BOT_NAME, BOT_USERNAME
-from HotspotRobot import pbot as hotspot
+from pyrogram import filters
+from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
+
+from HotspotRobot import BOT_NAME, BOT_USERNAME, pbot as hotspot
 
 
 @hotspot.on_message(filters.command("write"))
 async def handwrite(_, message: Message):
-    if not message.reply_to_message:
-        text = message.text.split(None, 1)[1]
+    if message.reply_to_message:
+        text = message.reply_to_message.text
         m = await hotspot.send_message(message.chat.id, "ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
         API = f"https://api.sdbots.tk/write?text={text}"
         req = requests.get(API).url
         caption = f"""
-Successfully Written Text 💘
+ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴡʀɪᴛᴛᴇɴ ᴛᴇxᴛ 💘
 
-✨ **Written By :** [{BOT_NAME}](https://t.me/{BOT_USERNAME})
-🥀 **Requested by :** {message.from_user.mention}
-❄ **Link :** `{req}`
+✨ **ᴡʀɪᴛᴛᴇɴ ʙʏ :**
+  **•**  [{BOT_NAME}](https://t.me/{BOT_USERNAME})
+🥀 **ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :**
+  **•**  {message.from_user.mention}
 """
         await m.delete()
         await hotspot.send_photo(
@@ -26,22 +27,27 @@ Successfully Written Text 💘
             photo=req,
             caption=caption,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("• ᴛᴇʟᴇɢʀᴀᴩʜ •", url=f"{req}")]]
+                [[InlineKeyboardButton("• ᴛᴇʟᴇɢʀᴀᴩʜ •", url=req)]]
             ),
         )
+
     else:
-        lol = message.reply_to_message.text
-        m = await hotspot.send_message(
-            message.chat.id, "`Please wait...,\n\nWriting your text...`"
-        )
-        API = f"https://api.sdbots.tk/write?text={lol}"
+        text = message.text.split(" ", 1)
+        if len(text) == 1:
+            await hotspot.send_message("ɢɪᴠᴇ ᴍᴇ ᴀ ᴛᴇxᴛ ᴡʀɪᴛᴇ.")
+            return
+
+        text = text[1]
+        m = await hotspot.send_message(message.chat.id, "ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
+        API = f"https://api.sdbots.tk/write?text={text}"
         req = requests.get(API).url
         caption = f"""
-Successfully Written Text 💘
+ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴡʀɪᴛᴛᴇɴ ᴛᴇxᴛ 💘
 
-✨ **Written By :** [{BOT_NAME}](https://t.me/{BOT_USERNAME})
-🥀 **Requested by :** {message.from_user.mention}
-❄ **Link :** `{req}`
+✨ **ᴡʀɪᴛᴛᴇɴ ʙʏ :**
+  **•**  [{BOT_NAME}](https://t.me/{BOT_USERNAME})
+🥀 **ʀᴇǫᴜᴇsᴛᴇᴅ ʙʏ :**
+  **•**  {message.from_user.mention}
 """
         await m.delete()
         await hotspot.send_photo(
@@ -49,7 +55,7 @@ Successfully Written Text 💘
             photo=req,
             caption=caption,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("• ᴛᴇʟᴇɢʀᴀᴩʜ •", url=f"{req}")]]
+                [[InlineKeyboardButton("• ᴛᴇʟᴇɢʀᴀᴩʜ •", url=req)]]
             ),
         )
 
@@ -59,4 +65,4 @@ __help__ = """
 ‣ ᴡʀɪᴛᴇꜱ ᴛʜᴇ ɢɪᴠᴇɴ ᴛᴇxᴛ ᴏɴ ᴡʜɪᴛᴇ ᴘᴀɢᴇ ᴡɪᴛʜ ᴀ ᴘᴇɴ 🖊
 
  ➲ /write <text> : ᴡʀɪᴛᴇꜱ ᴛʜᴇ ɢɪᴠᴇɴ ᴛᴇxᴛ.
- """
+"""
