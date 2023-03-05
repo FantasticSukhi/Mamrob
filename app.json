@@ -11,14 +11,6 @@
    ],   
 "repository": "https://github.com/ItZxSTaR/HotspotRobot",
 "stack": "heroku-20",
-"addons": [
-   {
-      "options": {
-         "version": "12"
-      },
-      "plan": "heroku-postgresql"
-   }
-],
 "env": {
    "TOKEN": {
       "description": "Get bot token from @BotFather on TG",
