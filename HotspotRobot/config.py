@@ -10,7 +10,7 @@ class Config(object):
     JOIN_LOGGER = ()
     EVENT_LOGS = ()
 
-    SQLALCHEMY_DATABASE_URI = ""
+    DB_URI = ""
     MONGO_DB_URI = ""
     LOAD = []
     NO_LOAD = ["rss"]
