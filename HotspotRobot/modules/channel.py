@@ -172,9 +172,6 @@ if is_module_loaded(FILENAME):
         else:
             message.reply_text("» ɴᴏ ʟᴏɢ ᴄʜᴀɴɴᴇʟ ʜᴀꜱ ʙᴇᴇɴ ꜱᴇᴛ ʏᴇᴛ!")
 
-    def __stats__():
-        return f"• {sql.num_logchannels()} ʟᴏɢ ᴄʜᴀɴɴᴇʟꜱ ꜱᴇᴛ."
-
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)
 

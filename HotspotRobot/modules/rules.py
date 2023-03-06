@@ -130,9 +130,6 @@ def clear_rules(update: Update, context: CallbackContext):
     update.effective_message.reply_text("» ꜱᴜᴄᴄᴇꜱꜱꜰᴜʟʟʏ ᴄʟᴇᴀʀᴇᴅ ʀᴜʟᴇꜱ!")
 
 
-def __stats__():
-    return f"• {sql.num_chats()} ɢʀᴏᴜᴘꜱ ʜᴀᴠᴇ ʀᴜʟᴇꜱ."
-
 def __import_data__(chat_id, data):
     rules = data.get("info", {}).get("rules", "")
     sql.set_rules(chat_id, rules)

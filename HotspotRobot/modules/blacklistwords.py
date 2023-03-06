@@ -422,12 +422,6 @@ def __chat_settings__(chat_id, user_id):
     return "ᴛʜᴇʀᴇ ᴀʀᴇ {} ʙʟᴀᴄᴋʟɪꜱᴛᴇᴅ ᴡᴏʀᴅꜱ.".format(blacklisted)
 
 
-def __stats__():
-    return "• {} ʙʟᴀᴄᴋʟɪꜱᴛ ᴛʀɪɢɢᴇʀꜱ, ᴀᴄʀᴏꜱꜱ {} ᴄʜᴀᴛꜱ.".format(
-        sql.num_blacklist_filters(), sql.num_blacklist_filter_chats()
-    )
-
-
 __mod_name__ = "Bʟ-Wᴏʀᴅꜱ"
 
 __help__ = """

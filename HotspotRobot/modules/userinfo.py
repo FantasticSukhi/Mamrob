@@ -14,6 +14,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import escape_markdown, mention_html
+
 from telethon import events
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
@@ -386,9 +387,10 @@ def set_about_me(update: Update, context: CallbackContext):
 @run_async
 @sudo_plus
 def stats(update: Update, context: CallbackContext):
-    stats = "<b>⚡ ᴄᴜʀʀᴇɴᴛ ʜᴏᴛꜱᴘᴏᴛ sᴛᴀᴛs:</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
+    stats = f"**▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬**\n" + "\n".join([mod.__stats__() for mod in STATS])
+    stats += f"\n**▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬**\n**       ▬▬▬▬▬▬▬▬**\n**       ▬▬▬▬▬▬▬▬**"
     result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
-    update.effective_message.reply_text(result, parse_mode=ParseMode.HTML)
+    update.effective_message.reply_text(result)
 
 
 @run_async

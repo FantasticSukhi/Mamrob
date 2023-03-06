@@ -10,7 +10,7 @@ from HotspotRobot import BOT_NAME, BOT_USERNAME, pbot as hotspot
 async def handwrite(_, message: Message):
     if message.reply_to_message:
         text = message.reply_to_message.text
-        m = await hotspot.send_message(message.chat.id, "ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
+        m = await message.reply_text("ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
         API = f"https://api.sdbots.tk/write?text={text}"
         req = requests.get(API).url
         caption = f"""
@@ -34,11 +34,11 @@ async def handwrite(_, message: Message):
     else:
         text = message.text.split(" ", 1)
         if len(text) == 1:
-            await hotspot.send_message("ɢɪᴠᴇ ᴍᴇ ᴀ ᴛᴇxᴛ ᴡʀɪᴛᴇ.")
+            await message.reply_text("ɢɪᴠᴇ ᴍᴇ ᴀ ᴛᴇxᴛ ᴡʀɪᴛᴇ.")
             return
 
         text = text[1]
-        m = await hotspot.send_message(message.chat.id, "ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
+        m = await message.reply_text("ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
         API = f"https://api.sdbots.tk/write?text={text}"
         req = requests.get(API).url
         caption = f"""

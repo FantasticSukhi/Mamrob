@@ -16,6 +16,7 @@ from HotspotRobot import dispatcher
 from HotspotRobot.modules.helper_funcs.handlers import CMD_STARTERS, SpamChecker
 from HotspotRobot.modules.helper_funcs.misc import is_module_loaded
 
+
 FILENAME = __name__.rsplit(".", 1)[-1]
 
 # If module is due to be loaded, then setup all the magical handlers
@@ -311,9 +312,6 @@ if is_module_loaded(FILENAME):
         update.effective_message.reply_text(
             build_curr_disabled(chat.id), parse_mode=ParseMode.MARKDOWN
         )
-
-    def __stats__():
-        return f"• {sql.num_disabled()} ᴅɪꜱᴀʙʟᴇᴅ ɪᴛᴇᴍꜱ, ᴀᴄʀᴏꜱꜱ {sql.num_chats()} ᴄʜᴀᴛꜱ."
 
     def __migrate__(old_chat_id, new_chat_id):
         sql.migrate_chat(old_chat_id, new_chat_id)

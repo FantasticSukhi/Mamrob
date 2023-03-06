@@ -5,12 +5,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, run_async
 from telegram.utils.helpers import mention_html
 
-from HotspotRobot import (
-    DEV_USERS,
-    LOGGER,
-    OWNER_ID,
-    dispatcher,
-)
+from HotspotRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
 from HotspotRobot.modules.disable import DisableAbleCommandHandler
 from HotspotRobot.modules.helper_funcs.chat_status import (
     bot_admin,
@@ -80,13 +75,12 @@ def ban(update: Update, context: CallbackContext) -> str:
             message.delete()
             return
 
-        reply = (
-            f"<code>❕</code><b>ʙᴀɴ ᴇᴠᴇɴᴛ</b>\n"
-            f"<code> </code><b>•  ʙᴀɴɴᴇᴅ ʙʏ:</b> {mention_html(user.id, user.first_name)}\n"
-            f"<code> </code><b>•  ᴜsᴇʀ:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
-        )
+        reply = f"❏ 𝗕𝗔𝗡 𝗘𝗩𝗘𝗡𝗧\n├• <b>ᴜsᴇʀ:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
         if reason:
-            reply += f"\n<code> </code><b>•  ʀᴇᴀsᴏɴ:</b> \n{html.escape(reason)}"
+            reply += f"\n├• <b>ʙᴀɴɴᴇᴅ ʙʏ:</b> {mention_html(user.id, user.first_name)}"
+            reply += f"\n└• <b>ʀᴇᴀsᴏɴ:</b> \n{html.escape(reason)}"
+        else:
+            reply += f"\n└• <b>ʙᴀɴɴᴇᴅ ʙʏ:</b> {mention_html(user.id, user.first_name)}"
         bot.sendMessage(chat.id, reply, parse_mode=ParseMode.HTML, quote=False)
         return
 
@@ -157,12 +151,12 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
 
     try:
         chat.kick_member(user_id, until_date=bantime)
-        bot.sendMessage(
-            chat.id,
-            f"ʙᴀɴɴᴇᴅ!\n\n» ᴜsᴇʀ {mention_html(member.user.id, html.escape(member.user.first_name))} "
-            f"ɪs ɴᴏᴡ ʙᴀɴɴᴇᴅ ғᴏʀ {time_val}.",
-            parse_mode=ParseMode.HTML,
+        reply = (
+            f"❏ 𝗧𝗘𝗠𝗣-𝗕𝗔𝗡 𝗘𝗩𝗘𝗡𝗧\n"
+            f"├• <b>ᴜsᴇʀ:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}\n"
+            f"└• <b>ʙᴀɴ-ᴛɪᴍᴇ:</b> {time_val}"
         )
+        bot.sendMessage(chat.id, reply, parse_mode=ParseMode.HTML)
         return
 
     except BadRequest as excp:
@@ -223,9 +217,9 @@ def kick(update: Update, context: CallbackContext) -> str:
 
     if res:
         reply = (
-            f"<code>❕</code><b>ᴋɪᴄᴋᴇᴅ</b>\n"
-            f"<code> </code><b>•  ᴋɪᴄᴋᴇᴅ ʙʏ:</b> {mention_html(user.id, user.first_name)}\n"
-            f"<code> </code><b>•  ᴜsᴇʀ:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
+            f"❏ 𝗞𝗜𝗖𝗞 𝗘𝗩𝗘𝗡𝗧\n"
+            f"├• <b>ᴜsᴇʀ:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}\n"
+            f"└• <b>ᴋɪᴄᴋᴇᴅ ʙʏ:</b> {mention_html(user.id, user.first_name)}"
         )
         bot.sendMessage(chat.id, reply, parse_mode=ParseMode.HTML, quote=False)
         return
@@ -246,7 +240,7 @@ def kickme(update: Update, context: CallbackContext):
 
     res = update.effective_chat.unban_member(user_id)
     if res:
-        update.effective_message.reply_text("kicks you out of the group")
+        update.effective_message.reply_text("Kicks you out of the Group")
     else:
         update.effective_message.reply_text("Huh? I can't :/")
 

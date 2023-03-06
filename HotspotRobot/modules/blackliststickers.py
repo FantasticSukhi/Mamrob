@@ -466,12 +466,6 @@ def __chat_settings__(chat_id, user_id):
     return "» ᴛʜᴇʀᴇ ᴀʀᴇ `{} `ʙʟᴀᴄᴋʟɪꜱᴛᴇᴅ ꜱᴛɪᴄᴋᴇʀꜱ.".format(blacklisted)
 
 
-def __stats__():
-    return "• {} ʙʟᴀᴄᴋʟɪꜱᴛ ꜱᴛɪᴄᴋᴇʀꜱ, ᴀᴄʀᴏꜱꜱ {} ᴄʜᴀᴛꜱ.".format(
-        sql.num_stickers_filters(), sql.num_stickers_filter_chats()
-    )
-
-
 __help__ = """
 ‣ ʙʟᴀᴄᴋʟɪꜱᴛ ꜱᴛɪᴄᴋᴇʀ ɪꜱ ᴜꜱᴇᴅ ᴛᴏ ꜱᴛᴏᴘ ᴄᴇʀᴛᴀɪɴ ꜱᴛɪᴄᴋᴇʀꜱ. ᴡʜᴇɴᴇᴠᴇʀ ᴀ ꜱᴛɪᴄᴋᴇʀ ɪꜱ ꜱᴇɴᴛ, ᴛʜᴇ ᴍᴇꜱꜱᴀɢᴇ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ ɪᴍᴍᴇᴅɪᴀᴛᴇʟʏ.
 
