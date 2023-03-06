@@ -157,13 +157,6 @@ def num_notes():
         SESSION.close()
 
 
-def num_chats():
-    try:
-        return SESSION.query(func.count(distinct(Notes.chat_id))).scalar()
-    finally:
-        SESSION.close()
-
-
 def migrate_chat(old_chat_id, new_chat_id):
     with NOTES_INSERTION_LOCK:
         chat_notes = (

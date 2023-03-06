@@ -309,13 +309,6 @@ def num_filters():
         SESSION.close()
 
 
-def num_chats():
-    try:
-        return SESSION.query(func.count(distinct(CustomFilters.chat_id))).scalar()
-    finally:
-        SESSION.close()
-
-
 def __load_chat_filters():
     global CHAT_FILTERS
     try:

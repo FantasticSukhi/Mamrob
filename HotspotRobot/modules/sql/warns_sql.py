@@ -226,20 +226,6 @@ def num_warns():
         SESSION.close()
 
 
-def num_warn_chats():
-    try:
-        return SESSION.query(func.count(distinct(Warns.chat_id))).scalar()
-    finally:
-        SESSION.close()
-
-
-def num_warn_filters():
-    try:
-        return SESSION.query(WarnFilters).count()
-    finally:
-        SESSION.close()
-
-
 def num_warn_chat_filters(chat_id):
     try:
         return (
@@ -247,13 +233,6 @@ def num_warn_chat_filters(chat_id):
             .filter(WarnFilters.chat_id == str(chat_id))
             .count()
         )
-    finally:
-        SESSION.close()
-
-
-def num_warn_filter_chats():
-    try:
-        return SESSION.query(func.count(distinct(WarnFilters.chat_id))).scalar()
     finally:
         SESSION.close()
 

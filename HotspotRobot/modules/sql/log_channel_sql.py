@@ -51,13 +51,6 @@ def stop_chat_logging(chat_id):
             return log_channel
 
 
-def num_logchannels():
-    try:
-        return SESSION.query(func.count(distinct(GroupLogs.chat_id))).scalar()
-    finally:
-        SESSION.close()
-
-
 def migrate_chat(old_chat_id, new_chat_id):
     with LOGS_INSERTION_LOCK:
         chat = SESSION.query(GroupLogs).get(str(old_chat_id))

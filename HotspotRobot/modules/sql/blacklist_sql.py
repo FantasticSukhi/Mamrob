@@ -83,13 +83,6 @@ def get_chat_blacklist(chat_id):
     return CHAT_BLACKLISTS.get(str(chat_id), set())
 
 
-def num_blacklist_filters():
-    try:
-        return SESSION.query(BlackListFilters).count()
-    finally:
-        SESSION.close()
-
-
 def num_blacklist_chat_filters(chat_id):
     try:
         return (
@@ -97,13 +90,6 @@ def num_blacklist_chat_filters(chat_id):
             .filter(BlackListFilters.chat_id == str(chat_id))
             .count()
         )
-    finally:
-        SESSION.close()
-
-
-def num_blacklist_filter_chats():
-    try:
-        return SESSION.query(func.count(distinct(BlackListFilters.chat_id))).scalar()
     finally:
         SESSION.close()
 

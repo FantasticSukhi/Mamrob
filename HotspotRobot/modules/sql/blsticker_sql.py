@@ -83,13 +83,6 @@ def get_chat_stickers(chat_id):
     return CHAT_STICKERS.get(str(chat_id), set())
 
 
-def num_stickers_filters():
-    try:
-        return SESSION.query(StickersFilters).count()
-    finally:
-        SESSION.close()
-
-
 def num_stickers_chat_filters(chat_id):
     try:
         return (
@@ -97,13 +90,6 @@ def num_stickers_chat_filters(chat_id):
             .filter(StickersFilters.chat_id == str(chat_id))
             .count()
         )
-    finally:
-        SESSION.close()
-
-
-def num_stickers_filter_chats():
-    try:
-        return SESSION.query(func.count(distinct(StickersFilters.chat_id))).scalar()
     finally:
         SESSION.close()
 

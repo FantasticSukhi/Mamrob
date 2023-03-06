@@ -63,20 +63,6 @@ def get_all_disabled(chat_id):
     return DISABLED.get(str(chat_id), set())
 
 
-def num_chats():
-    try:
-        return SESSION.query(func.count(distinct(Disable.chat_id))).scalar()
-    finally:
-        SESSION.close()
-
-
-def num_disabled():
-    try:
-        return SESSION.query(Disable).count()
-    finally:
-        SESSION.close()
-
-
 def migrate_chat(old_chat_id, new_chat_id):
     with DISABLE_INSERTION_LOCK:
         chats = SESSION.query(Disable).filter(Disable.chat_id == str(old_chat_id)).all()
