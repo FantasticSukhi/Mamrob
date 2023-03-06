@@ -389,8 +389,7 @@ def set_about_me(update: Update, context: CallbackContext):
 def stats(update: Update, context: CallbackContext):
     stats = f"**▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬**\n" + "\n".join([mod.__stats__() for mod in STATS])
     stats += f"\n**▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬**\n**       ▬▬▬▬▬▬▬▬**\n**       ▬▬▬▬▬▬▬▬**"
-    result = re.sub(r"(\d+)", r"<code>\1</code>", stats)
-    update.effective_message.reply_text(result)
+    update.effective_message.reply_text(stats, parse_mode=ParseMode.MARKDOWN)
 
 
 @run_async

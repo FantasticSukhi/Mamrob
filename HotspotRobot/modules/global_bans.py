@@ -482,7 +482,7 @@ def gbanstat(update: Update, context: CallbackContext):
 
 
 def __stats__():
-    return f"**≛≛ ᴛᴏᴛᴀʟ ɢʙᴀɴꜱ :** {sql.num_gbanned_users()}"
+    return f"**≛≛ ᴛᴏᴛᴀʟ ɢʙᴀɴꜱ :** `{sql.num_gbanned_users()}`"
 
 
 def __user_info__(user_id):

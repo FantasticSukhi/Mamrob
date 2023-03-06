@@ -9,7 +9,10 @@ from HotspotRobot import BOT_NAME, BOT_USERNAME, pbot as hotspot
 @hotspot.on_message(filters.command("write"))
 async def handwrite(_, message: Message):
     if message.reply_to_message:
-        text = message.reply_to_message.text
+        if message.reply_to_message.text:
+          text = message.reply_to_message.text
+        else:
+            text = message.reply_to_message.caption
         m = await message.reply_text("ᴡʀɪᴛɪɴɢ ʏᴏᴜʀ ᴛᴇxᴛ...")
         API = f"https://api.sdbots.tk/write?text={text}"
         req = requests.get(API).url

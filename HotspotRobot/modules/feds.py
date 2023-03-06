@@ -2106,7 +2106,7 @@ def welcome_fed(update: Update, context: CallbackContext):
 def __stats__():
     all_fbanned = sql.get_all_fban_users_global()
     all_feds = sql.get_all_feds_users_global()
-    return f"**≛≛ ᴛᴏᴛᴀʟ ꜰʙᴀɴꜱ :** {len(all_fbanned)}\n**≛≛ ᴛᴏᴛᴀʟ ꜰᴇᴅꜱ :** {len(all_feds)}"
+    return f"**≛≛ ᴛᴏᴛᴀʟ ꜰʙᴀɴꜱ :** `{len(all_fbanned)}`\n**≛≛ ᴛᴏᴛᴀʟ ꜰᴇᴅꜱ :** `{len(all_feds)}`"
 
 
 def __user_info__(user_id, chat_id):

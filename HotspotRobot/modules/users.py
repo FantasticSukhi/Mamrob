@@ -205,7 +205,7 @@ def __user_info__(user_id):
 
 
 def __stats__():
-    return f"**≛≛ ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ :** {sql.num_users()}\n**≛≛ ᴛᴏᴛᴀʟ ᴄʜᴀᴛꜱ :** {sql.num_chats()}"
+    return f"**≛≛ ᴛᴏᴛᴀʟ ᴜꜱᴇʀꜱ :** `{sql.num_users()}`\n**≛≛ ᴛᴏᴛᴀʟ ᴄʜᴀᴛꜱ :** `{sql.num_chats()}`"
 
 
 def __migrate__(old_chat_id, new_chat_id):
