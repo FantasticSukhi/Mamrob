@@ -1,7 +1,5 @@
 from enum import IntEnum, unique
 
-from pyrogram.types import Message
-
 from HotspotRobot.modules.helper_funcs.string_handling import button_markdown_parser
 
 
@@ -17,7 +15,7 @@ class Types(IntEnum):
     VIDEO = 7
 
 
-def get_note_type(msg: Message):
+def get_note_type(msg):
     data_type = None
     content = None
     text = ""
@@ -84,7 +82,7 @@ def get_note_type(msg: Message):
 
 
 # note: add own args?
-def get_welcome_type(msg: Message):
+def get_welcome_type(msg):
     data_type = None
     content = None
     text = ""
@@ -161,7 +159,7 @@ def get_welcome_type(msg: Message):
     return text, data_type, content, buttons
 
 
-def get_filter_type(msg: Message):
+def get_filter_type(msg):
 
     if not msg.reply_to_message and msg.text and len(msg.text.split()) >= 3:
         content = None
