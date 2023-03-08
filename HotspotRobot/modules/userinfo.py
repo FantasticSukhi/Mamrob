@@ -223,7 +223,7 @@ def info(update: Update, context: CallbackContext):
     rep = message.reply_text("<code>ᴀᴩᴩʀᴀɪsɪɴɢ...</code>", parse_mode=ParseMode.HTML)
 
     text = (
-        f"╔═━「 <b>Appraisal results:</b> 」\n"
+        f"╔═━「 <b>Appraisal Results:</b> 」\n"
         f"✪ <b>ᴜꜱᴇʀ ɪᴅ:</b> <code>{user.id}</code>\n"
         f"✪ <b>ꜰɪʀꜱᴛ ɴᴀᴍᴇ:</b> {html.escape(user.first_name)}\n"
     )
@@ -387,9 +387,9 @@ def set_about_me(update: Update, context: CallbackContext):
 @run_async
 @sudo_plus
 def stats(update: Update, context: CallbackContext):
-    stats = f"**▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬**\n" + "\n".join([mod.__stats__() for mod in STATS])
-    stats += f"\n**▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬**\n**       ▬▬▬▬▬▬▬▬**\n**       ▬▬▬▬▬▬▬▬**"
-    update.effective_message.reply_text(stats, parse_mode=ParseMode.MARKDOWN)
+    stats = f"<b>▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬</b>\n" + "\n".join([mod.__stats__() for mod in STATS])
+    stats += f"\n<b>▬▬▬「ꜱᴛᴀᴛɪꜱᴛɪᴄꜱ」▬▬▬</b>\n<b>       ▬▬▬▬▬▬▬▬</b>\n<b>       ▬▬▬▬▬▬▬▬</b>"
+    update.effective_message.reply_text(stats, parse_mode=ParseMode.HTML)
 
 
 @run_async

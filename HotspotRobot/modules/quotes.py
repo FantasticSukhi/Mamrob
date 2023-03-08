@@ -33,6 +33,7 @@ try:
     import cv2
 except ImportError:
     cv2 = None
+
 try:
     import numpy as np
 except ImportError:
@@ -318,10 +319,9 @@ async def _try_delete(event):
     except (MessageDeleteForbiddenError):
         pass
     except BaseException as er:
-        from . import LOGS
-
-        LOGS.error("Error while Deleting Message..")
-        LOGS.exception(er)
+        from HotspotRobot import LOGGER
+        LOGGER.error("Error while Deleting Message..")
+        LOGGER.exception(er)
 
 
 setattr(Message, "eor", eor)
@@ -331,8 +331,8 @@ setattr(Message, "try_delete", _try_delete)
 async def quott_(event):
     match = event.pattern_match.group(1).strip()
     if not event.is_reply:
-        return await event.eor("ᴘʟᴇᴀꜱᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇꜱꜱᴀɢᴇ ʙᴀʙʏ🥀")
-    msg = await event.reply("ᴄʀᴇᴀᴛɪɴɢ Qᴜᴏᴛᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ʙᴀʙʏ🥀")
+        return await event.eor("ᴘʟᴇᴀꜱᴇ ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇꜱꜱᴀɢᴇ!")
+    msg = await event.reply("ᴄʀᴇᴀᴛɪɴɢ Qᴜᴏᴛᴇ...")
     reply = await event.get_reply_message()
     replied_to, reply_ = None, None
     if match:

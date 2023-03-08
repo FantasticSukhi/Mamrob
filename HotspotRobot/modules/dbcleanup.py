@@ -130,9 +130,10 @@ def callback_button(update: Update, context: CallbackContext):
             query.answer("You are not allowed to use this.")
     elif query_type == "db_cleanup":
         if query.from_user.id in admin_list:
-            bot.editMessageText("» ᴄʟᴇᴀɴɪɴɢ ᴜᴘ ᴅʙ ...", chat_id, message.message_id)
+            cleaning_msg = bot.editMessageText("» ᴄʟᴇᴀɴɪɴɢ ᴜᴘ ᴅʙ ...", chat_id, message.message_id)
             invalid_chat_count = get_invalid_chats(update, context, True)
             invalid_gban_count = get_invalid_gban(update, context, True)
+            cleaning_msg.delete()
             reply = "» ᴄʟᴇᴀɴᴇᴅ ᴜᴘ {} ᴄʜᴀᴛꜱ ᴀɴᴅ {} ɢʙᴀɴɴᴇᴅ ᴜꜱᴇʀꜱ ꜰʀᴏᴍ ᴅʙ.".format(
                 invalid_chat_count, invalid_gban_count
             )

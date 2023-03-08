@@ -570,7 +570,7 @@ def addnew_filter(update, chat_id, keyword, text, file_type, file_id, buttons):
 
 
 def __stats__():
-    return f"**≛≛ ᴛᴏᴛᴀʟ ꜰɪʟᴛᴇʀꜱ :** `{sql.num_filters()}`"
+    return f"<b>≛≛ ᴛᴏᴛᴀʟ ꜰɪʟᴛᴇʀꜱ :</b> <code>{sql.num_filters()}</code>"
 
 
 def __import_data__(chat_id, data):

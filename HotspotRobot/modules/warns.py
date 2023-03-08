@@ -413,7 +413,7 @@ def set_warn_strength(update: Update, context: CallbackContext):
 
 
 def __stats__():
-    return f"**≛≛ ᴛᴏᴛᴀʟ ᴡᴀʀɴꜱ :** `{sql.num_warns()}`"
+    return f"<b>≛≛ ᴛᴏᴛᴀʟ ᴡᴀʀɴꜱ :</b> <code>{sql.num_warns()}</code>"
 
 
 def __import_data__(chat_id, data):
