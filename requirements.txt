@@ -31,7 +31,6 @@ Pillow
 pretty_errors
 psutil
 psycopg2-binary
-PyDictionary
 pytz
 pymongo
 python-arq
