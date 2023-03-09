@@ -10,9 +10,9 @@ from telegram.ext import (
     CommandHandler,
     Filters,
     MessageHandler,
+    run_async
 )
 from telegram.utils.helpers import mention_html
-from telegram.ext.dispatcher import run_async
 
 import HotspotRobot.modules.sql.global_bans_sql as sql
 from HotspotRobot.modules.sql.users_sql import get_user_com_chats
@@ -70,8 +70,8 @@ UNGBAN_ERRORS = {
 }
 
 
-@support_plus
 @run_async
+@support_plus
 def gban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -261,8 +261,8 @@ def gban(update: Update, context: CallbackContext):
         pass  # bot probably blocked by user
 
 
-@support_plus
 @run_async
+@support_plus
 def ungban(update: Update, context: CallbackContext):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -366,8 +366,8 @@ def ungban(update: Update, context: CallbackContext):
         message.reply_text(f"» ᴘᴇʀꜱᴏɴ ʜᴀꜱ ʙᴇᴇɴ ᴜɴ-ɢʙᴀɴɴᴇᴅ. ᴛᴏᴏᴋ {ungban_time} ꜱᴇᴄ")
 
 
-@support_plus
 @run_async
+@support_plus
 def gbanlist(update: Update, context: CallbackContext):
     banned_users = sql.get_gban_list()
 
@@ -437,8 +437,8 @@ def enforce_gban(update: Update, context: CallbackContext):
                 check_and_ban(update, user.id, should_message=False)
 
 
-@user_admin
 @run_async
+@user_admin
 def gbanstat(update: Update, context: CallbackContext):
     args = context.args
     if len(args) > 0:
@@ -498,8 +498,8 @@ def __chat_settings__(chat_id, user_id):
 GBAN_HANDLER = CommandHandler("gban", gban)
 UNGBAN_HANDLER = CommandHandler("ungban", ungban)
 GBAN_LIST = CommandHandler("gbanlist", gbanlist)
-GBAN_STATUS = CommandHandler("antispam", gbanstat, filters=Filters.chat_type.groups)
-GBAN_ENFORCER = MessageHandler(Filters.all & Filters.chat_type.groups, enforce_gban)
+GBAN_STATUS = CommandHandler("antispam", gbanstat, filters=Filters.group)
+GBAN_ENFORCER = MessageHandler(Filters.all & Filters.group, enforce_gban)
 
 dispatcher.add_handler(GBAN_HANDLER)
 dispatcher.add_handler(UNGBAN_HANDLER)
