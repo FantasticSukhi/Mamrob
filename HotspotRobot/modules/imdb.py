@@ -15,9 +15,10 @@ async def imdb(client, message):
 
     try:
         response = requests.get(f"https://api.safone.me/tmdb?query={text[1]}").json()["results"][0]
-    except (JSONDecodeError, ConnectionError):
+    except (JSONDecodeError, ConnectionError) as e:
         return await message.reply_text(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            f"\n\n**Error:** {e}"
             )
 
     poster = response["poster"]
@@ -43,16 +44,7 @@ async def imdb(client, message):
 ‣ **Runtime** = `{runtime}`
 ‣ **Status** = `{status}`
 """,
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        text="• ɪᴍᴅʙ ʟɪɴᴋ •",
-                        url=imdb_link,
-                    ),
-                ],
-            ],
-        ),
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(text="• ɪᴍᴅʙ ʟɪɴᴋ •", url=imdb_link)]])
     )
 
 

@@ -36,8 +36,10 @@ async def paste_func(_, message):
     if not message.reply_to_message:
         return await message.reply_text("» ʀᴇᴘʟʏ ᴛᴏ ᴀ ᴍᴇꜱꜱᴀɢᴇ ᴡɪᴛʜ /paste")
     m = await message.reply_text("» ᴘᴀꜱᴛɪɴɢ...")
+
     if message.reply_to_message.text:
-        content = str(message.reply_to_message.text)
+        content = message.reply_to_message.text
+
     elif message.reply_to_message.document:
         document = message.reply_to_message.document
         if document.file_size > 1048576:
@@ -48,6 +50,10 @@ async def paste_func(_, message):
         async with aiofiles.open(doc, mode="r") as f:
             content = await f.read()
         os.remove(doc)
+    
+    elif message.reply_to_message.caption:
+        content = message.reply_to_message.caption
+
     link = await paste(content)
     preview = link + "/preview.png"
     button = InlineKeyboard(row_width=1)

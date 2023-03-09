@@ -1,12 +1,17 @@
+from HotspotRobot import pbot as Client
+from HotspotRobot.utils.fonts import Fonts
+
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from HotspotRobot.utils.fonts import Fonts
-from HotspotRobot import pbot as Client
-
 
 @Client.on_message(filters.command(["font", "fonts"]))
-async def style_buttons(c, m, cb=False):
+async def style_buttons(_, message, cb=False):
+    text = message.text.split(" ", 1)
+    if len(text) == 1:
+        await message.reply_text("**Usage:** /font <ꜱᴇɴᴛᴇɴᴄᴇ>")
+        return
+
     buttons = [
         [
             InlineKeyboardButton("𝚃𝚢𝚙𝚎𝚠𝚛𝚒𝚝𝚎𝚛", callback_data="style+typewriter"),
@@ -46,17 +51,16 @@ async def style_buttons(c, m, cb=False):
         [InlineKeyboardButton("ɴᴇxᴛ ➻", callback_data="nxt")],
     ]
     if not cb:
-        await m.reply_text(
-            m.text.split(" ", 1)[1], reply_markup=InlineKeyboardMarkup(buttons), quote=True
+        await message.reply_text(
+            message.text.split(" ", 1)[1], reply_markup=InlineKeyboardMarkup(buttons), quote=True
         )
     else:
-        await m.answer()
-        await m.message.edit_reply_markup(InlineKeyboardMarkup(buttons))
+        await message.message.edit_reply_markup(InlineKeyboardMarkup(buttons))
 
 
 @Client.on_callback_query(filters.regex("^nxt"))
-async def nxt(c, m):
-    if m.data == "nxt":
+async def nxt(client, message):
+    if message.data == "nxt":
         buttons = [
             [
                 InlineKeyboardButton("🇸 🇵 🇪 🇨 🇮 🇦 🇱 ", callback_data="style+special"),
@@ -98,16 +102,16 @@ async def nxt(c, m):
             ],
             [InlineKeyboardButton("• ʙᴀᴄᴋ •", callback_data="nxt+0")],
         ]
-        await m.answer()
-        await m.message.edit_reply_markup(InlineKeyboardMarkup(buttons))
+        await message.answer()
+        await message.message.edit_reply_markup(InlineKeyboardMarkup(buttons))
     else:
-        await style_buttons(c, m, cb=True)
+        await style_buttons(client, message, cb=True)
 
 
 @Client.on_callback_query(filters.regex("^style"))
-async def style(c, m):
-    await m.answer()
-    style = m.data.split("+")[1]
+async def style(_, cb_query):
+    await cb_query.answer()
+    style = cb_query.data.split("+")[1]
 
     if style == "typewriter":
         cls = Fonts.typewriter
@@ -187,9 +191,9 @@ async def style(c, m):
         cls = Fonts.strike
     if style == "frozen":
         cls = Fonts.frozen
-    new_text = cls(m.message.reply_to_message.text)
+    new_text = cls(cb_query.message.reply_to_message.text.split(" ", 1)[1])
     try:
-        await m.message.edit_text(new_text, reply_markup=m.message.reply_markup)
+        await cb_query.message.edit_text(new_text, reply_markup=cb_query.message.reply_markup)
     except:
         pass
 

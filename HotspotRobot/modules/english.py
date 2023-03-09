@@ -19,9 +19,10 @@ async def _(event):
 
     try:
         response = requests.get(f"https://api.safone.me/spellcheck?text={text}").json()
-    except (JSONDecodeError, ConnectionError):
+    except (JSONDecodeError, ConnectionError) as e:
         return await event.reply(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            f"\n\n**Error:** {e}"
             )
 
     TEXT = f"""**Sentence:** `{text}`\n\n**Corrected:** `{response["corrected"]}`\n\n**Corrections:**"""
@@ -39,9 +40,10 @@ async def _(event):
     
     try:
         response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/definitions").json()
-    except (JSONDecodeError, ConnectionError):
+    except (JSONDecodeError, ConnectionError) as e:
         return await event.reply(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            f"\n\n**Error:** {e}"
             )
 
     AltPy = f"» ᴍᴇᴀɴɪɴɢꜱ ᴏꜰ {text[1]}:"
@@ -63,9 +65,10 @@ async def _(event):
 
     try:
         response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/synonyms")
-    except (JSONDecodeError, ConnectionError):
+    except (JSONDecodeError, ConnectionError) as e:
         return await event.reply(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            f"\n\n**Error:** {e}"
             )
 
     AltPy = f"» ꜱʏɴᴏɴʏᴍꜱ ᴏꜰ {text[1]}:\n"
@@ -87,9 +90,10 @@ async def _(event):
 
     try:
         response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/antonyms")
-    except (JSONDecodeError, ConnectionError):
+    except (JSONDecodeError, ConnectionError) as e:
         return await event.reply(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            f"\n\n**Error:** {e}"
             )
 
     AltPy = f"» ᴀɴᴛᴏɴʏᴍꜱ ᴏꜰ {text}:\n"

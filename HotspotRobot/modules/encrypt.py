@@ -8,7 +8,12 @@ async def encrypt(event):
         lel = await event.get_reply_message()
         cmd = lel.text
     else:
-        cmd = event.text.split(" ", 1)[1]
+        cmd = event.text.split(" ", 1)
+        if len(cmd) == 1:
+            await event.reply(f"**Usage:**\n - /encrypt <ᴛᴇxᴛ>\n - /encrypt <ʀᴇᴘʟʏ ᴛᴏ ᴛᴇxᴛ>")
+            return
+        cmd = cmd[1]
+
     k = secureme.encrypt(cmd)
     await event.reply(k)
 
@@ -19,7 +24,12 @@ async def decrypt(event):
         lel = await event.get_reply_message()
         ok = lel.text
     else:
-        ok = event.text.split(" ", 1)[1]
+        ok = event.text.split(" ", 1)
+        if len(ok) == 1:
+            await event.reply(f"**Usage:**\n - /decrypt <ᴛᴇxᴛ>\n - /decrypt <ʀᴇᴘʟʏ ᴛᴏ ᴛᴇxᴛ>")
+            return
+        ok = ok[1]
+
     k = secureme.decrypt(ok)
     await event.reply(k)
 

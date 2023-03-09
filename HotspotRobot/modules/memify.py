@@ -3,23 +3,21 @@ import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
-from HotspotRobot import telethn as bot
+from HotspotRobot import BOT_USERNAME, telethn as bot
 from HotspotRobot.events import register
 
-Credit = "PyXen"
 
-
-@register(pattern="^/mmf ?(.*)")
+@register(pattern=f"^/mmf|^/mmf@{BOT_USERNAME}")
 async def handler(event):
+    text = event.text.split(" ", 1)
+    reply_message = await event.get_reply_message()
 
     if event.fwd_from:
         return
-
-    if not event.reply_to_msg_id:
+    
+    if len(text) == 1:
         await event.reply("» ᴘʀᴏᴠɪᴅᴇ ꜱᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴅʀᴀᴡ!")
         return
-
-    reply_message = await event.get_reply_message()
 
     if not reply_message.media:
         await event.reply("» ```ʀᴇᴘʟʏ ᴛᴏ ᴀ ɪᴍᴀɢᴇ/ꜱᴛɪᴄᴋᴇʀ.```")
@@ -27,18 +25,8 @@ async def handler(event):
 
     file = await bot.download_media(reply_message)
     msg = await event.reply("» ```ᴍᴇᴍɪꜰʏɪɴɢ ᴛʜɪꜱ ɪᴍᴀɢᴇ...```")
+    meme = await drawText(file, text[1])
 
-    if "PyXen" in Credit:
-        pass
-    else:
-        await event.reply("This nigga removed credit line from code")
-
-    text = str(event.pattern_match.group(1)).strip()
-
-    if len(text) < 1:
-        return await msg.reply("You might want to try `/mmf text`")
-
-    meme = await drawText(file, text)
     await bot.send_file(event.chat_id, file=meme, force_document=False)
     await msg.delete()
 
@@ -169,4 +157,10 @@ async def drawText(image_path, text):
     return webp_file
 
 
-__mod_name__ = "mmf"
+__mod_name__ = "Mᴇᴍɪғʏ"
+
+__help__ = """
+──「 Memify Sticker 」──
+
+  ➲ /mmf <text>: ʀᴇᴘʟʏ ᴛᴏ sᴛɪᴄᴋᴇʀ ᴛᴏ ᴍᴇᴍɪғʏ ɪᴛ ᴡɪᴛʜ ɢɪᴠᴇɴ ᴛᴇxᴛ.
+"""

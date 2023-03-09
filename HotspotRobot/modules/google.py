@@ -55,6 +55,7 @@ async def _(event):
 async def img_sampler(event):
     if event.fwd_from:
         return
+    mx = await event.reply("» ᴘʀᴏᴄᴇꜱꜱɪɴɢ...")
 
     query = event.pattern_match.group(1)
     jit = f'"{query}"'
@@ -69,8 +70,11 @@ async def img_sampler(event):
     os.chdir(f'./store/"{query}"')
     types = ("*.png", "*.jpeg", "*.jpg")
     files_grabbed = []
+
     for files in types:
         files_grabbed.extend(glob.glob(files))
+
+    await mx.delete()
     await telethn.send_file(event.chat_id, files_grabbed, reply_to=event.id)
     os.chdir("/app")
     os.system("rm -rf store")
@@ -198,13 +202,10 @@ async def apk(e):
         app_name = e.pattern_match.group(1)
         remove_space = app_name.split(" ")
         final_name = "+".join(remove_space)
-        page = requests.get("https://play.google.com/store/search?q=" + final_name + "&c=apps")
-        str(page.status_code)
+        page = requests.get(f"https://play.google.com/store/search?q={final_name}&c=apps")
         soup = bs4.BeautifulSoup(page.content, "lxml", from_encoding="utf-8")
         results = soup.findAll("div", "ZmHEEd")
-        app_name = (
-            results[0].findNext("div", "Vpfmgd").findNext("div", "WsMG1c nnK0zc").text
-        )
+        app_name = results[0].findNext("div", "Vpfmgd").findNext("div", "WsMG1c nnK0zc").text
         app_dev = results[0].findNext("div", "Vpfmgd").findNext("div", "KoLSrc").text
         app_dev_link = (
             "https://play.google.com"

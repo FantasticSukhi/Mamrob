@@ -1,13 +1,13 @@
 import html
-import random
 import time
+import random
 
 from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, run_async
 
-import HotspotRobot.modules.fun_strings as fun_strings
 from HotspotRobot import dispatcher
+import HotspotRobot.modules.fun_strings as fun_strings
 from HotspotRobot.modules.disable import DisableAbleCommandHandler
 from HotspotRobot.modules.helper_funcs.chat_status import is_user_admin
 from HotspotRobot.modules.helper_funcs.extraction import extract_user
@@ -158,17 +158,25 @@ def roll(update: Update, context: CallbackContext):
 
 @run_async
 def shout(update: Update, context: CallbackContext):
+    message = update.effective_message
+    if len(message.text.split(" ", 1)) == 1:
+        message.reply_text("Usage is `/shout <text>`", parse_mode=ParseMode.MARKDOWN)
+        return
+
     args = context.args
     text = " ".join(args)
     result = []
     result.append(" ".join(list(text)))
+
     for pos, symbol in enumerate(text[1:]):
         result.append(symbol + " " + "  " * pos + symbol)
+
     result = list("\n".join(result))
     result[0] = text[0]
     result = "".join(result)
     msg = "```\n" + result + "```"
-    return update.effective_message.reply_text(msg, parse_mode="MARKDOWN")
+
+    return message.reply_text(msg, parse_mode="MARKDOWN")
 
 
 @run_async
@@ -303,8 +311,7 @@ def weebify(update: Update, context: CallbackContext):
 
     if message.reply_to_message:
         string = message.reply_to_message.text.lower().replace(" ", "  ")
-
-    if args:
+    elif args:
         string = "  ".join(args).lower()
 
     if not string:
@@ -370,6 +377,7 @@ dispatcher.add_handler(EIGHTBALL_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
 
 __mod_name__ = "Fᴜɴ​"
+
 __command_list__ = [
     "runs",
     "slap",

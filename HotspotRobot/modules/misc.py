@@ -21,7 +21,7 @@ MARKDOWN_HELP = f"""
 • <code>`code`</code>: ᴡʀᴀᴘᴘɪɴɢ ᴛᴇxᴛ ᴡɪᴛʜ '`' ᴡɪʟʟ ᴘʀᴏᴅᴜᴄᴇ ᴍᴏɴᴏꜱᴘᴀᴄᴇᴅ ᴛᴇxᴛ, ᴀʟꜱᴏ ᴋɴᴏᴡɴ ᴀꜱ 'ᴄᴏᴅᴇ'
 
 • <code>[SomeText](SomeURL)</code>: ᴛʜɪꜱ ᴡɪʟʟ ᴄʀᴇᴀᴛᴇ ᴀ ʟɪɴᴋ - ᴛʜᴇ ᴍᴇꜱꜱᴀɢᴇ ᴡɪʟʟ ᴊᴜꜱᴛ ꜱʜᴏᴡ <code>SomeText</code>.
-  <b>Example:</b><code>[Hotspot](https://t.me/TheAltron)</code>
+  <b>Example:</b> <code>[Hotspot](https://t.me/TheAltron)</code>
 
 • <code>[ButtonText](buttonurl:SomeURL)</code>: ᴛʜɪꜱ ɪꜱ ᴀ ꜱᴘᴇᴄɪᴀʟ ᴇɴʜᴀɴᴄᴇᴍᴇɴᴛ ᴛᴏ ᴀʟʟᴏᴡ ᴜꜱᴇʀꜱ ᴛᴏ ʜᴀᴠᴇ ᴛᴇʟᴇɢʀᴀᴍ ʙᴜᴛᴛᴏɴꜱ ɪɴ ᴛʜᴇɪʀ ᴍᴀʀᴋᴅᴏᴡɴ. <code>ButtonText</code> ᴡɪʟʟ ʙᴇ ᴡʜᴀᴛ ɪꜱ ᴅɪꜱᴘʟᴀʏᴇᴅ ᴏɴ ᴛʜᴇ ʙᴜᴛᴛᴏɴ, ᴀɴᴅ <code>SomeURL</code> ᴡɪʟʟ ʙᴇ ᴛʜᴇ ᴜʀʟ ᴡʜɪᴄʜ ɪꜱ ᴏᴘᴇɴᴇᴅ.
   <b>Example:</b> <code>[This is a button](buttonurl:https://t.me/TheAltron)</code>
@@ -145,9 +145,6 @@ def wiki(update: Update, context: CallbackContext):
 __help__ = """
 *Markdown:*
   ➲ /markdownhelp: Qᴜɪᴄᴋ ꜱᴜᴍᴍᴀʀʏ ᴏꜰ ʜᴏᴡ ᴍᴀʀᴋᴅᴏᴡɴ ᴡᴏʀᴋꜱ ɪɴ ᴛᴇʟᴇɢʀᴀᴍ - ᴄᴀɴ ᴏɴʟʏ ʙᴇ ᴄᴀʟʟᴇᴅ ɪɴ ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛꜱ
-
-*React:*
-  ➲ /react: ʀᴇᴀᴄᴛꜱ ᴡɪᴛʜ ᴀ ʀᴀɴᴅᴏᴍ ʀᴇᴀᴄᴛɪᴏɴ
 
 *Urban Dictonary:*
   ➲ /ud <ᴛᴇxᴛ>: ꜱᴇᴀʀᴄʜꜱ ᴛʜᴇ ɢɪᴠᴇɴ ᴛᴇxᴛ ᴏɴ ᴜʀʙᴀɴ ᴅɪᴄᴛɪᴏɴᴀʀʏ ᴀɴᴅ ꜱᴇɴᴅꜱ ʏᴏᴜ ᴛʜᴇ ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ.

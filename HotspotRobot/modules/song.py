@@ -14,11 +14,10 @@ def time_to_seconds(time):
 
 
 @pbot.on_message(filters.command(["song", "music"]))
-def song(client, message):
-    message.delete()
+def song(_, message):
     user_id = message.from_user.id
     user_name = message.from_user.first_name
-    alt = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
+    alt = f"[{user_name}](tg://user?id={str(user_id)})"
 
     query = ""
     for i in message.command[1:]:

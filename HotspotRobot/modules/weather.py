@@ -1,10 +1,9 @@
 import io
-
 import aiohttp
-from telethon.tl import functions, types
 
 from HotspotRobot import telethn
 from HotspotRobot.events import register
+from telethon.tl import functions, types
 
 
 async def is_register_admin(chat, user):
@@ -37,7 +36,7 @@ __help__ = """
 ‣ ɪ ᴄᴀɴ ꜰɪɴᴅ ᴡᴇᴀᴛʜᴇʀ ᴏꜰ ᴀʟʟ ᴄɪᴛɪᴇꜱ
 
  ➲ /weather <city>: ᴀᴅᴠᴀɴᴄᴇᴅ ᴡᴇᴀᴛʜᴇʀ ᴍᴏᴅᴜʟᴇ, ᴜꜱᴀɢᴇ ꜱᴀᴍᴇ ᴀꜱ /weather
- ➲ /weather moon: ɢᴇᴛ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ꜱᴛᴀᴛᴜꜱ ᴏꜰ ᴍᴏᴏɴ
+ ➲ /weather sun: ɢᴇᴛ ᴛʜᴇ ᴄᴜʀʀᴇɴᴛ ꜱᴛᴀᴛᴜꜱ ᴏꜰ ꜱᴜɴ
 """
 
 __mod_name__ = "Wᴇᴀᴛʜᴇʀ"

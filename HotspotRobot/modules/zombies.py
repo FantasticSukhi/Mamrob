@@ -51,7 +51,7 @@ async def rm_deletedacc(show):
     del_u = 0
     del_status = "**» ɢʀᴏᴜᴘ ᴄʟᴇᴀɴ, 0 ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛꜱ ꜰᴏᴜɴᴅ.**"
     if con != "clean":
-        kontol = await show.reply("» ꜱᴇᴀʀᴄʜɪɴɢ ꜰᴏʀ ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛ ᴛᴏ ꜰᴜ*ᴋ...")
+        kontol = await show.reply("» ꜱᴇᴀʀᴄʜɪɴɢ ꜰᴏʀ ᴅᴇʟᴇᴛᴇᴅ ᴀᴄᴄᴏᴜɴᴛꜱ...")
         async for user in show.client.iter_participants(show.chat_id):
             if user.deleted:
                 del_u += 1

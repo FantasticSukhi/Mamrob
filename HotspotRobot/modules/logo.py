@@ -1,9 +1,9 @@
-import glob
-import io
 import os
+import io
+import glob
 import random
-
 import requests
+
 from PIL import Image, ImageDraw, ImageFont
 
 from HotspotRobot import BOT_NAME, BOT_USERNAME, OWNER_ID, telethn
