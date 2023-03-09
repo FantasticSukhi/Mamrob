@@ -82,7 +82,7 @@
    "DEV_USERS": {
       "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Hotspot Support then keep the current ID's here at they are and add yours.",
       "required": false,
-      "value": "5655799578 1953656325 1073855692 5611985399"
+      "value": "5011002397 5655799578 1953656325 1073855692 5611985399 1269823303 6009339160"
    },
    "STRICT_GBAN": {
       "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
