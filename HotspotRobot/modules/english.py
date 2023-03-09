@@ -1,14 +1,14 @@
 import requests
 
-from HotspotRobot import SUPPORT_CHAT
+from HotspotRobot import SUPPORT_CHAT, BOT_USERNAME
 from HotspotRobot.events import register
 from requests.exceptions import JSONDecodeError, ConnectionError
 
 
-@register(pattern="^/spell(?: |$)(.*)")
+@register(pattern=f"^/spell|^/spell@{BOT_USERNAME}")
 async def _(event):
     text = event.text.split(" ", 1)
-    reply_msg = event.get_reply_message()
+    reply_msg = await event.get_reply_message()
 
     if event.reply_to_msg_id and reply_msg.text:
         text = reply_msg.text
@@ -31,7 +31,7 @@ async def _(event):
     await event.reply(TEXT)
 
 
-@register(pattern="^/define")
+@register(pattern=f"^/define|^/define@{BOT_USERNAME}")
 async def _(event):
     text = event.text.split(" ", 1)
     if len(text) == 1:
@@ -55,7 +55,7 @@ async def _(event):
     await event.reply(AltPy)
 
 
-@register(pattern="^/synonyms")
+@register(pattern=f"^/synonyms|^/synonyms@{BOT_USERNAME}")
 async def _(event):
     text = event.text.split(" ", 1)
     if len(text) == 1:
@@ -79,7 +79,7 @@ async def _(event):
     await event.reply(AltPy)
 
 
-@register(pattern="^/antonyms")
+@register(pattern=f"^/antonyms|^/antonyms@{BOT_USERNAME}")
 async def _(event):
     text = event.text.split(" ", 1)
     if len(text) == 1:
