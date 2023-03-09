@@ -17,8 +17,8 @@ from telegram.ext import (
     run_async,
 )
 
+from HotspotRobot import dispatcher, pbot, OWNER_ID, DEV_USERS, LOGGER
 import HotspotRobot.modules.sql.users_sql as sql
-from HotspotRobot import LOGGER, dispatcher, pbot, OWNER_ID, DEV_USERS
 from HotspotRobot.modules.helper_funcs.chat_status import sudo_plus
 
 USERS_GROUP = 4
@@ -86,6 +86,7 @@ async def braodcast_message(client: Client, message: Message):
                     if message.reply_to_message
                     else await client.send_message(i, text=query)
                 )
+                sent += 1
                 if "-pinloud" in message.text:
                     try:
                         await m.pin(disable_notification=False)
@@ -98,7 +99,6 @@ async def braodcast_message(client: Client, message: Message):
                         pin += 1
                     except Exception:
                         continue
-                sent += 1
             except FloodWait as e:
                 flood_time = int(e.x)
                 if flood_time > 200:
