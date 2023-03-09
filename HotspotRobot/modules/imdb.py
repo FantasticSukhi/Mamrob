@@ -1,5 +1,5 @@
 import requests
-from requests.exceptions import JSONDecodeError
+from requests.exceptions import JSONDecodeError, ConnectionError
 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -9,13 +9,13 @@ from HotspotRobot import pbot, SUPPORT_CHAT
 
 @pbot.on_message(filters.command("imdb"))
 async def imdb(client, message):
-    text = message.text(" ", 1)
+    text = message.text.split(" ", 1)
     if len(text) == 1:
         return await message.reply_text("» ɢɪᴠᴇ ᴍᴇ ꜱᴏᴍᴇ ᴍᴏᴠɪᴇ ɴᴀᴍᴇ.\n   ᴇx. /imdb Altron")
 
     try:
         response = requests.get(f"https://api.safone.me/tmdb?query={text[1]}").json()["results"][0]
-    except JSONDecodeError:
+    except (JSONDecodeError, ConnectionError):
         return await message.reply_text(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
             )
@@ -29,6 +29,7 @@ async def imdb(client, message):
     popularity = response["popularity"]
     runtime = response["runtime"]
     status = response["status"]
+
     await client.send_photo(
         message.chat.id,
         poster,

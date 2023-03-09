@@ -1,14 +1,8 @@
 import requests
 
-from telethon import *
-from telethon.tl.types import *
-from requests.exceptions import JSONDecodeError
-
 from HotspotRobot import SUPPORT_CHAT
 from HotspotRobot.events import register
-
-API_KEY = "6ae0c3a0-afdc-4532-a810-82ded0054236"
-URL = "http://services.gingersoftware.com/Ginger/correct/json/GingerTheText"
+from requests.exceptions import JSONDecodeError, ConnectionError
 
 
 @register(pattern="^/spell(?: |$)(.*)")
@@ -25,7 +19,7 @@ async def _(event):
 
     try:
         response = requests.get(f"https://api.safone.me/spellcheck?text={text}").json()
-    except JSONDecodeError:
+    except (JSONDecodeError, ConnectionError):
         return await event.reply(
             f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
             )
@@ -43,7 +37,13 @@ async def _(event):
     if len(text) == 1:
         return await event.reply(f"**Usage:**  /define <ᴡᴏʀᴅ>")
     
-    response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/definitions")
+    try:
+        response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/definitions").json()
+    except (JSONDecodeError, ConnectionError):
+        return await event.reply(
+            f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            )
+
     AltPy = f"» ᴍᴇᴀɴɪɴɢꜱ ᴏꜰ {text[1]}:"
     for i in range(5):
         try:
@@ -61,7 +61,13 @@ async def _(event):
     if len(text) == 1:
         return await event.reply(f"**Usage:**  /synonyms <ᴡᴏʀᴅ>")
 
-    response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/synonyms")
+    try:
+        response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/synonyms")
+    except (JSONDecodeError, ConnectionError):
+        return await event.reply(
+            f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            )
+
     AltPy = f"» ꜱʏɴᴏɴʏᴍꜱ ᴏꜰ {text[1]}:\n"
     for i in range(5):
         try:
@@ -79,7 +85,13 @@ async def _(event):
     if len(text) == 1:
         return await event.reply(f"**Usage:**  /antonyms <ᴡᴏʀᴅ>")
 
-    response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/antonyms")
+    try:
+        response = requests.get(f"https://wordsapiv1.p.mashape.com/words/{text[1]}/antonyms")
+    except (JSONDecodeError, ConnectionError):
+        return await event.reply(
+            f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            )
+
     AltPy = f"» ᴀɴᴛᴏɴʏᴍꜱ ᴏꜰ {text}:\n"
     for i in range(5):
         try:
