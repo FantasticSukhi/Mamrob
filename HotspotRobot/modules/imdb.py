@@ -1,31 +1,34 @@
 import requests
+from requests.exceptions import JSONDecodeError
+
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from HotspotRobot import pbot
+from HotspotRobot import pbot, SUPPORT_CHAT
 
 
 @pbot.on_message(filters.command("imdb"))
 async def imdb(client, message):
-    if len(message.command) < 2:
-        return await message.reply_text("» ɢɪᴠᴇ ᴍᴇ ꜱᴏᴍᴇ ᴍᴏᴠɪᴇ ɴᴀᴍᴇ.\n   ᴇx. /imdb Avengers")
-    text = (
-        message.text.split(None, 1)[1]
-        if len(message.command) < 3
-        else message.text.split(None, 1)[1].replace(" ", "%20")
-    )
-    url = requests.get(f"https://api.safone.tech/tmdb?query={text}").json()["results"][
-        0
-    ]
-    poster = url["poster"]
-    imdb_link = url["imdbLink"]
-    title = url["title"]
-    rating = url["rating"]
-    releasedate = url["releaseDate"]
-    description = url["overview"]
-    popularity = url["popularity"]
-    runtime = url["runtime"]
-    status = url["status"]
+    text = message.text(" ", 1)
+    if len(text) == 1:
+        return await message.reply_text("» ɢɪᴠᴇ ᴍᴇ ꜱᴏᴍᴇ ᴍᴏᴠɪᴇ ɴᴀᴍᴇ.\n   ᴇx. /imdb Altron")
+
+    try:
+        response = requests.get(f"https://api.safone.me/tmdb?query={text[1]}").json()["results"][0]
+    except JSONDecodeError:
+        return await message.reply_text(
+            f"**Some Error Occured:** ᴘʟᴇᴀꜱᴇ ʀᴇᴘᴏʀᴛ ɪᴛ ᴀᴛ ᴏᴜʀ [ꜱᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ](https://t.me/{SUPPORT_CHAT})."
+            )
+
+    poster = response["poster"]
+    imdb_link = response["imdbLink"]
+    title = response["title"]
+    rating = response["rating"]
+    releasedate = response["releaseDate"]
+    description = response["overview"]
+    popularity = response["popularity"]
+    runtime = response["runtime"]
+    status = response["status"]
     await client.send_photo(
         message.chat.id,
         poster,
