@@ -9,15 +9,15 @@ from HotspotRobot.events import register
 
 @register(pattern=("/alive"))
 async def alive(event):
-    TEXT = f"**ʜᴇʏ​ [{event.sender.first_name}](tg://user?id={event.sender.id}),\n\nɪ ᴀᴍ [ʜᴏᴛꜱᴘᴏᴛ ʀᴏʙᴏᴛ](https://t.me/HotspotRobot)​**\n━━━━━━━━━━━━━━━━━━━\n\n"
-    TEXT += f"» **ᴍʏ ᴅᴇᴠᴇʟᴏᴘᴇʀ​ : [𝐀xᴇɴ](https://t.me/PyXen)** \n\n"
+    TEXT = f"**ʜᴇʏ​ [{event.sender.first_name}](tg://user?id={event.sender.id}),\n\nɪ ᴀᴍ [ʀᴏʙᴏᴛ](https://t.me/UNKNOWN_GBOT)​**\n━━━━━━━━━━━━━━━━━━━\n\n"
+    TEXT += f"» **ᴍʏ ᴅᴇᴠᴇʟᴏᴘᴇʀ​ : [©️] by (https://t.me/SECRET_HU_VAI)** \n\n"
     TEXT += f"» **ʟɪʙʀᴀʀʏ ᴠᴇʀsɪᴏɴ :** `{telegram.__version__}` \n"
     TEXT += f"» **ᴛᴇʟᴇᴛʜᴏɴ ᴠᴇʀsɪᴏɴ :** `{telethon.__version__}` \n"
     TEXT += f"» **ᴘʏʀᴏɢʀᴀᴍ ᴠᴇʀsɪᴏɴ :** `{pyrogram.__version__}` \n━━━━━━━━━━━━━━━━━\n\n"
     BUTTON = [
         [
-            Button.url("• ʜᴇʟᴘ •​", "https://t.me/HotspotRobot?start=help"),
-            Button.url("• ᴜᴘᴅᴀᴛᴇꜱ •", "https://t.me/TheAltron"),
+            Button.url("• ʜᴇʟᴘ •​", "https://t.me/UNKNOWN_GBOT?start=help"),
+            Button.url("• ᴜᴘᴅᴀᴛᴇꜱ •", "https://t.me/SECRET_HU_VAI"),
         ]
     ]
     await telethn.send_file(event.chat_id, START_IMG, caption=TEXT, buttons=BUTTON)
